@@ -3,13 +3,14 @@ import NavbarTop from "./NavbarTop.vue";
 import NavbarLinks from "./NavbarLinks.vue";
 import MegaMenu from "./MegaMenu.vue";
 import MobileNavbar from "./MobileNavbar.vue";
-import { ref, computed, onMounted, onUnmounted } from "vue";
+import { ref, computed, onMounted, onUnmounted, watch } from "vue";
 import { navData } from "../../data/megaMenuData";
 
 const navbarRef = ref(null);
 const activeDropdown = ref(null);
 const activeCategory = ref(null);
 const mobileMenuOpen = ref(false);
+const isScrolled = ref(false);
 
 const handleClickOutside = (event) => {
   if (!navbarRef.value) return;
@@ -19,13 +20,25 @@ const handleClickOutside = (event) => {
     activeCategory.value = null;
   }
 };
+const handleScroll = () => {
+  const scrollY = window.scrollY;
+
+  if (!isScrolled.value && scrollY > 140) {
+    isScrolled.value = true;
+  }
+
+  if (isScrolled.value && scrollY < 80) {
+    isScrolled.value = false;
+  }
+};
 
 onMounted(() => {
   document.addEventListener("click", handleClickOutside);
+  window.addEventListener("scroll", handleScroll);
 });
-
 onUnmounted(() => {
   document.removeEventListener("click", handleClickOutside);
+  window.removeEventListener("scroll", handleScroll);
 });
 
 const currentCategories = computed(() => {
@@ -59,7 +72,12 @@ const getImage = (index) => imagePool[index % imagePool.length];
 <template>
   <nav
     ref="navbarRef"
-    class="w-full bg-white border-b border-gray-200 relative z-50"
+    :class="[
+      'w-full bg-white z-50 transition-all duration-300',
+      isScrolled
+        ? 'fixed top-0 left-0 shadow-md'
+        : 'relative border-b border-gray-200',
+    ]"
   >
     <!-- MOBILE -->
     <MobileNavbar
@@ -71,9 +89,13 @@ const getImage = (index) => imagePool[index % imagePool.length];
     <!-- DESKTOP -->
     <div class="hidden lg:block bg-white">
       <div class="max-w-7xl mx-auto px-8">
-        <NavbarTop />
+        <NavbarTop :isScrolled="isScrolled" />
 
-        <NavbarLinks :navData="navData" :toggleDropdown="toggleDropdown" />
+        <NavbarLinks
+          v-if="!isScrolled"
+          :navData="navData"
+          :toggleDropdown="toggleDropdown"
+        />
       </div>
 
       <MegaMenu
