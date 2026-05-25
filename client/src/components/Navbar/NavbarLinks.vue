@@ -8,7 +8,7 @@ defineProps({
 </script>
 
 <template>
-  <div class="flex items-center gap-10 pt-5 pb-3 pl-16">
+  <div class="flex items-center gap-10 pt-1 pb-1 pl-0">
     <button
       v-for="(item, key) in navData"
       :key="key"

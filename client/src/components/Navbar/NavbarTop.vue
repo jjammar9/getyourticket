@@ -1,5 +1,5 @@
 <script setup>
-import { Heart, ShoppingCart, User } from "lucide-vue-next";
+import { Heart, ShoppingCart, User, Globe } from "lucide-vue-next";
 
 defineProps({
   isScrolled: Boolean,
@@ -10,28 +10,52 @@ defineProps({
   <div
     :class="[
       'flex items-center justify-between transition-all duration-300',
-      isScrolled ? 'py-3' : 'pt-5',
+      isScrolled ? 'py-2' : 'pt-2.5 pb-2',
     ]"
   >
     <!-- LEFT -->
     <div class="flex items-center">
       <!-- LOGO -->
-      <div
-        class="w-11 h-11 bg-orange-500 rounded-xl flex items-center justify-center text-white font-bold text-lg shrink-0"
-      >
-        G
+      <div class="leading-[0.78] select-none cursor-pointer">
+        <!-- GET -->
+        <p
+          class="text-[20px] font-black uppercase tracking-[-4px] text-[#ff5b00]"
+        >
+          <span class="relative inline-block">
+            G
+            <span
+              class="absolute left-0 top-1/2 w-full h-[2px] bg-white -translate-y-1/2"
+            ></span>
+          </span>
+          et
+        </p>
+
+        <!-- YOUR -->
+        <p
+          class="text-[20px] font-black uppercase tracking-[-2px] text-[#ff5b00]"
+        >
+          Your
+        </p>
+
+        <!-- TICKET -->
+        <p
+          class="text-[20px] font-black uppercase tracking-[-3px] text-[#ff5b00]"
+        >
+          <span class="relative inline-block">
+            T
+            <span
+              class="absolute left-0 top-1/2 w-full h-[3px] bg-white -translate-y-1/2"
+            ></span>
+          </span>
+          icke
+          <span class="relative inline-block">
+            t
+            <span
+              class="absolute left-0 top-1/2 w-full h-[3px] bg-white -translate-y-1/2"
+            ></span>
+          </span>
+        </p>
       </div>
-
-      <!-- BRAND NAME -->
-      <h1
-        :class="[
-          'text-2xl font-bold text-gray-900 shrink-0 overflow-hidden transition-all duration-300',
-          isScrolled ? 'opacity-0 w-0 ml-0' : 'opacity-100 w-[170px] ml-4',
-        ]"
-      >
-        GetYourTicket
-      </h1>
-
       <!-- SEARCH -->
       <div
         :class="[
@@ -58,26 +82,33 @@ defineProps({
     </div>
 
     <!-- RIGHT -->
-    <div class="flex items-center gap-5">
+    <div class="flex items-center gap-8 pt-2">
       <button
-        class="flex items-center gap-2 font-semibold text-gray-700 hover:text-orange-500 transition"
+        class="flex flex-col items-center text-[15px] font-medium text-gray-700 hover:text-orange-500 transition"
       >
-        <Heart :size="18" />
-        Wishlist
+        <Heart :size="20" />
+        <span>Wishlist</span>
       </button>
 
       <button
-        class="flex items-center gap-2 font-semibold text-gray-700 hover:text-orange-500 transition"
+        class="flex flex-col items-center text-[15px] font-medium text-gray-700 hover:text-orange-500 transition"
       >
-        <ShoppingCart :size="18" />
-        Cart
+        <ShoppingCart :size="20" />
+        <span>Cart</span>
       </button>
 
       <button
-        class="flex items-center gap-2 font-semibold text-gray-700 hover:text-orange-500 transition"
+        class="flex flex-col items-center text-[15px] font-medium text-gray-700 hover:text-orange-500 transition"
       >
-        <User :size="18" />
-        Profile
+        <Globe :size="20" />
+        <span>EN/EUR €</span>
+      </button>
+
+      <button
+        class="flex flex-col items-center text-[15px] font-medium text-gray-700 hover:text-orange-500 transition"
+      >
+        <User :size="20" />
+        <span>Profile</span>
       </button>
     </div>
   </div>
