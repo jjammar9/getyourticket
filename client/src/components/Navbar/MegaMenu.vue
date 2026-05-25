@@ -8,7 +8,6 @@ defineProps({
   activeCategory: String,
   setActiveCategory: Function,
   currentItems: Array,
-  getImage: Function,
 });
 </script>
 
@@ -33,7 +32,7 @@ defineProps({
             :setActiveCategory="setActiveCategory"
           />
 
-          <MegaMenuItems :currentItems="currentItems" :getImage="getImage" />
+          <MegaMenuItems :currentItems="currentItems" />
         </div>
       </div>
 

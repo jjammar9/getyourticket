@@ -3,10 +3,8 @@ import NavbarTop from "./NavbarTop.vue";
 import NavbarLinks from "./NavbarLinks.vue";
 import MegaMenu from "./MegaMenu.vue";
 import MobileNavbar from "./MobileNavbar.vue";
-
 import { ref, computed, onMounted, onUnmounted } from "vue";
-import { useAuthStore } from "../../stores/authStore";
-import { navData, imagePool } from "../../data/megaMenuData";
+import { navData } from "../../data/megaMenuData";
 
 const navbarRef = ref(null);
 const activeDropdown = ref(null);
@@ -38,17 +36,7 @@ const currentCategories = computed(() => {
 const currentItems = computed(() => {
   if (!activeDropdown.value || !activeCategory.value) return [];
 
-  const raw = navData[activeDropdown.value].categories[activeCategory.value];
-  const grouped = [];
-
-  for (let i = 0; i < raw.length; i += 2) {
-    grouped.push({
-      title: raw[i],
-      subtitle: raw[i + 1],
-    });
-  }
-
-  return grouped;
+  return navData[activeDropdown.value].categories[activeCategory.value];
 });
 
 const toggleDropdown = (id) => {
@@ -85,18 +73,15 @@ const getImage = (index) => imagePool[index % imagePool.length];
       <div class="max-w-7xl mx-auto px-8">
         <NavbarTop />
 
-        <!-- NAV LINKS -->
         <NavbarLinks :navData="navData" :toggleDropdown="toggleDropdown" />
       </div>
 
-      <!-- MEGA MENU -->
       <MegaMenu
         :activeDropdown="activeDropdown"
         :currentCategories="currentCategories"
         :activeCategory="activeCategory"
         :setActiveCategory="(category) => (activeCategory = category)"
         :currentItems="currentItems"
-        :getImage="getImage"
       />
     </div>
   </nav>

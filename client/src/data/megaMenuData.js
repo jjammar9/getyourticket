@@ -3,175 +3,168 @@ export const navData = {
     label: "Places to see",
     categories: {
       "Top attractions": [
-        "Eiffel Tower",
-        "City in Paris",
-        "Colosseum",
-        "City in Rome",
-        "Big Ben",
-        "City in London",
-        "Sagrada Familia",
-        "City in Barcelona",
-        "Louvre Museum",
-        "City in Paris",
-        "Acropolis",
-        "City in Athens",
-        "Burj Khalifa",
-        "City in Dubai",
-        "Tokyo Tower",
-        "City in Tokyo",
-        "Statue of Liberty",
-        "City in New York",
-        "Disneyland",
-        "Family attraction",
-        "Universal Studios",
-        "Theme park",
+        {
+          title: "Eiffel Tower",
+          subtitle: "City in Paris",
+          image:
+            "https://images.unsplash.com/photo-1511739001486-6bfe10ce785f?w=100&q=80",
+        },
+        {
+          title: "Colosseum",
+          subtitle: "City in Rome",
+          image:
+            "https://images.unsplash.com/photo-1552832230-c0197dd311b5?w=100&q=80",
+        },
+        {
+          title: "Big Ben",
+          subtitle: "City in London",
+          image:
+            "https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?w=100&q=80",
+        },
+        {
+          title: "Sagrada Familia",
+          subtitle: "City in Barcelona",
+          image:
+            "https://images.unsplash.com/photo-1583422409516-2895a77efded?w=100&q=80",
+        },
+        {
+          title: "Louvre Museum",
+          subtitle: "City in Paris",
+          image:
+            "https://images.unsplash.com/photo-1565967511849-76a60a516170?w=100&q=80",
+        },
+        {
+          title: "Acropolis",
+          subtitle: "City in Athens",
+          image:
+            "https://images.unsplash.com/photo-1555993539-1732b0258235?w=100&q=80",
+        },
+        {
+          title: "Burj Khalifa",
+          subtitle: "City in Dubai",
+          image:
+            "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=100&q=80",
+        },
+        {
+          title: "Tokyo Tower",
+          subtitle: "City in Tokyo",
+          image:
+            "https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=100&q=80",
+        },
+        {
+          title: "Statue of Liberty",
+          subtitle: "City in New York",
+          image:
+            "https://images.unsplash.com/photo-1546436836-07a91091f160?w=100&q=80",
+        },
+        {
+          title: "Disneyland",
+          subtitle: "Family attraction",
+          image:
+            "https://images.unsplash.com/photo-1582711012124-a56cf3c6b0f7?w=100&q=80",
+        },
       ],
 
       "North America": [
-        "Statue of Liberty",
-        "City in New York",
-        "Golden Gate Bridge",
-        "City in San Francisco",
-        "CN Tower",
-        "City in Toronto",
-        "Disney World",
-        "City in Orlando",
-        "Hollywood Sign",
-        "City in Los Angeles",
-        "Niagara Falls",
-        "Region in Canada",
-        "Grand Canyon",
-        "Region in Arizona",
-        "Las Vegas Strip",
-        "City in Las Vegas",
-        "Central Park",
-        "City in New York",
-      ],
-
-      "South America": [
-        "Christ the Redeemer",
-        "City in Rio",
-        "Machu Picchu",
-        "Region in Peru",
-        "Iguazu Falls",
-        "Region in Argentina",
-        "Cartagena Old Town",
-        "City in Colombia",
-        "Santiago Views",
-        "City in Chile",
-        "Copacabana Beach",
-        "City in Rio",
-        "Patagonia",
-        "Adventure region",
-        "Buenos Aires",
-        "City in Argentina",
+        {
+          title: "Golden Gate Bridge",
+          subtitle: "City in San Francisco",
+          image:
+            "https://images.unsplash.com/photo-1501594907352-04cda38ebc29?w=100&q=80",
+        },
+        {
+          title: "CN Tower",
+          subtitle: "City in Toronto",
+          image:
+            "https://images.unsplash.com/photo-1517090504586-fde19ea6066f?w=100&q=80",
+        },
+        {
+          title: "Niagara Falls",
+          subtitle: "Canada",
+          image:
+            "https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=100&q=80",
+        },
+        {
+          title: "Grand Canyon",
+          subtitle: "Arizona",
+          image:
+            "https://images.unsplash.com/photo-1474044159687-1ee9f3a51722?w=100&q=80",
+        },
+        {
+          title: "Central Park",
+          subtitle: "New York",
+          image:
+            "https://images.unsplash.com/photo-1534430480872-3498386e7856?w=100&q=80",
+        },
       ],
 
       Europe: [
-        "Eiffel Tower",
-        "City in Paris",
-        "Colosseum",
-        "City in Rome",
-        "Big Ben",
-        "City in London",
-        "Prague Castle",
-        "City in Prague",
-        "Anne Frank House",
-        "City in Amsterdam",
-        "Szechenyi Baths",
-        "City in Budapest",
-        "Lisbon Tram",
-        "City in Lisbon",
-        "Brandenburg Gate",
-        "City in Berlin",
-        "Acropolis",
-        "City in Athens",
-        "Charles Bridge",
-        "City in Prague",
-        "Duomo",
-        "City in Milan",
-        "Canals",
-        "City in Venice",
-        "Old Town",
-        "City in Krakow",
-        "Royal Palace",
-        "City in Madrid",
-        "Edinburgh Castle",
-        "City in Edinburgh",
-        "Swiss Alps",
-        "Region in Switzerland",
-        "Neuschwanstein",
-        "Castle in Germany",
+        {
+          title: "Prague Castle",
+          subtitle: "Prague",
+          image:
+            "https://images.unsplash.com/photo-1541849546-216549ae216d?w=100&q=80",
+        },
+        {
+          title: "Anne Frank House",
+          subtitle: "Amsterdam",
+          image:
+            "https://images.unsplash.com/photo-1534351590666-13e3e96b5017?w=100&q=80",
+        },
+        {
+          title: "Brandenburg Gate",
+          subtitle: "Berlin",
+          image:
+            "https://images.unsplash.com/photo-1560969184-10fe8719e047?w=100&q=80",
+        },
+        {
+          title: "Swiss Alps",
+          subtitle: "Switzerland",
+          image:
+            "https://images.unsplash.com/photo-1508264165352-258a6f82c5d6?w=100&q=80",
+        },
+        {
+          title: "Venice Canals",
+          subtitle: "Italy",
+          image:
+            "https://images.unsplash.com/photo-1514890547357-a9ee288728e0?w=100&q=80",
+        },
       ],
 
       Asia: [
-        "Tokyo Tower",
-        "City in Tokyo",
-        "Marina Bay Sands",
-        "City in Singapore",
-        "Grand Palace",
-        "City in Bangkok",
-        "Petronas Towers",
-        "City in Kuala Lumpur",
-        "Gyeongbokgung",
-        "City in Seoul",
-        "Mount Fuji",
-        "Region in Japan",
-        "Bali Temples",
-        "Island in Indonesia",
-        "Great Wall",
-        "Region in China",
-        "Kyoto Shrines",
-        "City in Japan",
-      ],
-
-      "Middle East": [
-        "Burj Khalifa",
-        "City in Dubai",
-        "Louvre Abu Dhabi",
-        "City in Abu Dhabi",
-        "Petra",
-        "Region in Jordan",
-        "Doha Corniche",
-        "City in Qatar",
-        "Desert Safari",
-        "Dubai experience",
-        "Jerusalem Old City",
-        "Historic site",
-        "Dead Sea",
-        "Natural wonder",
+        {
+          title: "Marina Bay Sands",
+          subtitle: "Singapore",
+          image:
+            "https://images.unsplash.com/photo-1525625293386-3f8f99389edd?w=100&q=80",
+        },
+        {
+          title: "Mount Fuji",
+          subtitle: "Japan",
+          image:
+            "https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=100&q=80",
+        },
+        {
+          title: "Great Wall",
+          subtitle: "China",
+          image:
+            "https://images.unsplash.com/photo-1508804185872-d7badad00f7d?w=100&q=80",
+        },
       ],
 
       Africa: [
-        "Pyramids of Giza",
-        "City in Cairo",
-        "Table Mountain",
-        "City in Cape Town",
-        "Medina",
-        "City in Marrakesh",
-        "Zanzibar Beaches",
-        "Region in Tanzania",
-        "Victoria Falls",
-        "Natural wonder",
-        "Safari",
-        "Wildlife experience",
-        "Atlas Mountains",
-        "Adventure region",
-      ],
-
-      Oceania: [
-        "Sydney Opera House",
-        "City in Sydney",
-        "Sky Tower",
-        "City in Auckland",
-        "Great Ocean Road",
-        "Region in Australia",
-        "Bondi Beach",
-        "City in Sydney",
-        "Milford Sound",
-        "Nature in New Zealand",
-        "Great Barrier Reef",
-        "Marine attraction",
+        {
+          title: "Pyramids of Giza",
+          subtitle: "Egypt",
+          image:
+            "https://images.unsplash.com/photo-1539650116574-75c0c6d73f2f?w=100&q=80",
+        },
+        {
+          title: "Table Mountain",
+          subtitle: "Cape Town",
+          image:
+            "https://images.unsplash.com/photo-1576485290814-1c72aa4bbb8e?w=100&q=80",
+        },
       ],
     },
   },
@@ -180,152 +173,170 @@ export const navData = {
     label: "Things to do",
     categories: {
       "City tours": [
-        "Walking Tour",
-        "Local experience",
-        "Night Tour",
-        "Evening experience",
-        "Food Tour",
-        "Local cuisine",
-        "Architecture Tour",
-        "Historic city",
-        "Bike Tour",
-        "Outdoor city ride",
-        "Private Tour",
-        "Personal guide",
+        {
+          title: "Walking Tour",
+          subtitle: "Local experience",
+          image:
+            "https://images.unsplash.com/photo-1527631746610-bca00a040d60?w=100&q=80",
+        },
+        {
+          title: "Food Tour",
+          subtitle: "Local cuisine",
+          image:
+            "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=100&q=80",
+        },
+        {
+          title: "Bike Tour",
+          subtitle: "Outdoor city ride",
+          image:
+            "https://images.unsplash.com/photo-1507035895480-2b3156c31fc8?w=100&q=80",
+        },
       ],
 
       Cruises: [
-        "Sunset Cruise",
-        "Water experience",
-        "Dinner Cruise",
-        "Luxury evening",
-        "River Cruise",
-        "City views",
-        "Harbor Cruise",
-        "Relaxing sightseeing",
-        "Luxury Yacht",
-        "Premium experience",
-      ],
-
-      Museums: [
-        "Art Museum",
-        "Culture experience",
-        "Science Museum",
-        "Interactive experience",
-        "History Museum",
-        "Educational visit",
-        "Modern Art",
-        "Creative exhibits",
+        {
+          title: "Sunset Cruise",
+          subtitle: "Water experience",
+          image:
+            "https://images.unsplash.com/photo-1500375592092-40eb2168fd21?w=100&q=80",
+        },
+        {
+          title: "Luxury Yacht",
+          subtitle: "Premium experience",
+          image:
+            "https://images.unsplash.com/photo-1567899378494-47b22a2ae96a?w=100&q=80",
+        },
       ],
 
       Adventure: [
-        "Skydiving",
-        "Extreme experience",
-        "ATV Safari",
-        "Outdoor adventure",
-        "Ziplining",
-        "Thrill activity",
-        "Bungee Jump",
-        "Adrenaline rush",
-        "Scuba Diving",
-        "Ocean exploration",
-      ],
-
-      "Food & Drink": [
-        "Wine Tasting",
-        "Luxury tasting",
-        "Street Food Tour",
-        "Authentic bites",
-        "Cooking Class",
-        "Hands-on experience",
-        "Dinner Experience",
-        "Fine dining",
-      ],
-
-      "Theme Parks": [
-        "Disneyland",
-        "Family attraction",
-        "Universal Studios",
-        "Movie adventure",
-        "Ferrari World",
-        "Thrill rides",
-        "Water Park",
-        "Summer fun",
+        {
+          title: "Skydiving",
+          subtitle: "Extreme experience",
+          image:
+            "https://images.unsplash.com/photo-1521295121783-8a321d551ad2?w=100&q=80",
+        },
+        {
+          title: "Scuba Diving",
+          subtitle: "Ocean exploration",
+          image:
+            "https://images.unsplash.com/photo-1551244072-5d12893278ab?w=100&q=80",
+        },
       ],
     },
   },
-
   inspiration: {
     label: "Trip inspiration",
     categories: {
       "Weekend escapes": [
-        "Paris",
-        "Romantic getaway",
-        "Rome",
-        "Historic escape",
-        "Barcelona",
-        "Sunny city",
-        "Prague",
-        "Budget city break",
-        "Vienna",
-        "Elegant weekend",
+        {
+          title: "Paris",
+          subtitle: "Romantic getaway",
+          image:
+            "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=100&q=80",
+        },
+        {
+          title: "Rome",
+          subtitle: "Historic escape",
+          image:
+            "https://images.unsplash.com/photo-1552832230-c0197dd311b5?w=100&q=80",
+        },
+        {
+          title: "Barcelona",
+          subtitle: "Sunny city",
+          image:
+            "https://images.unsplash.com/photo-1583422409516-2895a77efded?w=100&q=80",
+        },
+        {
+          title: "Prague",
+          subtitle: "Budget city break",
+          image:
+            "https://images.unsplash.com/photo-1541849546-216549ae216d?w=100&q=80",
+        },
       ],
 
       "Beach breaks": [
-        "Maldives",
-        "Luxury beach",
-        "Bali",
-        "Island paradise",
-        "Phuket",
-        "Tropical escape",
-        "Santorini",
-        "Sea views",
-        "Ibiza",
-        "Party island",
+        {
+          title: "Maldives",
+          subtitle: "Luxury beach",
+          image:
+            "https://images.unsplash.com/photo-1573843981267-be1999ff37cd?w=100&q=80",
+        },
+        {
+          title: "Bali",
+          subtitle: "Island paradise",
+          image:
+            "https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=100&q=80",
+        },
+        {
+          title: "Phuket",
+          subtitle: "Tropical escape",
+          image:
+            "https://images.unsplash.com/photo-1589394815804-964ed0be2eb5?w=100&q=80",
+        },
+        {
+          title: "Santorini",
+          subtitle: "Sea views",
+          image:
+            "https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?w=100&q=80",
+        },
       ],
 
       Adventure: [
-        "Iceland",
-        "Nature adventure",
-        "Patagonia",
-        "Epic landscapes",
-        "Nepal",
-        "Mountain trekking",
-        "Swiss Alps",
-        "Winter sports",
+        {
+          title: "Iceland",
+          subtitle: "Nature adventure",
+          image:
+            "https://images.unsplash.com/photo-1504893524553-b855bce32c67?w=100&q=80",
+        },
+        {
+          title: "Patagonia",
+          subtitle: "Epic landscapes",
+          image:
+            "https://images.unsplash.com/photo-1511497584788-876760111969?w=100&q=80",
+        },
+        {
+          title: "Nepal",
+          subtitle: "Mountain trekking",
+          image:
+            "https://images.unsplash.com/photo-1544735716-392fe2489ffa?w=100&q=80",
+        },
       ],
 
       "Romantic escapes": [
-        "Venice",
-        "Canal romance",
-        "Paris",
-        "City of love",
-        "Santorini",
-        "Sunset paradise",
-        "Lake Como",
-        "Luxury retreat",
+        {
+          title: "Venice",
+          subtitle: "Canal romance",
+          image:
+            "https://images.unsplash.com/photo-1514890547357-a9ee288728e0?w=100&q=80",
+        },
+        {
+          title: "Lake Como",
+          subtitle: "Luxury retreat",
+          image:
+            "https://images.unsplash.com/photo-1531572753322-ad063cecc140?w=100&q=80",
+        },
       ],
 
       "Family holidays": [
-        "Disneyland Paris",
-        "Family fun",
-        "Orlando",
-        "Theme parks",
-        "Dubai",
-        "Family attractions",
-        "Singapore",
-        "Kid-friendly city",
+        {
+          title: "Disneyland Paris",
+          subtitle: "Family fun",
+          image:
+            "https://images.unsplash.com/photo-1582711012124-a56cf3c6b0f7?w=100&q=80",
+        },
+        {
+          title: "Singapore",
+          subtitle: "Kid-friendly city",
+          image:
+            "https://images.unsplash.com/photo-1525625293386-3f8f99389edd?w=100&q=80",
+        },
+        {
+          title: "Dubai",
+          subtitle: "Family attractions",
+          image:
+            "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=100&q=80",
+        },
       ],
     },
   },
 };
-
-export const imagePool = [
-  "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=80&q=80",
-  "https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?w=80&q=80",
-  "https://images.unsplash.com/photo-1552832230-c0197dd311b5?w=80&q=80",
-  "https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=80&q=80",
-  "https://images.unsplash.com/photo-1534351590666-13e3e96b5017?w=80&q=80",
-  "https://images.unsplash.com/photo-1524231757912-21f4fe3a7200?w=80&q=80",
-  "https://images.unsplash.com/photo-1548013146-72479768bada?w=80&q=80",
-];
