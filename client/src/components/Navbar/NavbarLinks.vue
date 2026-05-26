@@ -4,6 +4,8 @@ import { ChevronDown } from "lucide-vue-next";
 defineProps({
   navData: Object,
   toggleDropdown: Function,
+  handleHoverStart: Function,
+  handleHoverEnd: Function,
 });
 </script>
 
@@ -13,6 +15,8 @@ defineProps({
       v-for="(item, key) in navData"
       :key="key"
       @click="toggleDropdown(key)"
+      @mouseenter="handleHoverStart(key)"
+      @mouseleave="handleHoverEnd"
       class="group relative flex items-center gap-1 font-semibold text-gray-700 hover:text-orange-500 transition pb-2"
     >
       {{ item.label }}

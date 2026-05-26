@@ -3,8 +3,11 @@ import NavbarTop from "./NavbarTop.vue";
 import NavbarLinks from "./NavbarLinks.vue";
 import MegaMenu from "./MegaMenu.vue";
 import MobileNavbar from "./MobileNavbar.vue";
-import { ref, computed, onMounted, onUnmounted, watch } from "vue";
+
+import { ref, computed, onMounted, onUnmounted } from "vue";
 import { navData } from "../../data/megaMenuData";
+
+let hoverTimer = null;
 
 const navbarRef = ref(null);
 const activeDropdown = ref(null);
@@ -20,6 +23,7 @@ const handleClickOutside = (event) => {
     activeCategory.value = null;
   }
 };
+
 const handleScroll = () => {
   const scrollY = window.scrollY;
 
@@ -36,9 +40,11 @@ onMounted(() => {
   document.addEventListener("click", handleClickOutside);
   window.addEventListener("scroll", handleScroll);
 });
+
 onUnmounted(() => {
   document.removeEventListener("click", handleClickOutside);
   window.removeEventListener("scroll", handleScroll);
+  clearTimeout(hoverTimer);
 });
 
 const currentCategories = computed(() => {
@@ -49,7 +55,7 @@ const currentCategories = computed(() => {
 const currentItems = computed(() => {
   if (!activeDropdown.value || !activeCategory.value) return [];
 
-  return navData[activeDropdown.value].categories[activeCategory.value];
+  return navData[activeDropdown.value].categories[activeCategory.value] || [];
 });
 
 const toggleDropdown = (id) => {
@@ -67,8 +73,20 @@ const toggleMobileMenu = () => {
   mobileMenuOpen.value = !mobileMenuOpen.value;
 };
 
-const getImage = (index) => imagePool[index % imagePool.length];
+const handleHoverStart = (id) => {
+  clearTimeout(hoverTimer);
+
+  hoverTimer = setTimeout(() => {
+    activeDropdown.value = id;
+    activeCategory.value = Object.keys(navData[id].categories)[0];
+  }, 1000);
+};
+
+const handleHoverEnd = () => {
+  clearTimeout(hoverTimer);
+};
 </script>
+
 <template>
   <nav
     ref="navbarRef"
@@ -92,9 +110,10 @@ const getImage = (index) => imagePool[index % imagePool.length];
         <NavbarTop :isScrolled="isScrolled" />
 
         <NavbarLinks
-          v-if="!isScrolled"
           :navData="navData"
           :toggleDropdown="toggleDropdown"
+          :handleHoverStart="handleHoverStart"
+          :handleHoverEnd="handleHoverEnd"
         />
       </div>
 

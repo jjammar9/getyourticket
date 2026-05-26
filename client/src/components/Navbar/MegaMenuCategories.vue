@@ -7,26 +7,28 @@ defineProps({
 </script>
 
 <template>
-  <div class="border-r border-gray-200 pr-8 space-y-3">
+  <div class="w-[260px] pr-8 border-r border-gray-200 shrink-0">
     <button
       v-for="category in currentCategories"
       :key="category"
-      @click="setActiveCategory(category)"
-      class="flex items-center gap-2 w-full text-left text-xl font-bold transition"
+      @mouseenter="setActiveCategory(category)"
+      class="flex items-center gap-3 w-full text-left py-2 text-[24px] font-bold transition-all duration-200 origin-left"
       :class="
         activeCategory === category
-          ? 'text-gray-900'
-          : 'text-gray-500 hover:text-gray-800'
+          ? 'text-[#0f2147] scale-105'
+          : 'text-gray-400 hover:text-[#0f2147] hover:scale-105'
       "
     >
       <span
         v-if="activeCategory === category"
-        class="w-2 h-2 bg-orange-500 rounded-full"
+        class="w-2.5 h-2.5 rounded-full bg-orange-500 border border-orange-200 shrink-0"
       ></span>
 
-      <span v-else class="w-2 h-2"></span>
+      <span v-else class="w-2.5 h-2.5 shrink-0"></span>
 
-      {{ category }}
+      <span class="leading-tight">
+        {{ category }}
+      </span>
     </button>
   </div>
 </template>
