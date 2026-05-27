@@ -35,6 +35,54 @@ export const thingsToDoCards = [
     image:
       "https://images.unsplash.com/photo-1583422409516-2895a77efded?w=600&q=80",
   },
+  {
+    title: "Dubai",
+    subtitle: "Luxury & adventure",
+    image:
+      "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=600&q=80",
+  },
+  {
+    title: "Athens",
+    subtitle: "Ancient history",
+    image:
+      "https://images.unsplash.com/photo-1555993539-1732b0258235?w=600&q=80",
+  },
+  {
+    title: "Tokyo",
+    subtitle: "Modern city energy",
+    image:
+      "https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=600&q=80",
+  },
+  {
+    title: "New York",
+    subtitle: "City that never sleeps",
+    image:
+      "https://images.unsplash.com/photo-1499092346589-b9b6be3e94b2?w=600&q=80",
+  },
+  {
+    title: "Istanbul",
+    subtitle: "East meets west",
+    image:
+      "https://images.unsplash.com/photo-1524231757912-21f4fe3a7200?w=600&q=80",
+  },
+  {
+    title: "Prague",
+    subtitle: "Fairytale city",
+    image:
+      "https://images.unsplash.com/photo-1541849546-216549ae216d?w=600&q=80",
+  },
+  {
+    title: "Lisbon",
+    subtitle: "Sunny coastal charm",
+    image:
+      "https://images.unsplash.com/photo-1513735492246-483525079686?w=600&q=80",
+  },
+  {
+    title: "Cairo",
+    subtitle: "Timeless wonders",
+    image:
+      "https://images.unsplash.com/photo-1572252009286-268acec5ca0a?w=600&q=80",
+  },
 ];
 
 export const attractionsCards = [
@@ -97,17 +145,5 @@ export const attractionsCards = [
     subtitle: "320 activities",
     image:
       "https://images.unsplash.com/photo-1534430480872-3498386e7856?w=600&q=80",
-  },
-  {
-    title: "Sydney Opera House",
-    subtitle: "129 activities",
-    image:
-      "https://images.unsplash.com/photo-1506973035872-a4ec16b8e8d9?w=600&q=80",
-  },
-  {
-    title: "Petra",
-    subtitle: "74 activities",
-    image:
-      "https://images.unsplash.com/photo-1579606032821-4e6161c81bd3?w=600&q=80",
   },
 ];
