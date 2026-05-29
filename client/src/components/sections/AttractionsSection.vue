@@ -1,6 +1,6 @@
 <script setup>
 import { ref, computed } from "vue";
-import { attractionsCards } from "../../data/homeData";
+import { attractionsCards } from "../../data/homeData.js";
 import SectionTitle from "../UI/SectionTitle.vue";
 
 import Card from "../UI/Card.vue";

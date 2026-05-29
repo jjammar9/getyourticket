@@ -10,7 +10,7 @@ import {
   companyLinks,
   workLinks,
   footerCopyright,
-} from "../../data/footerData";
+} from "../../data/footerData.js";
 </script>
 
 <template>

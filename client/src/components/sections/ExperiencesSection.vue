@@ -1,7 +1,7 @@
 <script setup>
 import ExperienceCard from "./ExperienceCard.vue";
 
-import { experiencesData } from "../../data/experiencesData";
+import { experiencesData } from "../../data/experiencesData.js";
 import SectionTitle from "../UI/SectionTitle.vue";
 </script>
 

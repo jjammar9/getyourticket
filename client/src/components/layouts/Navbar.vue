@@ -5,7 +5,7 @@ import MegaMenu from "./MegaMenu.vue";
 import MobileNavbar from "./MobileNavbar.vue";
 
 import { ref, computed, onMounted, onUnmounted } from "vue";
-import { navData } from "../../data/megaMenuData";
+import { navData } from "../../data/megaMenuData.js";
 
 let hoverTimer = null;
 
