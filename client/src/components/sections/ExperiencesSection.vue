@@ -1,5 +1,5 @@
 <script setup>
-import ExperienceCard from "./ExperienceCard.vue";
+import ExperienceCard from "../cards/ExperienceCard.vue";
 
 import { experiencesData } from "../../data/experiencesData.js";
 import SectionTitle from "../UI/SectionTitle.vue";

@@ -1,6 +1,6 @@
 <script setup>
-import SectionTitle from "../UI/SectionTitle.vue";
-import WhyBookCard from "./WhyBookCard.vue";
+import SectionTitle from "../ui/SectionTitle.vue";
+import WhyBookCard from "../cards/WhyBookCard.vue";
 import { whyBookData } from "../../data/whyBookData.js";
 </script>
 

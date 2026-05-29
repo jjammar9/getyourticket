@@ -1,9 +1,9 @@
 <script setup>
-import FooterSelect from "./FooterSelect.vue";
-import FooterColumn from "./FooterColumn.vue";
-import FooterPayments from "./FooterPayments.vue";
-import FooterSocials from "./FooterSocials.vue";
-import FooterMobileApps from "./FooterMobileApps.vue";
+import FooterSelect from "../footer/FooterSelect.vue";
+import FooterColumn from "../footer/FooterColumn.vue";
+import FooterPayments from "../footer/FooterPayments.vue";
+import FooterSocials from "../footer/FooterSocials.vue";
+import FooterMobileApps from "../footer/FooterMobileApps.vue";
 
 import {
   supportLinks,

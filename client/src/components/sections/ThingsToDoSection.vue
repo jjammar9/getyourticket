@@ -1,7 +1,7 @@
 <script setup>
-import { thingsToDoCards } from "../../data/homeData";
-import Card from "../UI/Card.vue";
-import SectionTitle from "../UI/SectionTitle.vue";
+import { thingsToDoCards } from "../../data/homeData.js";
+import Card from "../ui/Card.vue";
+import SectionTitle from "../ui/SectionTitle.vue";
 </script>
 
 <template>

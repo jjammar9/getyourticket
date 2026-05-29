@@ -1,8 +1,7 @@
 <script setup>
-import NavbarTop from "./NavbarTop.vue";
-import NavbarLinks from "./NavbarLinks.vue";
-import MegaMenu from "./MegaMenu.vue";
-import MobileNavbar from "./MobileNavbar.vue";
+import NavbarTop from "../navbar/NavbarTop.vue";
+import NavbarLinks from "../navbar/NavbarLinks.vue";
+import MegaMenu from "../navbar/MegaMenu.vue";
 
 import { ref, computed, onMounted, onUnmounted } from "vue";
 import { navData } from "../../data/megaMenuData.js";
