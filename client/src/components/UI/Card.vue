@@ -1,5 +1,9 @@
 <script setup>
-defineProps({
+import { useRouter } from "vue-router";
+
+const router = useRouter();
+
+const props = defineProps({
   type: {
     type: String,
     default: "default",
@@ -11,10 +15,18 @@ defineProps({
   price: Number,
   badge: String,
 });
+
+const handleClick = () => {
+  if (props.type === "destination") {
+    const slug = props.title.toLowerCase().replace(/\s+/g, "-");
+
+    router.push(`/destination/${slug}`);
+  }
+};
 </script>
 
 <template>
-  <div class="group cursor-pointer">
+  <div class="group cursor-pointer" @click="handleClick">
     <div class="overflow-hidden rounded-2xl relative">
       <img
         :src="image"

@@ -1,13 +1,21 @@
 <script setup>
+import { useRouter } from "vue-router";
 import { Heart, Star } from "lucide-vue-next";
 
-defineProps({
+const router = useRouter();
+
+const props = defineProps({
   item: Object,
 });
+
+const goToExperience = () => {
+  router.push(`/experience/${props.item.id}`);
+};
 </script>
 
 <template>
   <div
+    @click="goToExperience"
     class="bg-white rounded-[18px] border border-[#d9dee8] overflow-hidden cursor-pointer group flex flex-col h-full hover:shadow-md transition-all duration-300"
   >
     <!-- IMAGE -->
@@ -22,6 +30,7 @@ defineProps({
       <div
         class="absolute inset-0 bg-gradient-to-b from-[#245fb8]/50 via-[#245fb8]/30 via-40% to-transparent"
       ></div>
+
       <div
         class="absolute inset-0 bg-gradient-to-b from-[#163d7a]/30 via-[#163d7a]/12 to-transparent"
       ></div>
@@ -35,6 +44,7 @@ defineProps({
 
       <!-- HEART -->
       <button
+        @click.stop
         class="absolute top-3 right-3 w-10 h-10 bg-white rounded-full shadow-sm flex items-center justify-center z-10"
       >
         <Heart :size="18" stroke-width="2.3" class="text-[#0b2343]" />

@@ -11,6 +11,25 @@ export const experiencesData = [
     reviews: 3533,
     oldPrice: 25,
     price: 22,
+
+    description:
+      "Step into the world of Game of Thrones on a guided walking tour through Dubrovnik, one of the series' most iconic filming locations. Discover famous scenes, hear behind-the-scenes stories, and explore the historic Old Town with an expert local guide.",
+
+    highlights: [
+      "Visit real Game of Thrones filming locations",
+      "Learn behind-the-scenes stories from your guide",
+      "Explore Dubrovnik Old Town",
+      "Take photos at iconic viewpoints",
+    ],
+
+    included: [
+      "Professional local guide",
+      "Game of Thrones filming insights",
+      "Walking tour",
+    ],
+
+    meetingPoint: "Meet your guide at Pile Gate, Dubrovnik Old Town entrance.",
+
     image:
       "https://images.unsplash.com/photo-1527631746610-bca00a040d60?auto=format&fit=crop&w=800&q=80",
   },
