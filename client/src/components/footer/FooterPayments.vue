@@ -3,6 +3,7 @@
     <p style="font-size: 15px; font-weight: 700; margin-bottom: 8px">
       Ways You Can Pay
     </p>
+
     <div
       style="display: grid; grid-template-columns: repeat(4, 44px); gap: 4px"
     >
@@ -23,6 +24,7 @@
           style="height: 12px; object-fit: contain"
         />
       </div>
+
       <div
         style="
           background: white;
@@ -39,6 +41,7 @@
           style="height: 20px; object-fit: contain"
         />
       </div>
+
       <div
         style="
           background: white;
@@ -56,9 +59,12 @@
             font-weight: 900;
             letter-spacing: -0.5px;
           "
-          >VISA</span
         >
+          VISA
+        </span>
       </div>
+
+      <!-- FIXED MAESTRO -->
       <div
         style="
           background: white;
@@ -67,13 +73,18 @@
           display: flex;
           align-items: center;
           justify-content: center;
-          padding: 2px;
         "
       >
-        <img
-          src="https://upload.wikimedia.org/wikipedia/commons/0/04/Maestro_logo.svg"
-          style="height: 20px; object-fit: contain"
-        />
+        <span
+          style="
+            color: #0099df;
+            font-size: 8px;
+            font-weight: 900;
+            letter-spacing: -0.3px;
+          "
+        >
+          Maestro
+        </span>
       </div>
 
       <!-- Row 2 -->
@@ -87,10 +98,11 @@
           justify-content: center;
         "
       >
-        <span style="color: #016fd0; font-size: 8px; font-weight: 900"
-          >AMEX</span
-        >
+        <span style="color: #016fd0; font-size: 8px; font-weight: 900">
+          AMEX
+        </span>
       </div>
+
       <div
         style="
           background: white;
@@ -101,10 +113,11 @@
           justify-content: center;
         "
       >
-        <span style="color: #003087; font-size: 9px; font-weight: 900"
-          >JCB</span
-        >
+        <span style="color: #003087; font-size: 9px; font-weight: 900">
+          JCB
+        </span>
       </div>
+
       <div
         style="
           background: white;
@@ -123,9 +136,11 @@
             font-weight: 900;
             text-align: center;
           "
-          >DISC<br />OVER</span
         >
+          DISC<br />OVER
+        </span>
       </div>
+
       <div
         style="
           background: white;
@@ -136,9 +151,9 @@
           justify-content: center;
         "
       >
-        <span style="color: #ff70b0; font-size: 7px; font-weight: 700"
-          >Klarna</span
-        >
+        <span style="color: #ff70b0; font-size: 7px; font-weight: 700">
+          Klarna
+        </span>
       </div>
 
       <!-- Row 3 -->
@@ -158,6 +173,7 @@
           style="height: 14px; object-fit: contain"
         />
       </div>
+
       <div
         style="
           background: white;
@@ -174,6 +190,7 @@
           style="height: 14px; object-fit: contain"
         />
       </div>
+
       <div
         style="
           background: white;
@@ -192,9 +209,11 @@
             font-weight: 700;
             text-align: center;
           "
-          >Wire<br />Transfer</span
         >
+          Wire<br />Transfer
+        </span>
       </div>
+
       <div
         style="
           background: white;
@@ -205,9 +224,9 @@
           justify-content: center;
         "
       >
-        <span style="color: #e91e63; font-size: 6px; font-weight: 700"
-          >Sofort</span
-        >
+        <span style="color: #e91e63; font-size: 6px; font-weight: 700">
+          Sofort
+        </span>
       </div>
     </div>
   </div>

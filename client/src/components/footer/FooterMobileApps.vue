@@ -1,35 +1,44 @@
 <template>
   <div class="shrink-0" style="width: 148px">
     <p class="text-[13px] font-bold mb-[8px]">Mobile</p>
+
     <div class="flex flex-col gap-[8px]">
+      <!-- Google Play -->
       <a href="#">
-        <img
-          src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg"
+        <div
           style="
-            height: 40px;
             width: 145px;
-            display: block;
+            height: 44px;
             border-radius: 6px;
-            object-fit: cover;
+            overflow: hidden;
+            background: transparent;
           "
-          alt="Get it on Google Play"
-        />
+        >
+          <img
+            src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg"
+            style="width: 145px; height: 44px; display: block; object-fit: fill"
+            alt="Get it on Google Play"
+          />
+        </div>
       </a>
+
+      <!-- App Store -->
       <a href="#">
-        <img
-          src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg"
+        <div
           style="
-            height: 40px;
             width: 145px;
-            display: block;
+            height: 64px;
             border-radius: 6px;
-            background: black;
-            padding: 4px 8px;
-            box-sizing: border-box;
-            object-fit: contain;
+            overflow: hidden;
+            background: transparent;
           "
-          alt="Download on the App Store"
-        />
+        >
+          <img
+            src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg"
+            style="width: 165px; height: 64px; display: block; object-fit: fill"
+            alt="Download on the App Store"
+          />
+        </div>
       </a>
     </div>
   </div>

@@ -1,5 +1,5 @@
 <template>
-  <div style="display: flex; align-items: center; gap: 22px">
+  <div style="display: flex; align-items: center; gap: 22px; margin-right: 5px">
     <!-- Facebook -->
     <a
       href="#"
