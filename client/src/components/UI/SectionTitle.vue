@@ -1,19 +1,39 @@
 <script setup>
 defineProps({
-  title: String,
-  subtitle: String,
+  title: {
+    type: String,
+    required: true,
+  },
+
+  subtitle: {
+    type: String,
+    default: "",
+  },
+
+  align: {
+    type: String,
+    default: "left",
+  },
+
+  color: {
+    type: String,
+    default: "primary",
+  },
 });
 </script>
 
 <template>
-  <div class="mb-10">
+  <div :class="['mb-10', align === 'center' ? 'text-center' : 'text-left']">
     <h2
-      class="text-[52px] font-black tracking-[-2px] text-[#0b2343] leading-tight"
+      :class="[
+        'text-[52px] font-black tracking-[-2px] leading-tight',
+        color === 'primary' ? 'text-[#0b2343]' : 'text-white',
+      ]"
     >
       {{ title }}
     </h2>
 
-    <p v-if="subtitle" class="text-gray-500 text-[18px] mt-3 font-medium">
+    <p v-if="subtitle" class="mt-3 text-[18px] font-medium text-gray-500">
       {{ subtitle }}
     </p>
   </div>

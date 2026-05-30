@@ -1,9 +1,10 @@
 <script setup>
 import { ref, computed } from "vue";
 import { attractionsCards } from "../../data/homeData.js";
-import SectionTitle from "../UI/SectionTitle.vue";
 
-import Card from "../UI/Card.vue";
+import Container from "../ui/Container.vue";
+import SectionTitle from "../ui/SectionTitle.vue";
+import Card from "../ui/Card.vue";
 
 const currentPage = ref(0);
 const itemsPerPage = 4;
@@ -27,52 +28,52 @@ const prevPage = () => {
 </script>
 
 <template>
-  <section class="max-w-7xl mx-auto px-8 py-10">
-    <div class="mb-8">
+  <section class="py-10">
+    <Container>
       <SectionTitle title="Attractions you can't miss" />
-    </div>
 
-    <div class="relative">
-      <!-- LEFT -->
-      <button
-        v-if="currentPage > 0"
-        @click="prevPage"
-        class="absolute left-[-18px] top-[42%] -translate-y-1/2 z-20 w-11 h-11 rounded-full border-2 border-blue-500 bg-white flex items-center justify-center shadow-md hover:shadow-lg transition"
-      >
-        ←
-      </button>
+      <div class="relative">
+        <!-- LEFT -->
+        <button
+          v-if="currentPage > 0"
+          @click="prevPage"
+          class="absolute left-[-18px] top-[42%] -translate-y-1/2 z-20 w-11 h-11 rounded-full border-2 border-blue-500 bg-white flex items-center justify-center shadow-md hover:shadow-lg transition"
+        >
+          ←
+        </button>
 
-      <!-- ANIMATED CARDS -->
-      <transition
-        mode="out-in"
-        enter-active-class="transition-all duration-300 ease-out"
-        enter-from-class="opacity-0 translate-x-6"
-        enter-to-class="opacity-100 translate-x-0"
-        leave-active-class="transition-all duration-200 ease-in"
-        leave-from-class="opacity-100 translate-x-0"
-        leave-to-class="opacity-0 -translate-x-6"
-      >
-        <div :key="currentPage" class="grid grid-cols-4 gap-6">
-          <Card
-            v-for="card in visibleCards"
-            :key="card.title"
-            type="destination"
-            :title="card.title"
-            :subtitle="card.subtitle"
-            :image="card.image"
-          />
-        </div>
-      </transition>
+        <!-- CARDS -->
+        <transition
+          mode="out-in"
+          enter-active-class="transition-all duration-300 ease-out"
+          enter-from-class="opacity-0 translate-x-6"
+          enter-to-class="opacity-100 translate-x-0"
+          leave-active-class="transition-all duration-200 ease-in"
+          leave-from-class="opacity-100 translate-x-0"
+          leave-to-class="opacity-0 -translate-x-6"
+        >
+          <div :key="currentPage" class="grid grid-cols-4 gap-6">
+            <Card
+              v-for="card in visibleCards"
+              :key="card.title"
+              type="destination"
+              :title="card.title"
+              :subtitle="card.subtitle"
+              :image="card.image"
+            />
+          </div>
+        </transition>
 
-      <!-- RIGHT -->
-      <button
-        v-if="(currentPage + 1) * itemsPerPage < attractionsCards.length"
-        @click="nextPage"
-        class="absolute right-[-18px] top-[42%] -translate-y-1/2 z-20 w-11 h-11 rounded-full border-2 border-blue-500 bg-white flex items-center justify-center shadow-md hover:shadow-lg transition"
-      >
-        →
-      </button>
-    </div>
+        <!-- RIGHT -->
+        <button
+          v-if="(currentPage + 1) * itemsPerPage < attractionsCards.length"
+          @click="nextPage"
+          class="absolute right-[-18px] top-[42%] -translate-y-1/2 z-20 w-11 h-11 rounded-full border-2 border-blue-500 bg-white flex items-center justify-center shadow-md hover:shadow-lg transition"
+        >
+          →
+        </button>
+      </div>
+    </Container>
   </section>
 </template>
 

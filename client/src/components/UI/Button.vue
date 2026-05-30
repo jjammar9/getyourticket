@@ -10,9 +10,9 @@ defineProps({
 <template>
   <button
     :class="[
-      'px-5 py-3 rounded-xl font-semibold transition',
+      'font-bold rounded-full transition',
       variant === 'primary'
-        ? 'bg-[#0f2147] text-white'
+        ? 'bg-[#0071eb] hover:bg-[#005fd1] text-white'
         : 'bg-white text-[#0f2147]',
     ]"
   >
