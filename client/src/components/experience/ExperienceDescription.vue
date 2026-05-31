@@ -1,6 +1,6 @@
 <script setup>
 defineProps({
-  meetingPoint: {
+  description: {
     type: String,
     default: "",
   },
@@ -8,13 +8,13 @@ defineProps({
 </script>
 
 <template>
-  <div v-if="meetingPoint" class="mt-14">
+  <div v-if="description" class="mt-14">
     <h2 class="text-[32px] font-black tracking-[-1px] text-[#0b2343]">
-      Meeting point
+      About this experience
     </h2>
 
     <p class="mt-5 text-[16px] leading-8 text-gray-600">
-      {{ meetingPoint }}
+      {{ description }}
     </p>
   </div>
 </template>

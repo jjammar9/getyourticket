@@ -2,9 +2,14 @@
 import NavbarTop from "../navbar/NavbarTop.vue";
 import NavbarLinks from "../navbar/NavbarLinks.vue";
 import MegaMenu from "../navbar/MegaMenu.vue";
+import MobileNavbar from "../navbar/MobileNavbar.vue";
+import Container from "../ui/Container.vue";
 
 import { ref, computed, onMounted, onUnmounted } from "vue";
+import { useRoute } from "vue-router";
 import { navData } from "../../data/megaMenuData.js";
+
+const route = useRoute();
 
 let hoverTimer = null;
 
@@ -13,6 +18,10 @@ const activeDropdown = ref(null);
 const activeCategory = ref(null);
 const mobileMenuOpen = ref(false);
 const isScrolled = ref(false);
+
+const isHomePage = computed(() => {
+  return route.path === "/";
+});
 
 const handleClickOutside = (event) => {
   if (!navbarRef.value) return;
@@ -105,18 +114,22 @@ const handleHoverEnd = () => {
 
     <!-- DESKTOP -->
     <div class="hidden lg:block bg-white">
-      <div class="max-w-7xl mx-auto px-8">
+      <Container>
         <NavbarTop :isScrolled="isScrolled" />
 
+        <!-- ONLY ON HOMEPAGE -->
         <NavbarLinks
+          v-if="isHomePage"
           :navData="navData"
           :toggleDropdown="toggleDropdown"
           :handleHoverStart="handleHoverStart"
           :handleHoverEnd="handleHoverEnd"
         />
-      </div>
+      </Container>
 
+      <!-- ONLY ON HOMEPAGE -->
       <MegaMenu
+        v-if="isHomePage"
         :activeDropdown="activeDropdown"
         :currentCategories="currentCategories"
         :activeCategory="activeCategory"
