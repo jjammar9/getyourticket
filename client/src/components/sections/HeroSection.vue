@@ -10,10 +10,8 @@ import SearchBar from "../ui/SearchBar.vue";
       background-image: url(&quot;https://cdn.getyourguide.com/tf/assets/static/banners/hero-banner-landscape-2.png&quot;);
     "
   >
-    <!-- Overlay -->
     <div class="absolute inset-0 bg-black/35"></div>
 
-    <!-- Content -->
     <Container>
       <div
         class="relative z-10 h-[55vh] sm:h-[60vh] md:h-[65vh] lg:h-[70vh] flex flex-col items-center justify-center text-center"

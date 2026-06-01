@@ -1,6 +1,5 @@
-// components/ui/Container.vue
 <template>
-  <div class="max-w-[1400px] mx-auto px-6">
+  <div class="mx-auto w-full max-w-[1200px] px-4 md:px-6 lg:px-8">
     <slot />
   </div>
 </template>
