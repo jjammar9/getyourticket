@@ -17,7 +17,8 @@ const navbarRef = ref(null);
 const activeDropdown = ref(null);
 const activeCategory = ref(null);
 const mobileMenuOpen = ref(false);
-const isScrolled = ref(false);
+const scrollY = ref(0);
+const isScrolled = computed(() => scrollY.value > 30);
 
 const isHoveringMegaMenu = ref(false);
 
@@ -35,17 +36,11 @@ const handleClickOutside = (event) => {
 };
 
 const handleScroll = () => {
-  const scrollY = window.scrollY;
+  scrollY.value = window.scrollY;
 
-  const newScrolledState = scrollY > 80;
-
-  if (newScrolledState !== isScrolled.value) {
-    isScrolled.value = newScrolledState;
-
-    if (newScrolledState) {
-      activeDropdown.value = null;
-      activeCategory.value = null;
-    }
+  if (scrollY.value > 30) {
+    activeDropdown.value = null;
+    activeCategory.value = null;
   }
 };
 
@@ -144,19 +139,28 @@ const handleHoverEnd = () => {
     <!-- DESKTOP -->
     <div class="hidden lg:block bg-white" @mouseleave="closeMegaMenu">
       <Container>
-        <NavbarTop :isScrolled="isScrolled" />
+        <NavbarTop :isScrolled="isScrolled" :scrollY="scrollY" />
 
-        <NavbarLinks
-          v-if="isHomePage && !isScrolled"
-          :navData="navData"
-          :toggleDropdown="toggleDropdown"
-          :handleHoverStart="handleHoverStart"
-          :handleHoverEnd="handleHoverEnd"
-        />
+        <div
+          v-if="isHomePage"
+          class="overflow-hidden transition-all duration-300 ease-out"
+          :class="
+            isScrolled
+              ? 'opacity-0 max-h-0 -translate-y-2 pointer-events-none'
+              : 'opacity-100 max-h-[60px] translate-y-0'
+          "
+        >
+          <NavbarLinks
+            :navData="navData"
+            :toggleDropdown="toggleDropdown"
+            :handleHoverStart="handleHoverStart"
+            :handleHoverEnd="handleHoverEnd"
+          />
+        </div>
       </Container>
 
       <MegaMenu
-        v-if="isHomePage && !isScrolled"
+        v-if="isHomePage && !isScrolled && activeDropdown"
         :activeDropdown="activeDropdown"
         :currentCategories="currentCategories"
         :activeCategory="activeCategory"

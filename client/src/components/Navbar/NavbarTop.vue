@@ -3,14 +3,20 @@ import { Heart, ShoppingCart, User, Globe } from "lucide-vue-next";
 import { useRoute } from "vue-router";
 import { computed } from "vue";
 
-const route = useRoute();
-
-const { isScrolled } = defineProps({
+const props = defineProps({
   isScrolled: Boolean,
+  scrollY: Number,
 });
 
+const route = useRoute();
+
 const showSearch = computed(() => {
-  return route.path !== "/" || isScrolled;
+  return route.path !== "/" || props.isScrolled;
+});
+
+const searchWidth = computed(() => {
+  const value = Math.min(props.scrollY || 0, 150);
+  return `${(value / 150) * 620}px`;
 });
 </script>
 
@@ -34,12 +40,11 @@ const showSearch = computed(() => {
 
       <!-- SEARCH -->
       <div
-        class="overflow-hidden transition-all duration-500 ease-out"
-        :class="
-          showSearch
-            ? 'opacity-100 max-w-[620px] ml-0'
-            : 'opacity-0 max-w-0 pointer-events-none'
-        "
+        class="flex-1 overflow-hidden transition-all duration-300 ease-out"
+        :style="{
+          maxWidth: showSearch ? searchWidth : '0px',
+          opacity: showSearch ? 1 : 0,
+        }"
       >
         <div
           class="w-[620px] flex items-center bg-white border border-gray-300 rounded-full p-1"
@@ -68,7 +73,7 @@ const showSearch = computed(() => {
         <span>Wishlist</span>
         <span
           class="absolute left-1/2 -bottom-2 h-[2px] w-0 bg-[#ff5533] transition-all duration-300 -translate-x-1/2 group-hover:w-full"
-        ></span>
+        />
       </button>
 
       <button
@@ -78,7 +83,7 @@ const showSearch = computed(() => {
         <span>Cart</span>
         <span
           class="absolute left-1/2 -bottom-2 h-[2px] w-0 bg-[#ff5533] transition-all duration-300 -translate-x-1/2 group-hover:w-full"
-        ></span>
+        />
       </button>
 
       <button
@@ -88,7 +93,7 @@ const showSearch = computed(() => {
         <span>EN/EUR €</span>
         <span
           class="absolute left-1/2 -bottom-2 h-[2px] w-0 bg-[#ff5533] transition-all duration-300 -translate-x-1/2 group-hover:w-full"
-        ></span>
+        />
       </button>
 
       <button
@@ -98,7 +103,7 @@ const showSearch = computed(() => {
         <span>Profile</span>
         <span
           class="absolute left-1/2 -bottom-2 h-[2px] w-0 bg-[#ff5533] transition-all duration-300 -translate-x-1/2 group-hover:w-full"
-        ></span>
+        />
       </button>
     </div>
   </div>
