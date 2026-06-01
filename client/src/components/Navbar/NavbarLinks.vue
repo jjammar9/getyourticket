@@ -10,21 +10,25 @@ defineProps({
 </script>
 
 <template>
-  <div class="flex items-center gap-10 pt-1 pb-1 pl-0">
+  <div class="flex items-center gap-8 pb-2">
     <button
       v-for="(item, key) in navData"
       :key="key"
       @click="toggleDropdown(key)"
       @mouseenter="handleHoverStart(key)"
       @mouseleave="handleHoverEnd"
-      class="group relative flex items-center gap-1 font-semibold text-gray-700 hover:text-orange-500 transition pb-2"
+      class="group relative flex items-center gap-1.5 text-[14px] font-medium text-[#061d44] hover:text-[#ff5533] transition-colors"
     >
       {{ item.label }}
 
-      <ChevronDown :size="16" />
+      <ChevronDown
+        :size="12"
+        :stroke-width="2"
+        class="text-[#6f7d94] transition-colors group-hover:text-[#ff5533]"
+      />
 
       <span
-        class="absolute left-1/2 bottom-0 h-[2px] w-0 bg-orange-500 transition-all duration-300 -translate-x-1/2 group-hover:w-full"
+        class="absolute left-1/2 -bottom-2 h-[2px] w-0 bg-[#ff5533] transition-all duration-300 -translate-x-1/2 group-hover:w-full"
       ></span>
     </button>
   </div>

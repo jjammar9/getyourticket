@@ -18,107 +18,87 @@ const showSearch = computed(() => {
   <div
     :class="[
       'flex items-center justify-between transition-all duration-500 ease-out',
-      isScrolled ? 'py-2' : 'pt-2.5 pb-2',
+      isScrolled ? 'py-2' : 'py-3',
     ]"
   >
     <!-- LEFT -->
     <div class="flex items-center flex-1 gap-8">
       <!-- LOGO -->
-      <div class="leading-[0.78] select-none cursor-pointer shrink-0">
-        <p
-          class="text-[20px] font-black uppercase tracking-[-4px] text-[#ff5b00]"
-        >
-          <span class="relative inline-block">
-            G
-            <span
-              class="absolute left-0 top-1/2 w-full h-[2px] bg-white -translate-y-1/2"
-            ></span>
-          </span>
-          et
-        </p>
-
-        <p
-          class="text-[20px] font-black uppercase tracking-[-2px] text-[#ff5b00]"
-        >
-          Your
-        </p>
-
-        <p
-          class="text-[20px] font-black uppercase tracking-[-3px] text-[#ff5b00]"
-        >
-          <span class="relative inline-block">
-            T
-            <span
-              class="absolute left-0 top-1/2 w-full h-[3px] bg-white -translate-y-1/2"
-            ></span>
-          </span>
-          icke
-          <span class="relative inline-block">
-            t
-            <span
-              class="absolute left-0 top-1/2 w-full h-[3px] bg-white -translate-y-1/2"
-            ></span>
-          </span>
-        </p>
+      <div
+        class="w-[58px] select-none cursor-pointer shrink-0 font-black uppercase leading-[0.78] text-[#ff5b00]"
+      >
+        <p class="text-[18px] tracking-[-1.4px]">Get</p>
+        <p class="text-[18px] tracking-[-1.4px]">Your</p>
+        <p class="text-[18px] tracking-[-1.4px]">Ticket</p>
       </div>
 
       <!-- SEARCH -->
-      <Transition
-        enter-active-class="transition-all duration-500 ease-out"
-        enter-from-class="opacity-0 -translate-y-2"
-        enter-to-class="opacity-100 translate-y-0"
-        leave-active-class="transition-all duration-300 ease-in"
-        leave-from-class="opacity-100 translate-y-0"
-        leave-to-class="opacity-0 -translate-y-2"
+      <div
+        class="overflow-hidden transition-all duration-500 ease-out"
+        :class="
+          showSearch
+            ? 'opacity-100 max-w-[620px] ml-0'
+            : 'opacity-0 max-w-0 pointer-events-none'
+        "
       >
-        <div v-if="showSearch" class="flex-1 max-w-[650px]">
-          <div
-            class="flex items-center bg-white border border-gray-300 rounded-full shadow-sm p-1"
-          >
-            <input
-              type="text"
-              placeholder="Find places and things to do"
-              class="flex-1 px-5 py-2 outline-none rounded-full text-sm text-gray-700"
-            />
+        <div
+          class="w-[620px] flex items-center bg-white border border-gray-300 rounded-full p-1"
+        >
+          <input
+            type="text"
+            placeholder="Find places and things to do"
+            class="flex-1 px-5 py-2 outline-none rounded-full text-[14px] text-gray-700"
+          />
 
-            <button
-              class="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-2 rounded-full transition"
-            >
-              Search
-            </button>
-          </div>
+          <button
+            class="bg-[#0a6cff] hover:bg-[#0057d8] text-white text-[14px] font-semibold px-7 py-2 rounded-full transition"
+          >
+            Search
+          </button>
         </div>
-      </Transition>
+      </div>
     </div>
 
     <!-- RIGHT -->
-    <div class="flex items-center gap-8 pt-2 shrink-0">
+    <div class="flex items-start gap-8 shrink-0">
       <button
-        class="flex flex-col items-center text-[15px] font-medium text-gray-700 hover:text-orange-500 transition"
+        class="group relative flex flex-col items-center gap-1 text-[13px] font-medium text-[#4f5a72] hover:text-[#ff5533] transition-colors"
       >
-        <Heart :size="20" />
+        <Heart :size="22" :stroke-width="2" />
         <span>Wishlist</span>
+        <span
+          class="absolute left-1/2 -bottom-2 h-[2px] w-0 bg-[#ff5533] transition-all duration-300 -translate-x-1/2 group-hover:w-full"
+        ></span>
       </button>
 
       <button
-        class="flex flex-col items-center text-[15px] font-medium text-gray-700 hover:text-orange-500 transition"
+        class="group relative flex flex-col items-center gap-1 text-[13px] font-medium text-[#4f5a72] hover:text-[#ff5533] transition-colors"
       >
-        <ShoppingCart :size="20" />
+        <ShoppingCart :size="22" :stroke-width="2" />
         <span>Cart</span>
+        <span
+          class="absolute left-1/2 -bottom-2 h-[2px] w-0 bg-[#ff5533] transition-all duration-300 -translate-x-1/2 group-hover:w-full"
+        ></span>
       </button>
 
       <button
-        class="flex flex-col items-center text-[15px] font-medium text-gray-700 hover:text-orange-500 transition"
+        class="group relative flex flex-col items-center gap-1 text-[13px] font-medium text-[#4f5a72] hover:text-[#ff5533] transition-colors"
       >
-        <Globe :size="20" />
+        <Globe :size="22" :stroke-width="2" />
         <span>EN/EUR €</span>
+        <span
+          class="absolute left-1/2 -bottom-2 h-[2px] w-0 bg-[#ff5533] transition-all duration-300 -translate-x-1/2 group-hover:w-full"
+        ></span>
       </button>
 
       <button
-        class="flex flex-col items-center text-[15px] font-medium text-gray-700 hover:text-orange-500 transition"
+        class="group relative flex flex-col items-center gap-1 text-[13px] font-medium text-[#4f5a72] hover:text-[#ff5533] transition-colors"
       >
-        <User :size="20" />
+        <User :size="22" :stroke-width="2" />
         <span>Profile</span>
+        <span
+          class="absolute left-1/2 -bottom-2 h-[2px] w-0 bg-[#ff5533] transition-all duration-300 -translate-x-1/2 group-hover:w-full"
+        ></span>
       </button>
     </div>
   </div>

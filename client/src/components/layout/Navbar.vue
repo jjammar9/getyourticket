@@ -19,6 +19,8 @@ const activeCategory = ref(null);
 const mobileMenuOpen = ref(false);
 const isScrolled = ref(false);
 
+const isHoveringMegaMenu = ref(false);
+
 const isHomePage = computed(() => {
   return route.path === "/";
 });
@@ -35,13 +37,32 @@ const handleClickOutside = (event) => {
 const handleScroll = () => {
   const scrollY = window.scrollY;
 
-  if (!isScrolled.value && scrollY > 140) {
-    isScrolled.value = true;
-  }
+  const newScrolledState = scrollY > 80;
 
-  if (isScrolled.value && scrollY < 80) {
-    isScrolled.value = false;
+  if (newScrolledState !== isScrolled.value) {
+    isScrolled.value = newScrolledState;
+
+    if (newScrolledState) {
+      activeDropdown.value = null;
+      activeCategory.value = null;
+    }
   }
+};
+
+const closeMegaMenu = () => {
+  clearTimeout(hoverTimer);
+
+  activeDropdown.value = null;
+  activeCategory.value = null;
+};
+
+const handleMegaMenuEnter = () => {
+  isHoveringMegaMenu.value = true;
+};
+
+const handleMegaMenuLeave = () => {
+  isHoveringMegaMenu.value = false;
+  closeMegaMenu();
 };
 
 onMounted(() => {
@@ -57,6 +78,7 @@ onUnmounted(() => {
 
 const currentCategories = computed(() => {
   if (!activeDropdown.value) return [];
+
   return Object.keys(navData[activeDropdown.value].categories);
 });
 
@@ -87,11 +109,18 @@ const handleHoverStart = (id) => {
   hoverTimer = setTimeout(() => {
     activeDropdown.value = id;
     activeCategory.value = Object.keys(navData[id].categories)[0];
-  }, 1000);
+  }, 120);
 };
 
 const handleHoverEnd = () => {
   clearTimeout(hoverTimer);
+
+  hoverTimer = setTimeout(() => {
+    if (!isHoveringMegaMenu.value) {
+      activeDropdown.value = null;
+      activeCategory.value = null;
+    }
+  }, 80);
 };
 </script>
 
@@ -99,7 +128,7 @@ const handleHoverEnd = () => {
   <nav
     ref="navbarRef"
     :class="[
-      'w-full bg-white z-50 transition-all duration-300',
+      'w-full bg-white z-50 transition-all duration-500 ease-out',
       isScrolled
         ? 'fixed top-0 left-0 shadow-md'
         : 'relative border-b border-gray-200',
@@ -113,13 +142,12 @@ const handleHoverEnd = () => {
     />
 
     <!-- DESKTOP -->
-    <div class="hidden lg:block bg-white">
+    <div class="hidden lg:block bg-white" @mouseleave="closeMegaMenu">
       <Container>
         <NavbarTop :isScrolled="isScrolled" />
 
-        <!-- ONLY ON HOMEPAGE -->
         <NavbarLinks
-          v-if="isHomePage"
+          v-if="isHomePage && !isScrolled"
           :navData="navData"
           :toggleDropdown="toggleDropdown"
           :handleHoverStart="handleHoverStart"
@@ -127,14 +155,15 @@ const handleHoverEnd = () => {
         />
       </Container>
 
-      <!-- ONLY ON HOMEPAGE -->
       <MegaMenu
-        v-if="isHomePage"
+        v-if="isHomePage && !isScrolled"
         :activeDropdown="activeDropdown"
         :currentCategories="currentCategories"
         :activeCategory="activeCategory"
         :setActiveCategory="(category) => (activeCategory = category)"
         :currentItems="currentItems"
+        @mouseenter-menu="handleMegaMenuEnter"
+        @mouseleave-menu="handleMegaMenuLeave"
       />
     </div>
   </nav>
