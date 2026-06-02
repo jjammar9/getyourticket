@@ -24,9 +24,14 @@ import {
     <Container>
       <div class="py-20">
         <!-- TOP ROW -->
-        <div class="max-w-[1100px] mx-auto">
-          <div class="flex items-start justify-between">
-            <FooterSelect />
+        <div class="flex items-start justify-between gap-x-8 lg:gap-x-16">
+            <div>
+              <FooterSelect />
+
+              <p class="text-[13px] font-medium text-white/70 mt-6">
+                {{ footerCopyright }}
+              </p>
+            </div>
 
             <FooterMobileApps />
 
@@ -40,20 +45,12 @@ import {
               <div class="mt-8">
                 <FooterPayments />
               </div>
+
+              <div class="mt-8">
+                <FooterSocials />
+              </div>
             </div>
           </div>
-        </div>
-
-        <!-- BOTTOM BAR -->
-        <div
-          class="flex items-center justify-between mt-20 pt-8 border-t border-white/10"
-        >
-          <p class="text-[13px] font-medium text-white/70">
-            {{ footerCopyright }}
-          </p>
-
-          <FooterSocials />
-        </div>
       </div>
     </Container>
   </footer>

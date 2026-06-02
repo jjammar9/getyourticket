@@ -1,23 +1,37 @@
 <script setup>
 import { Heart, ShoppingCart, User, Globe } from "lucide-vue-next";
-import { useRoute } from "vue-router";
-import { computed } from "vue";
+import { useRouter } from "vue-router";
+import { ref, computed } from "vue";
 
 const props = defineProps({
   isScrolled: Boolean,
   scrollY: Number,
+  isHomePage: Boolean,
 });
 
-const route = useRoute();
+const router = useRouter();
+
+const searchTerm = ref("");
 
 const showSearch = computed(() => {
-  return route.path !== "/" || props.isScrolled;
+  return !props.isHomePage || props.scrollY > 100;
 });
 
-const searchWidth = computed(() => {
-  const value = Math.min(props.scrollY || 0, 150);
-  return `${(value / 150) * 420}px`;
-});
+const handleSearch = () => {
+  const query = searchTerm.value.trim();
+
+  if (!query) {
+    router.push("/");
+    return;
+  }
+
+  router.push({
+    path: "/search",
+    query: {
+      q: query,
+    },
+  });
+};
 </script>
 
 <template>
@@ -41,21 +55,21 @@ const searchWidth = computed(() => {
       <!-- SEARCH -->
       <div
         class="flex-1 overflow-hidden transition-all duration-300 ease-out"
-        :style="{
-          maxWidth: showSearch ? searchWidth : '0px',
-          opacity: showSearch ? 1 : 0,
-        }"
+        :class="showSearch ? 'opacity-100' : 'opacity-0'"
       >
         <div
           class="w-[420px] flex items-center bg-white border border-gray-300 rounded-full p-1"
         >
           <input
+            v-model="searchTerm"
+            @keyup.enter="handleSearch"
             type="text"
             placeholder="Find places and things to do"
             class="flex-1 px-5 py-2 outline-none rounded-full text-[14px] text-gray-700"
           />
 
           <button
+            @click="handleSearch"
             class="bg-[#0a6cff] hover:bg-[#0057d8] text-white text-[14px] font-semibold px-7 py-2 rounded-full transition"
           >
             Search

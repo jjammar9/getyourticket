@@ -5,7 +5,7 @@ import SearchBar from "../ui/SearchBar.vue";
 
 <template>
   <section
-    class="relative h-[55vh] sm:h-[60vh] md:h-[65vh] lg:h-[70vh] bg-cover bg-center"
+    class="relative h-[60vh] sm:h-[65vh] md:h-[70vh] lg:h-[80vh] bg-cover bg-center"
     style="
       background-image: url(&quot;https://cdn.getyourguide.com/tf/assets/static/banners/hero-banner-landscape-2.png&quot;);
     "
@@ -14,15 +14,15 @@ import SearchBar from "../ui/SearchBar.vue";
 
     <Container>
       <div
-        class="relative z-10 h-[55vh] sm:h-[60vh] md:h-[65vh] lg:h-[70vh] flex flex-col items-center justify-center text-center"
+        class="relative z-10 h-[60vh] sm:h-[65vh] md:h-[70vh] lg:h-[80vh] flex flex-col items-center justify-center text-center"
       >
         <h1
-          class="text-white text-[54px] font-bold leading-[48px] tracking-[-1px] max-w-[820px]"
+          class="text-white text-[68px] font-black leading-[68px] tracking-[-1.5px] whitespace-nowrap" style="font-family: 'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif;"
         >
           Discover & book things to do
         </h1>
 
-        <div class="mt-9 w-full max-w-2xl">
+        <div class="mt-9 w-full max-w-3xl">
           <SearchBar />
         </div>
       </div>

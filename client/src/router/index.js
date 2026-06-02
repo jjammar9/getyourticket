@@ -5,7 +5,7 @@ import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "../views/HomeView.vue";
 import DestinationView from "../views/DestinationView.vue";
 import ExperienceView from "../views/ExperienceView.vue";
-import SearchResultsView from "../views/SearchResultsView.vue";
+import SearchView from "../views/SearchView.vue";
 import NotFoundView from "../views/NotFoundView.vue";
 
 const routes = [
@@ -27,7 +27,7 @@ const routes = [
   {
     path: "/search",
     name: "search",
-    component: SearchResultsView,
+    component: SearchView,
   },
   {
     path: "/:pathMatch(.*)*",

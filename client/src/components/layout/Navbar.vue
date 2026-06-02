@@ -122,12 +122,8 @@ const handleHoverEnd = () => {
 <template>
   <nav
     ref="navbarRef"
-    :class="[
-      'w-full bg-white z-50 transition-all duration-500 ease-out',
-      isScrolled
-        ? 'fixed top-0 left-0 shadow-md'
-        : 'relative border-b border-gray-200',
-    ]"
+    class="w-full bg-white z-50 fixed top-0 left-0 transition-all duration-500 ease-out"
+    :class="[isScrolled ? 'shadow-md' : '']"
   >
     <!-- MOBILE -->
     <MobileNavbar
@@ -139,7 +135,7 @@ const handleHoverEnd = () => {
     <!-- DESKTOP -->
     <div class="hidden lg:block bg-white" @mouseleave="closeMegaMenu">
       <Container>
-        <NavbarTop :isScrolled="isScrolled" :scrollY="scrollY" />
+        <NavbarTop :isScrolled="isScrolled" :scrollY="scrollY" :isHomePage="isHomePage" />
 
         <div
           v-if="isHomePage"
