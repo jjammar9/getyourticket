@@ -17,12 +17,12 @@ import SearchBar from "../ui/SearchBar.vue";
         class="relative z-10 h-[55vh] sm:h-[60vh] md:h-[65vh] lg:h-[70vh] flex flex-col items-center justify-center text-center"
       >
         <h1
-          class="text-white text-[65px] font-bold leading-[0.95] tracking-[-3px] max-w-[950px]"
+          class="text-white text-[54px] font-bold leading-[48px] tracking-[-1px] max-w-[820px]"
         >
           Discover & book things to do
         </h1>
 
-        <div class="mt-5 w-full max-w-4xl">
+        <div class="mt-9 w-full max-w-2xl">
           <SearchBar />
         </div>
       </div>

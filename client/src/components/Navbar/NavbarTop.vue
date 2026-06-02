@@ -16,7 +16,7 @@ const showSearch = computed(() => {
 
 const searchWidth = computed(() => {
   const value = Math.min(props.scrollY || 0, 150);
-  return `${(value / 150) * 620}px`;
+  return `${(value / 150) * 420}px`;
 });
 </script>
 
@@ -47,7 +47,7 @@ const searchWidth = computed(() => {
         }"
       >
         <div
-          class="w-[620px] flex items-center bg-white border border-gray-300 rounded-full p-1"
+          class="w-[420px] flex items-center bg-white border border-gray-300 rounded-full p-1"
         >
           <input
             type="text"
