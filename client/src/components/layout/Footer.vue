@@ -4,6 +4,7 @@ import FooterColumn from "../footer/FooterColumn.vue";
 import FooterPayments from "../footer/FooterPayments.vue";
 import FooterSocials from "../footer/FooterSocials.vue";
 import FooterMobileApps from "../footer/FooterMobileApps.vue";
+import Container from "../ui/Container.vue";
 
 import {
   supportLinks,
@@ -15,56 +16,45 @@ import {
 
 <template>
   <footer
-    class="text-white w-full"
+    class="w-full bg-[#0f2147] text-white mt-24"
     style="
-      background-color: #0f2147;
       font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif;
     "
   >
-    <div style="width: 80%; margin: 0 auto; padding: 40px 0 32px">
-      <!-- TOP ROW: 5 columns, last one pushed to far right -->
-      <div
-        style="
-          display: flex;
-          align-items: flex-start;
-          justify-content: space-between;
-        "
-      >
-        <FooterSelect />
+    <Container>
+      <div class="py-20">
+        <!-- TOP ROW -->
+        <div class="max-w-[1100px] mx-auto">
+          <div class="flex items-start justify-between">
+            <FooterSelect />
 
-        <FooterMobileApps />
+            <FooterMobileApps />
 
-        <FooterColumn title="Support" :links="supportLinks" />
+            <FooterColumn title="Support" :links="supportLinks" />
 
-        <FooterColumn title="Company" :links="companyLinks" />
+            <FooterColumn title="Company" :links="companyLinks" />
 
-        <div>
-          <FooterColumn title="Work With Us" :links="workLinks" />
-          <FooterPayments />
+            <div>
+              <FooterColumn title="Work With Us" :links="workLinks" />
+
+              <div class="mt-8">
+                <FooterPayments />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- BOTTOM BAR -->
+        <div
+          class="flex items-center justify-between mt-20 pt-8 border-t border-white/10"
+        >
+          <p class="text-[13px] font-medium text-white/70">
+            {{ footerCopyright }}
+          </p>
+
+          <FooterSocials />
         </div>
       </div>
-
-      <!-- BOTTOM BAR -->
-      <div
-        style="
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          margin-top: 40px;
-        "
-      >
-        <p
-          style="
-            font-size: 13px;
-            font-weight: 600;
-            color: rgba(255, 255, 255, 0.8);
-            margin: 0;
-          "
-        >
-          {{ footerCopyright }}
-        </p>
-        <FooterSocials />
-      </div>
-    </div>
+    </Container>
   </footer>
 </template>

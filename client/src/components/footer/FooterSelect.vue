@@ -39,7 +39,7 @@ function selectCurrency(curr) {
 </script>
 
 <template>
-  <div class="shrink-0" style="width: 280px">
+  <div class="shrink-0" style="width: 240px">
     <p class="text-[13px] font-bold mb-[6px]">Language</p>
     <div class="relative">
       <button
