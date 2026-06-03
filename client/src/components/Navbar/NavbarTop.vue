@@ -45,6 +45,7 @@ const handleSearch = () => {
     <div class="flex items-center flex-1 gap-8">
       <!-- LOGO -->
       <div
+        @click="router.push('/')"
         class="w-[58px] select-none cursor-pointer shrink-0 font-black uppercase leading-[0.78] text-[#ff5b00]"
       >
         <p class="text-[18px] tracking-[-1.4px]">Get</p>

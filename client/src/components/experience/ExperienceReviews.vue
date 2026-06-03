@@ -7,7 +7,7 @@ defineProps({
 
 <template>
   <div class="mt-16">
-    <h2 class="text-[32px] font-black tracking-[-1px] text-[#0b2343]">
+    <h2 class="text-[24px] font-bold tracking-[-0.3px] text-[#0b2343]" style="font-family: 'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif;">
       Customer reviews
     </h2>
 

@@ -16,7 +16,8 @@ defineProps({
     </p>
 
     <h1
-      class="mt-5 text-[52px] font-black tracking-[-2px] leading-tight text-[#0b2343]"
+      class="mt-5 text-[40px] font-bold tracking-[-0.5px] leading-tight text-[#0b2343]"
+      style="font-family: 'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif;"
     >
       {{ experience.title }}
     </h1>

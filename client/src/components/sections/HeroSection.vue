@@ -17,12 +17,12 @@ import SearchBar from "../ui/SearchBar.vue";
         class="relative z-10 h-[60vh] sm:h-[65vh] md:h-[70vh] lg:h-[80vh] flex flex-col items-center justify-center text-center"
       >
         <h1
-          class="text-white text-[68px] font-black leading-[68px] tracking-[-1.5px] whitespace-nowrap" style="font-family: 'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif;"
+          class="text-white text-[57px] font-bold leading-[54px] tracking-[-1.5px] whitespace-nowrap" style="font-family: 'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif;"
         >
           Discover & book things to do
         </h1>
 
-        <div class="mt-9 w-full max-w-3xl">
+        <div class="mt-9 w-full max-w-[540px]">
           <SearchBar />
         </div>
       </div>

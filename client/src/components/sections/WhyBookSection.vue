@@ -2,10 +2,11 @@
 import SectionTitle from "../ui/SectionTitle.vue";
 import WhyBookCard from "../cards/WhyBookCard.vue";
 import { whyBookData } from "../../data/whyBookData.js";
+import fadeIn from "../../directives/fadeIn.js";
 </script>
 
 <template>
-  <section class="py-24">
+  <section v-fade-in class="py-10">
     <SectionTitle title="Why book with GetYourGuide?" />
 
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
