@@ -1,5 +1,7 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 @keyframes fade-in-up {
   from {
     opacity: 0;
@@ -13,4 +15,25 @@
 
 .animate-fade-in-up {
   animation: fade-in-up 0.5s ease-out both;
+}
+
+@keyframes skeleton-pulse {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 0.8; }
+}
+
+.animate-skeleton-pulse {
+  animation: skeleton-pulse 1.5s ease-in-out infinite;
+}
+
+.dark {
+  --color-bg: #0f172a;
+  --color-text: #e2e8f0;
+  --color-card: #1e293b;
+  --color-border: #334155;
+}
+
+.dark body {
+  background: var(--color-bg);
+  color: var(--color-text);
 }

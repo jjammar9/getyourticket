@@ -5,13 +5,10 @@ import Container from "../components/ui/Container.vue";
 import Breadcrumbs from "../components/ui/Breadcrumbs.vue";
 import { navData } from "../data/megaMenuData.js";
 import { handleImageError } from "../constants/placeholder.js";
+import { toSlug } from "../utils/helpers.js";
 
 const route = useRoute();
 const router = useRouter();
-
-function toSlug(str) {
-  return str.toLowerCase().replace(/\s+/g, "-");
-}
 
 const title = computed(() => {
   const slug = route.params.slug || "";

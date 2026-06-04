@@ -6,13 +6,10 @@ import Breadcrumbs from "../components/ui/Breadcrumbs.vue";
 import SearchCard from "../components/cards/SearchCard.vue";
 import { experiencesData } from "../data/experiencesData.js";
 import { navData } from "../data/megaMenuData.js";
+import { toSlug } from "../utils/helpers.js";
 
 const route = useRoute();
 const router = useRouter();
-
-function toSlug(str) {
-  return str.toLowerCase().replace(/\s+/g, "-");
-}
 
 const title = computed(() => {
   return (route.params.slug || "")

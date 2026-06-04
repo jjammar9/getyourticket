@@ -42,13 +42,13 @@ function goTo(key) {
     </div>
 
     <!-- mobile menu -->
-    <div v-if="mobileMenuOpen" class="px-5 pb-6 border-t bg-white">
+    <div v-if="mobileMenuOpen" class="px-5 pb-6 border-t bg-white dark:bg-gray-800 dark:border-gray-700">
       <div class="flex flex-col gap-5 pt-5">
         <button
           v-for="(item, key) in navData"
           :key="key"
           @click="goTo(key)"
-          class="text-left font-semibold text-gray-700"
+          class="text-left font-semibold text-gray-700 dark:text-gray-200"
         >
           {{ item.label }}
         </button>

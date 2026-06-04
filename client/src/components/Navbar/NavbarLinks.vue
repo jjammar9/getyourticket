@@ -30,14 +30,14 @@ function handleClick(key) {
       @click="handleClick(key)"
       @mouseenter="handleHoverStart(key)"
       @mouseleave="handleHoverEnd"
-      class="group relative flex items-center gap-1.5 text-[15px] font-semibold text-[#061d44] hover:text-[#ff5533] transition-colors"
+      class="group relative flex items-center gap-1.5 text-[15px] font-semibold text-[#061d44] dark:text-gray-200 hover:text-[#ff5533] transition-colors"
     >
       {{ item.label }}
 
       <ChevronDown
         :size="12"
         :stroke-width="2"
-        class="text-[#6f7d94] transition-colors group-hover:text-[#ff5533]"
+        class="text-[#6f7d94] dark:text-gray-400 transition-colors group-hover:text-[#ff5533]"
       />
 
       <span

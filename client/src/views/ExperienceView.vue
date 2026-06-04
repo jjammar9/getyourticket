@@ -1,6 +1,8 @@
 <script setup>
-import { computed } from "vue";
+import { computed, ref, onMounted } from "vue";
 import { useRoute } from "vue-router";
+import { useBookingStore } from "../stores/bookingStore.js";
+import SkeletonBlock from "../components/ui/SkeletonBlock.vue";
 
 import Container from "../components/ui/Container.vue";
 
@@ -18,15 +20,36 @@ import SearchBar from "../components/ui/SearchBar.vue";
 import { experiencesData } from "../data/experiencesData.js";
 
 const route = useRoute();
+const bookingStore = useBookingStore();
+const loading = ref(true);
+
+onMounted(() => {
+  setTimeout(() => { loading.value = false; }, 400);
+});
 
 const experience = computed(() => {
   return experiencesData.find((item) => item.id === Number(route.params.id));
 });
+
+function handleBook(exp) {
+  if (exp) bookingStore.addBooking(exp);
+}
 </script>
 
 <template>
   <Container>
-    <div v-if="experience" class="pt-32 pb-12">
+    <div v-if="loading" class="pt-32 pb-12 space-y-6">
+      <SkeletonBlock class="h-4 w-64" />
+      <SkeletonBlock class="h-10 w-96" />
+      <SkeletonBlock class="h-[420px] w-full" />
+      <div class="grid grid-cols-3 gap-6">
+        <SkeletonBlock class="h-40" />
+        <SkeletonBlock class="h-40" />
+        <SkeletonBlock class="h-40" />
+      </div>
+    </div>
+
+    <div v-else-if="experience" class="pt-32 pb-12">
       <!-- BREADCRUMBS -->
       <ExperienceBreadcrumbs :location="experience.location" />
 
@@ -36,11 +59,11 @@ const experience = computed(() => {
       <!-- GALLERY + BOOKING -->
       <div class="mt-8 grid grid-cols-1 md:grid-cols-12 gap-8">
         <div class="md:col-span-8">
-          <ExperienceGallery :experience="experience" />
+          <ExperienceGallery :images="experience.images" />
         </div>
 
         <div class="md:col-span-4">
-          <ExperienceBookingCard :experience="experience" />
+          <ExperienceBookingCard :experience="experience" @book="handleBook" />
         </div>
       </div>
 
@@ -64,7 +87,7 @@ const experience = computed(() => {
       </div>
     </div>
 
-    <div v-else class="py-20 text-center">
+    <div v-else-if="!loading" class="py-20 text-center">
       <h1 class="text-5xl font-black">Experience Not Found</h1>
     </div>
   </Container>

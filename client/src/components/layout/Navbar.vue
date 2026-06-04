@@ -122,7 +122,7 @@ const handleHoverEnd = () => {
 <template>
   <nav
     ref="navbarRef"
-    class="w-full bg-white z-50 fixed top-0 left-0 transition-all duration-500 ease-out"
+    class="w-full bg-white dark:bg-gray-900 z-50 fixed top-0 left-0 transition-all duration-500 ease-out"
     :class="[isScrolled ? 'shadow-md' : '']"
   >
     <!-- MOBILE -->
@@ -133,7 +133,7 @@ const handleHoverEnd = () => {
     />
 
     <!-- DESKTOP -->
-    <div class="hidden lg:block bg-white" @mouseleave="closeMegaMenu">
+    <div class="hidden lg:block bg-white dark:bg-gray-900" @mouseleave="closeMegaMenu">
       <Container>
         <NavbarTop :isScrolled="isScrolled" :scrollY="scrollY" :isHomePage="isHomePage" />
 
@@ -156,7 +156,7 @@ const handleHoverEnd = () => {
       </Container>
 
       <MegaMenu
-        v-if="isHomePage && !isScrolled && activeDropdown"
+        v-if="!isScrolled && activeDropdown"
         :activeDropdown="activeDropdown"
         :currentCategories="currentCategories"
         :activeCategory="activeCategory"

@@ -10,11 +10,11 @@ defineProps({
       {{ item.icon }}
     </div>
 
-    <h3 class="mt-4 text-[20px] font-extrabold tracking-[-0.5px] text-[#0b2343] leading-tight">
+    <h3 class="mt-4 text-[20px] font-extrabold tracking-[-0.5px] text-[#0b2343] dark:text-white leading-tight">
       {{ item.title }}
     </h3>
 
-    <p class="mt-2 text-[14px] leading-[1.5] text-[#5f6b85] font-medium max-w-[320px]">
+    <p class="mt-2 text-[14px] leading-[1.5] text-[#5f6b85] dark:text-gray-400 font-medium max-w-[320px]">
       {{ item.description }}
     </p>
   </div>

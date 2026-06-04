@@ -17,7 +17,7 @@ const emit = defineEmits(["mouseenter-menu", "mouseleave-menu"]);
 <template>
   <div
     v-if="activeDropdown"
-    class="absolute left-0 top-full w-full bg-white shadow-xl border-t border-gray-100 z-50"
+    class="absolute left-0 top-full w-full bg-white dark:bg-gray-800 shadow-xl border-t border-gray-100 dark:border-gray-700 z-50"
     @mouseenter="emit('mouseenter-menu')"
     @mouseleave="emit('mouseleave-menu')"
   >

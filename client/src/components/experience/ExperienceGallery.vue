@@ -1,67 +1,75 @@
 <script setup>
-import { handleImageError } from "../../constants/placeholder.js";
+import { ref } from "vue";
+import PhotoLightbox from "../ui/PhotoLightbox.vue";
 
-defineProps({
-  experience: {
-    type: Object,
-    required: true,
-  },
+const props = defineProps({
+  images: { type: Array, default: () => [] },
 });
+
+const lightboxOpen = ref(false);
+const lightboxIndex = ref(0);
+
+function openLightbox(index) {
+  lightboxIndex.value = index;
+  lightboxOpen.value = true;
+}
 </script>
 
 <template>
-  <div class="grid grid-cols-4 gap-3">
-    <!-- MAIN IMAGE -->
-    <div class="col-span-3">
+  <div class="relative">
+    <div v-if="images.length === 1" class="w-full">
       <img
-        :src="experience.image"
-        :alt="experience.title"
-        class="w-full h-[500px] object-cover rounded-3xl"
-        @error="handleImageError"
+        :src="images[0]"
+        alt="Experience"
+        class="w-full h-[420px] object-cover rounded-xl cursor-pointer"
+        @click="openLightbox(0)"
       />
     </div>
 
-    <!-- SIDE IMAGES -->
-    <div class="flex flex-col gap-3">
+    <div
+      v-else-if="images.length === 2"
+      class="grid grid-cols-2 gap-2 h-[420px]"
+    >
       <img
-        :src="experience.image"
-        :alt="experience.title"
-        class="h-[116px] object-cover rounded-2xl"
-        @error="handleImageError"
+        v-for="(img, i) in images"
+        :key="i"
+        :src="img"
+        :alt="`Photo ${i + 1}`"
+        class="w-full h-full object-cover rounded-xl cursor-pointer"
+        @click="openLightbox(i)"
       />
-
-      <img
-        :src="experience.image"
-        :alt="experience.title"
-        class="h-[116px] object-cover rounded-2xl"
-        @error="handleImageError"
-      />
-
-      <img
-        :src="experience.image"
-        :alt="experience.title"
-        class="h-[116px] object-cover rounded-2xl"
-        @error="handleImageError"
-      />
-
-      <div class="relative">
-        <img
-          :src="experience.image"
-          :alt="experience.title"
-          class="h-[116px] w-full object-cover rounded-2xl"
-          @error="handleImageError"
-        />
-
-        <div
-          class="absolute inset-0 bg-black/40 rounded-2xl flex items-center justify-center"
-        >
-          <button
-            class="bg-white px-4 py-2 rounded-xl font-semibold text-[#0b2343]"
-          >
-            See all photos
-          </button>
-        </div>
-      </div>
     </div>
+
+    <div v-else class="grid grid-cols-4 grid-rows-2 gap-2 h-[420px]">
+      <img
+        :src="images[0]"
+        alt="Photo 1"
+        class="col-span-2 row-span-2 w-full h-full object-cover rounded-l-xl cursor-pointer"
+        @click="openLightbox(0)"
+      />
+      <img
+        v-for="(img, i) in images.slice(1, 4)"
+        :key="i"
+        :src="img"
+        :alt="`Photo ${i + 2}`"
+        class="w-full h-full object-cover cursor-pointer"
+        :class="[i === 0 ? 'rounded-tr-xl' : '', i === images.slice(1, 4).length - 1 ? 'rounded-br-xl' : '']"
+        @click="openLightbox(i + 1)"
+      />
+      <button
+        v-if="images.length > 4"
+        @click="openLightbox(4)"
+        class="absolute bottom-4 right-4 bg-white text-[14px] font-semibold px-4 py-2 rounded-lg shadow-md hover:bg-gray-100 transition"
+      >
+        See all photos
+      </button>
+    </div>
+
+    <PhotoLightbox
+      :images="images"
+      :initialIndex="lightboxIndex"
+      :open="lightboxOpen"
+      @close="lightboxOpen = false"
+    />
   </div>
 </template>

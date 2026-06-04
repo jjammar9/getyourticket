@@ -37,7 +37,7 @@ defineProps({
       <h2
         :class="[
           'text-[32px] font-bold tracking-[-0.5px] leading-tight',
-          color === 'primary' ? 'text-[#0b2343]' : 'text-white',
+          color === 'primary' ? 'text-[#0b2343] dark:text-white' : 'text-white',
         ]"
         style="font-family: 'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif;"
       >
@@ -52,7 +52,7 @@ defineProps({
     <a
       v-if="viewAllTo"
       @click.prevent="router.push(viewAllTo)"
-      class="text-[15px] font-bold text-[#0071eb] hover:text-[#0050a0] cursor-pointer whitespace-nowrap ml-6 transition-colors"
+      class="text-[15px] font-bold text-[#0071eb] dark:text-blue-400 hover:text-[#0050a0] cursor-pointer whitespace-nowrap ml-6 transition-colors"
     >
       View all &rarr;
     </a>

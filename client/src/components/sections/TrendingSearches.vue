@@ -20,7 +20,7 @@ const trending = [
   <section class="py-8">
     <div class="flex items-center gap-2 mb-5">
       <TrendingUp :size="20" class="text-[#ff5a1f]" />
-      <h2 class="text-[17px] font-bold text-[#0b2343]">Popular right now</h2>
+      <h2 class="text-[17px] font-bold text-[#0b2343] dark:text-white">Popular right now</h2>
     </div>
 
     <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
@@ -28,7 +28,7 @@ const trending = [
         v-for="item in trending"
         :key="item.label"
         @click="router.push(`/search?q=${encodeURIComponent(item.label)}`)"
-        class="flex items-center gap-3 px-4 py-3.5 rounded-2xl border border-[#d9dee8] cursor-pointer group hover:border-[#0b2343] hover:shadow-sm transition-all"
+        class="flex items-center gap-3 px-4 py-3.5 rounded-2xl border border-[#d9dee8] dark:border-gray-700 cursor-pointer group hover:border-[#0b2343] dark:hover:border-gray-500 hover:shadow-sm transition-all"
       >
         <div
           class="w-10 h-10 rounded-xl flex items-center justify-center shrink-0"
@@ -38,10 +38,10 @@ const trending = [
         </div>
 
         <div class="min-w-0">
-          <p class="text-[14px] font-bold text-[#0b2343] truncate group-hover:text-[#ff5a1f] transition-colors">
+          <p class="text-[14px] font-bold text-[#0b2343] dark:text-white truncate group-hover:text-[#ff5a1f] transition-colors">
             {{ item.label }}
           </p>
-          <p class="text-[11px] font-medium text-[#8a94a6]">
+          <p class="text-[11px] font-medium text-[#8a94a6] dark:text-gray-400">
             {{ item.count }}
           </p>
         </div>

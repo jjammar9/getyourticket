@@ -77,32 +77,32 @@ const prevPage = () => {
             </div>
 
             <div class="px-4 pt-3 pb-2 flex flex-col flex-1">
-              <p class="text-[13px] font-semibold text-[#59657b] leading-tight">
+              <p class="text-[13px] font-semibold text-[#59657b] dark:text-gray-400 leading-tight">
                 {{ card.location }} • {{ card.category }}
               </p>
 
-              <h3 class="mt-1 text-[15px] leading-[1.12] font-extrabold text-[#0b2343] line-clamp-3 min-h-[50px]">
+              <h3 class="mt-1 text-[15px] leading-[1.12] font-extrabold text-[#0b2343] dark:text-white line-clamp-3 min-h-[50px]">
                 {{ card.title }}
               </h3>
 
-              <p class="mt-1 text-[13px] text-[#4f5b72] font-medium">
+              <p class="mt-1 text-[13px] text-[#4f5b72] dark:text-gray-400 font-medium">
                 {{ card.duration }}
                 <span v-if="card.extras"> • {{ card.extras }}</span>
               </p>
 
               <div class="mt-auto pt-2 flex items-end justify-between">
                 <div class="flex items-center gap-1">
-                  <span class="text-[15px] font-bold text-[#0b2343]">
+                  <span class="text-[15px] font-bold text-[#0b2343] dark:text-white">
                     {{ card.rating }}
                   </span>
-                  <Star :size="16" fill="currentColor" stroke-width="0" class="text-[#0b2343]" />
-                  <span class="text-[13px] text-[#6d788d] font-medium">
+                  <Star :size="16" fill="currentColor" stroke-width="0" class="text-[#0b2343] dark:text-white" />
+                  <span class="text-[13px] text-[#6d788d] dark:text-gray-400 font-medium">
                     ({{ card.reviews }})
                   </span>
                 </div>
 
                 <div class="text-right leading-none">
-                  <p v-if="card.oldPrice" class="text-[12px] text-[#8a94a6] line-through font-medium">
+                  <p v-if="card.oldPrice" class="text-[12px] text-[#8a94a6] dark:text-gray-500 line-through font-medium">
                     From €{{ card.oldPrice }}
                   </p>
                   <p class="text-[18px] font-extrabold text-[#e53935] mt-0.5">

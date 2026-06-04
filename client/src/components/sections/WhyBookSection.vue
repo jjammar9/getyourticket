@@ -6,7 +6,7 @@ import fadeIn from "../../directives/fadeIn.js";
 
 <template>
   <section v-fade-in class="py-16">
-    <h2 class="text-[32px] font-bold text-[#0b2343] text-center mb-10">
+    <h2 class="text-[32px] font-bold text-[#0b2343] dark:text-white text-center mb-10">
       Why book with GetYourGuide?
     </h2>
 

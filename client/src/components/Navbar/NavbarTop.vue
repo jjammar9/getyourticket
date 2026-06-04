@@ -14,6 +14,8 @@ import {
 } from "lucide-vue-next";
 import { useRouter } from "vue-router";
 import { ref, computed } from "vue";
+import { useSearchSuggestions } from "../../composables/useSearchSuggestions.js";
+import { useThemeStore } from "../../stores/themeStore.js";
 
 const props = defineProps({
   isScrolled: Boolean,
@@ -24,12 +26,15 @@ const props = defineProps({
 const router = useRouter();
 
 const searchTerm = ref("");
+const showSuggestions = ref(false);
+const searchInput = ref(null);
+const { suggestions } = useSearchSuggestions(searchTerm);
 
 const showSearch = computed(() => {
   return !props.isHomePage || props.scrollY > 100;
 });
 
-const isDarkMode = ref(false);
+const themeStore = useThemeStore();
 const showProfileMenu = ref(false);
 let closeTimer = null;
 
@@ -49,11 +54,24 @@ const onMenuLeave = () => {
 };
 
 const toggleTheme = () => {
-  isDarkMode.value = !isDarkMode.value;
+  themeStore.toggle();
+};
+
+const selectSuggestion = (text) => {
+  searchTerm.value = text;
+  showSuggestions.value = false;
+  router.push({ path: "/search", query: { q: text } });
+};
+
+const onSearchBlur = () => {
+  setTimeout(() => {
+    showSuggestions.value = false;
+  }, 200);
 };
 
 const handleSearch = () => {
   const query = searchTerm.value.trim();
+  showSuggestions.value = false;
 
   if (!query) {
     router.push("/");
@@ -90,19 +108,23 @@ const handleSearch = () => {
 
       <!-- SEARCH -->
       <div
-        class="flex-1 overflow-hidden transition-all duration-300 ease-out"
+        class="flex-1 overflow-visible transition-all duration-300 ease-out relative"
         :class="showSearch ? 'opacity-100' : 'opacity-0'"
       >
         <div
-          class="w-[420px] flex items-center bg-white rounded-full p-1"
-          :class="isHomePage ? 'border border-gray-300' : 'border border-black'"
+          class="w-[420px] flex items-center bg-white dark:bg-gray-800 rounded-full p-1"
+          :class="isHomePage ? 'border border-gray-300 dark:border-gray-600' : 'border border-black dark:border-gray-500'"
         >
           <input
+            ref="searchInput"
             v-model="searchTerm"
             @keyup.enter="handleSearch"
+            @focus="showSuggestions = true"
+            @blur="onSearchBlur"
+            @input="showSuggestions = true"
             type="text"
             placeholder="Find places and things to do"
-            class="flex-1 px-5 py-2 outline-none rounded-full text-[14px] text-gray-700 placeholder:text-black"
+            class="flex-1 px-5 py-2 outline-none rounded-full text-[14px] text-gray-700 dark:text-gray-200 placeholder:text-black dark:placeholder:text-gray-400"
           />
 
           <button
@@ -112,13 +134,38 @@ const handleSearch = () => {
             Search
           </button>
         </div>
+
+        <!-- Autocomplete dropdown -->
+        <div
+          v-if="showSuggestions && suggestions.length > 0"
+          class="absolute top-full left-0 mt-2 w-[420px] bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 overflow-hidden z-50"
+        >
+          <div
+            v-for="s in suggestions"
+            :key="s.text"
+            @mousedown.prevent="selectSuggestion(s.text)"
+            class="px-4 py-2.5 flex items-center gap-3 hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer transition-colors"
+          >
+            <svg
+              width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round" class="text-gray-400 shrink-0"
+            >
+              <circle cx="11" cy="11" r="8" />
+              <line x1="21" y1="21" x2="16.65" y2="16.65" />
+            </svg>
+            <div>
+              <span class="text-[13px] text-gray-700 dark:text-gray-200">{{ s.text }}</span>
+              <span class="text-[11px] text-gray-400 ml-2">— {{ s.type }}</span>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 
     <!-- RIGHT -->
     <div class="flex items-start gap-8 shrink-0">
       <button
-        class="group relative flex flex-col items-center gap-1 text-[13px] font-medium text-[#4f5a72] hover:text-[#ff5533] transition-colors"
+        class="group relative flex flex-col items-center gap-1 text-[13px] font-medium text-[#4f5a72] dark:text-gray-300 hover:text-[#ff5533] transition-colors"
       >
         <Heart :size="22" :stroke-width="2.5" />
         <span>Wishlist</span>
@@ -128,7 +175,7 @@ const handleSearch = () => {
       </button>
 
       <button
-        class="group relative flex flex-col items-center gap-1 text-[13px] font-medium text-[#4f5a72] hover:text-[#ff5533] transition-colors"
+        class="group relative flex flex-col items-center gap-1 text-[13px] font-medium text-[#4f5a72] dark:text-gray-300 hover:text-[#ff5533] transition-colors"
       >
         <ShoppingCart :size="22" :stroke-width="2.5" />
         <span>Cart</span>
@@ -138,7 +185,7 @@ const handleSearch = () => {
       </button>
 
       <button
-        class="group relative flex flex-col items-center gap-1 text-[13px] font-medium text-[#4f5a72] hover:text-[#ff5533] transition-colors"
+        class="group relative flex flex-col items-center gap-1 text-[13px] font-medium text-[#4f5a72] dark:text-gray-300 hover:text-[#ff5533] transition-colors"
       >
         <Globe :size="22" :stroke-width="2.5" />
         <span>EN/EUR €</span>
@@ -152,7 +199,7 @@ const handleSearch = () => {
         @mouseleave="onProfileLeave"
       >
         <button
-          class="group relative flex flex-col items-center gap-1 text-[13px] font-medium text-[#4f5a72] hover:text-[#ff5533] transition-colors"
+          class="group relative flex flex-col items-center gap-1 text-[13px] font-medium text-[#4f5a72] dark:text-gray-300 hover:text-[#ff5533] transition-colors"
         >
           <User :size="22" :stroke-width="2.5" />
           <span>Profile</span>
@@ -180,16 +227,16 @@ const handleSearch = () => {
       @mouseenter="onProfileEnter"
       @mouseleave="onMenuLeave"
     >
-            <div class="w-[260px] bg-white rounded-2xl shadow-[0_4px_24px_rgba(0,0,0,0.12)] border border-gray-100 overflow-hidden">
+            <div class="w-[260px] bg-white dark:bg-gray-800 rounded-2xl shadow-[0_4px_24px_rgba(0,0,0,0.12)] border border-gray-100 dark:border-gray-700 overflow-hidden">
             <!-- Profile header -->
             <div class="px-4 pt-4 pb-3">
               <div class="flex items-center gap-3">
-                <div class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center">
-                  <User :size="20" class="text-gray-500" />
+                <div class="w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-700 flex items-center justify-center">
+                  <User :size="20" class="text-gray-500 dark:text-gray-300" />
                 </div>
                 <div class="flex-1">
-                  <p class="text-[14px] font-semibold text-gray-900">Profile</p>
-                  <button class="flex items-center gap-1 text-[12px] text-blue-600 hover:text-blue-700 mt-0.5">
+                  <p class="text-[14px] font-semibold text-gray-900 dark:text-white">Profile</p>
+                  <button class="flex items-center gap-1 text-[12px] text-blue-600 dark:text-blue-400 hover:text-blue-700 mt-0.5">
                     <LogIn :size="13" />
                     <span>Log in or sign in</span>
                     <ArrowRight :size="13" />
@@ -198,58 +245,61 @@ const handleSearch = () => {
               </div>
             </div>
 
-            <div class="h-px bg-gray-100" />
+            <div class="h-px bg-gray-100 dark:bg-gray-700" />
 
             <!-- Updates -->
-            <div class="px-4 py-3 flex items-center justify-between hover:bg-gray-50 cursor-pointer transition-colors">
+            <div class="px-4 py-3 flex items-center justify-between hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer transition-colors">
               <div class="flex items-center gap-3">
-                <Bell :size="18" class="text-gray-500" />
-                <span class="text-[13px] text-gray-700 font-medium">Updates</span>
+                <Bell :size="18" class="text-gray-500 dark:text-gray-300" />
+                <span class="text-[13px] text-gray-700 dark:text-gray-200 font-medium">Updates</span>
               </div>
-              <ArrowRight :size="15" class="text-gray-400" />
+              <ArrowRight :size="15" class="text-gray-400 dark:text-gray-500" />
             </div>
 
             <!-- Appearance -->
             <div class="px-4 py-3 flex items-center justify-between">
               <div class="flex items-center gap-3">
-                <Sun :size="18" class="text-gray-500" />
-                <span class="text-[13px] text-gray-700 font-medium">Appearance</span>
+                <Sun :size="18" class="text-gray-500 dark:text-gray-300" />
+                <span class="text-[13px] text-gray-700 dark:text-gray-200 font-medium">Appearance</span>
               </div>
               <div
                 @click="toggleTheme"
                 class="relative w-11 h-[22px] rounded-full cursor-pointer transition-colors"
-                :class="isDarkMode ? 'bg-blue-600' : 'bg-gray-200'"
+                :class="themeStore.isDark ? 'bg-blue-600' : 'bg-gray-200'"
               >
                 <div
                   class="absolute top-0.5 w-[18px] h-[18px] rounded-full bg-white shadow-sm transition-all duration-200 flex items-center justify-center"
-                  :class="isDarkMode ? 'right-0.5' : 'left-0.5'"
+                  :class="themeStore.isDark ? 'right-0.5' : 'left-0.5'"
                 >
-                  <component :is="isDarkMode ? Moon : Sun" :size="10" class="text-gray-600" />
+                  <component :is="themeStore.isDark ? Moon : Sun" :size="10" class="text-gray-600" />
                 </div>
               </div>
             </div>
 
-            <div class="h-px bg-gray-100" />
+            <div class="h-px bg-gray-100 dark:bg-gray-700" />
 
             <!-- Support -->
-            <div class="px-4 py-3 flex items-center justify-between hover:bg-gray-50 cursor-pointer transition-colors">
+            <div
+              @click="router.push('/support'); showProfileMenu = false"
+              class="px-4 py-3 flex items-center justify-between hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer transition-colors"
+            >
               <div class="flex items-center gap-3">
-                <Headphones :size="18" class="text-gray-500" />
-                <span class="text-[13px] text-gray-700 font-medium">Support</span>
+                <Headphones :size="18" class="text-gray-500 dark:text-gray-300" />
+                <span class="text-[13px] text-gray-700 dark:text-gray-200 font-medium">Support</span>
               </div>
-              <ArrowRight :size="15" class="text-gray-400" />
+              <ArrowRight :size="15" class="text-gray-400 dark:text-gray-500" />
             </div>
 
             <!-- Download the app -->
-            <div class="px-4 py-3 flex items-center justify-between hover:bg-gray-50 cursor-pointer transition-colors border-t border-gray-100">
+            <div class="px-4 py-3 flex items-center justify-between hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer transition-colors border-t border-gray-100 dark:border-gray-700">
               <div class="flex items-center gap-3">
-                <Smartphone :size="18" class="text-gray-500" />
+                <Smartphone :size="18" class="text-gray-500 dark:text-gray-300" />
                 <div>
-                  <span class="text-[13px] text-gray-700 font-medium">Download the app</span>
-                  <p class="text-[11px] text-gray-400">Get the best experience</p>
+                  <span class="text-[13px] text-gray-700 dark:text-gray-200 font-medium">Download the app</span>
+                  <p class="text-[11px] text-gray-400 dark:text-gray-500">Get the best experience</p>
                 </div>
               </div>
-              <ArrowRight :size="15" class="text-gray-400" />
+              <ArrowRight :size="15" class="text-gray-400 dark:text-gray-500" />
             </div>
           </div>
         </div>

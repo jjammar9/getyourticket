@@ -6,15 +6,15 @@ import Breadcrumbs from "../components/ui/Breadcrumbs.vue";
 import SearchCard from "../components/cards/SearchCard.vue";
 import { experiencesData } from "../data/experiencesData.js";
 import { navData } from "../data/megaMenuData.js";
+import { toSlug } from "../utils/helpers.js";
+import { useSearchSuggestions } from "../composables/useSearchSuggestions.js";
 
 const route = useRoute();
 const router = useRouter();
 
 const searchInput = ref("");
-
-function toSlug(str) {
-  return str.toLowerCase().replace(/\s+/g, "-");
-}
+const showSuggestions = ref(false);
+const { suggestions: autoSuggestions } = useSearchSuggestions(searchInput);
 
 const query = computed(() => (route.query.q || "").toLowerCase().trim());
 
@@ -98,23 +98,46 @@ const suggestions = computed(() => {
       <div v-else class="py-20 text-center">
         <h2 class="text-3xl font-bold text-[#0b2343]">Search experiences & attractions</h2>
         <p class="mt-2 text-gray-500">Type above to find top-rated tours worldwide.</p>
-        <div class="mt-8 max-w-md mx-auto">
-          <div class="flex items-center bg-white rounded-full border border-gray-300 p-1">
-            <input
-              v-model="searchInput"
-              @keyup.enter="searchInput && router.push(`/search?q=${encodeURIComponent(searchInput)}`)"
-              type="text"
-              placeholder="Search destinations, tours..."
-              class="flex-1 px-5 py-2.5 outline-none rounded-full text-[14px] text-gray-700 placeholder:text-gray-400"
-            />
-            <button
-              @click="searchInput && router.push(`/search?q=${encodeURIComponent(searchInput)}`)"
-              class="bg-[#0a6cff] hover:bg-[#0057d8] text-white text-[14px] font-semibold px-7 py-2.5 rounded-full transition"
+          <div class="mt-8 max-w-md mx-auto relative">
+            <div class="flex items-center bg-white rounded-full border border-gray-300 p-1">
+              <input
+                v-model="searchInput"
+                @keyup.enter="searchInput && router.push(`/search?q=${encodeURIComponent(searchInput)}`)"
+                @focus="showSuggestions = true"
+                @blur="setTimeout(() => showSuggestions = false, 200)"
+                @input="showSuggestions = true"
+                type="text"
+                placeholder="Search destinations, tours..."
+                class="flex-1 px-5 py-2.5 outline-none rounded-full text-[14px] text-gray-700 placeholder:text-gray-400"
+              />
+              <button
+                @click="searchInput && router.push(`/search?q=${encodeURIComponent(searchInput)}`)"
+                class="bg-[#0a6cff] hover:bg-[#0057d8] text-white text-[14px] font-semibold px-7 py-2.5 rounded-full transition"
+              >
+                Search
+              </button>
+            </div>
+            <div
+              v-if="showSuggestions && autoSuggestions.length > 0"
+              class="absolute top-full left-0 right-0 mt-2 bg-white rounded-xl shadow-lg border border-gray-200 overflow-hidden z-50"
             >
-              Search
-            </button>
+              <div
+              v-for="s in autoSuggestions"
+                :key="s.text"
+                @mousedown.prevent="searchInput = s.text; showSuggestions = false; router.push(`/search?q=${encodeURIComponent(s.text)}`)"
+                class="px-4 py-2.5 flex items-center gap-3 hover:bg-gray-50 cursor-pointer transition-colors"
+              >
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-gray-400 shrink-0">
+                  <circle cx="11" cy="11" r="8" />
+                  <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                </svg>
+                <div>
+                  <span class="text-[13px] text-gray-700">{{ s.text }}</span>
+                  <span class="text-[11px] text-gray-400 ml-2">— {{ s.type }}</span>
+                </div>
+              </div>
+            </div>
           </div>
-        </div>
         <div class="mt-10 flex flex-wrap justify-center gap-4">
           <button
             @click="router.push('/attractions')"

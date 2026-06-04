@@ -25,7 +25,7 @@ function goToItem(item) {
   <div class="grid grid-cols-4 gap-x-6 gap-y-2">
     <button v-for="item in currentItems" :key="item.title" @click="goToItem(item)">
       <div
-        class="flex items-center gap-2 rounded-md px-2 py-1.5 hover:bg-sky-100 transition text-left"
+        class="flex items-center gap-2 rounded-md px-2 py-1.5 hover:bg-sky-100 dark:hover:bg-gray-700 transition text-left"
       >
         <img
           :src="item.image"
@@ -35,11 +35,11 @@ function goToItem(item) {
         />
 
         <div>
-          <p class="font-medium text-gray-900 text-[15px]">
+          <p class="font-medium text-gray-900 dark:text-white text-[15px]">
             {{ item.title }}
           </p>
 
-          <p class="text-[13px] text-gray-500">
+          <p class="text-[13px] text-gray-500 dark:text-gray-400">
             {{ item.subtitle }}
           </p>
         </div>

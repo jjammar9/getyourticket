@@ -8,6 +8,7 @@ import CategoryView from "../views/CategoryView.vue";
 import ThingsToDoView from "../views/ThingsToDoView.vue";
 import ExperiencesView from "../views/ExperiencesView.vue";
 import AttractionsView from "../views/AttractionsView.vue";
+import SupportView from "../views/SupportView.vue";
 import NotFoundView from "../views/NotFoundView.vue";
 
 const routes = [
@@ -50,6 +51,11 @@ const routes = [
     path: "/attractions",
     name: "attractions",
     component: AttractionsView,
+  },
+  {
+    path: "/support",
+    name: "support",
+    component: SupportView,
   },
   {
     path: "/:pathMatch(.*)*",
