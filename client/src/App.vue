@@ -2,6 +2,7 @@
 import Navbar from "./components/layout/Navbar.vue";
 import Footer from "./components/layout/Footer.vue";
 import Toast from "./components/ui/Toast.vue";
+import ScrollToTop from "./components/ui/ScrollToTop.vue";
 import { useBookingStore } from "./stores/bookingStore.js";
 
 const bookingStore = useBookingStore();
@@ -16,6 +17,8 @@ const bookingStore = useBookingStore();
     </main>
 
     <Footer />
+
+    <ScrollToTop />
 
     <Toast
       v-if="bookingStore.toast"

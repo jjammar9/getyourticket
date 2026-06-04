@@ -9,7 +9,6 @@ import TrustBar from "../components/sections/TrustBar.vue";
 import ExperiencesSection from "../components/sections/ExperiencesSection.vue";
 import WhyBookSection from "../components/sections/WhyBookSection.vue";
 import NewsletterSection from "../components/sections/NewsletterSection.vue";
-import BackToTop from "../components/ui/BackToTop.vue";
 </script>
 
 <template>
@@ -25,6 +24,5 @@ import BackToTop from "../components/ui/BackToTop.vue";
       <WhyBookSection />
       <NewsletterSection />
     </Container>
-    <BackToTop />
   </main>
 </template>

@@ -9,7 +9,7 @@ defineProps({
 
 <template>
   <div v-if="description" class="mt-14">
-    <h2 class="text-[24px] font-bold tracking-[-0.3px] text-[#0b2343]" style="font-family: 'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif;">
+    <h2 class="text-[24px] font-bold tracking-[-0.3px] text-[#0b2343]">
       About this experience
     </h2>
 

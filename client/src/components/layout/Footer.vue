@@ -17,9 +17,6 @@ import {
 <template>
   <footer
     class="w-full bg-[#0f2147] text-white mt-24"
-    style="
-      font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif;
-    "
   >
     <Container>
       <div class="py-20">
@@ -28,7 +25,7 @@ import {
             <div>
               <FooterSelect />
 
-              <p class="text-[13px] font-medium text-white/70 mt-6">
+              <p class="text-[13px] font-medium text-white mt-6">
                 {{ footerCopyright }}
               </p>
             </div>

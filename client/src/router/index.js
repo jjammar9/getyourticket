@@ -9,6 +9,8 @@ import ThingsToDoView from "../views/ThingsToDoView.vue";
 import ExperiencesView from "../views/ExperiencesView.vue";
 import AttractionsView from "../views/AttractionsView.vue";
 import SupportView from "../views/SupportView.vue";
+import LegalNoticeView from "../views/LegalNoticeView.vue";
+import PrivacyPolicyView from "../views/PrivacyPolicyView.vue";
 import NotFoundView from "../views/NotFoundView.vue";
 
 const routes = [
@@ -58,6 +60,16 @@ const routes = [
     component: SupportView,
   },
   {
+    path: "/legal-notice",
+    name: "legal-notice",
+    component: LegalNoticeView,
+  },
+  {
+    path: "/privacy-policy",
+    name: "privacy-policy",
+    component: PrivacyPolicyView,
+  },
+  {
     path: "/:pathMatch(.*)*",
     name: "not-found",
     component: NotFoundView,
@@ -67,4 +79,7 @@ const routes = [
 export default createRouter({
   history: createWebHistory(),
   routes,
+  scrollBehavior() {
+    return { top: 0 };
+  },
 });

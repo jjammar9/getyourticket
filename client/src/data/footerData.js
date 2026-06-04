@@ -1,26 +1,26 @@
 export const supportLinks = [
-  "Contact",
-  "Legal Notice",
-  "Privacy Policy",
-  "Cookies and Marketing Preferences",
-  "General Terms and Conditions",
-  "Information according to the Digital Services Act",
-  "Sitemap",
+  { name: "Contact", to: "/support" },
+  { name: "Legal Notice", to: "/legal-notice" },
+  { name: "Privacy Policy", to: "/privacy-policy" },
+  { name: "Cookies and Marketing Preferences", to: "#" },
+  { name: "General Terms and Conditions", to: "#" },
+  { name: "Information according to the Digital Services Act", to: "#" },
+  { name: "Sitemap", to: "#" },
 ];
 
 export const companyLinks = [
-  "About Us",
-  "Careers",
-  "Blog",
-  "Press",
-  "Gift Cards",
-  "Explorer",
+  { name: "About Us", to: "#" },
+  { name: "Careers", to: "#" },
+  { name: "Blog", to: "#" },
+  { name: "Press", to: "#" },
+  { name: "Gift Cards", to: "#" },
+  { name: "Explorer", to: "#" },
 ];
 
 export const workLinks = [
-  "As a Supply Partner",
-  "As a Content Creator",
-  "As an Affiliate Partner",
+  { name: "As a Supply Partner", to: "#" },
+  { name: "As a Content Creator", to: "#" },
+  { name: "As an Affiliate Partner", to: "#" },
 ];
 
 export const footerCopyright =

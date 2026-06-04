@@ -2,6 +2,99 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
+@theme {
+  --font-display: "GT Eesti Display", "fallback for GT Eesti", "android fallback for GT Eesti", sans-serif;
+  --font-body: "GT Eesti Text", "fallback for GT Eesti", "android fallback for GT Eesti", sans-serif;
+}
+
+/* GT Eesti Display */
+@font-face {
+  font-family: "GT Eesti Display";
+  src: url("./assets/fonts/GT-Eesti-Display-UltraLight-Trial.otf") format("opentype");
+  font-weight: 200;
+  font-style: normal;
+}
+@font-face {
+  font-family: "GT Eesti Display";
+  src: url("./assets/fonts/GT-Eesti-Display-Thin-Trial.otf") format("opentype");
+  font-weight: 250;
+  font-style: normal;
+}
+@font-face {
+  font-family: "GT Eesti Display";
+  src: url("./assets/fonts/GT-Eesti-Display-Light-Trial.otf") format("opentype");
+  font-weight: 300;
+  font-style: normal;
+}
+@font-face {
+  font-family: "GT Eesti Display";
+  src: url("./assets/fonts/GT-Eesti-Display-Regular-Trial.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: "GT Eesti Display";
+  src: url("./assets/fonts/GT-Eesti-Display-Medium-Trial.otf") format("opentype");
+  font-weight: 500;
+  font-style: normal;
+}
+@font-face {
+  font-family: "GT Eesti Display";
+  src: url("./assets/fonts/GT-Eesti-Display-Bold-Trial.otf") format("opentype");
+  font-weight: 700;
+  font-style: normal;
+}
+@font-face {
+  font-family: "GT Eesti Display";
+  src: url("./assets/fonts/GT-Eesti-Display-UltraBold-Trial.otf") format("opentype");
+  font-weight: 800;
+  font-style: normal;
+}
+
+/* GT Eesti Text */
+@font-face {
+  font-family: "GT Eesti Text";
+  src: url("./assets/fonts/GT-Eesti-Text-UltraLight-Trial.otf") format("opentype");
+  font-weight: 200;
+  font-style: normal;
+}
+@font-face {
+  font-family: "GT Eesti Text";
+  src: url("./assets/fonts/GT-Eesti-Text-Thin-Trial.otf") format("opentype");
+  font-weight: 250;
+  font-style: normal;
+}
+@font-face {
+  font-family: "GT Eesti Text";
+  src: url("./assets/fonts/GT-Eesti-Text-Light-Trial.otf") format("opentype");
+  font-weight: 300;
+  font-style: normal;
+}
+@font-face {
+  font-family: "GT Eesti Text";
+  src: url("./assets/fonts/GT-Eesti-Text-Book-Trial.otf") format("opentype");
+  font-weight: 350;
+  font-style: normal;
+}
+@font-face {
+  font-family: "GT Eesti Text";
+  src: url("./assets/fonts/GT-Eesti-Text-Regular-Trial.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: "GT Eesti Text";
+  src: url("./assets/fonts/GT-Eesti-Text-Medium-Trial.otf") format("opentype");
+  font-weight: 500;
+  font-style: normal;
+}
+@font-face {
+  font-family: "GT Eesti Text";
+  src: url("./assets/fonts/GT-Eesti-Text-Bold-Trial.otf") format("opentype");
+  font-weight: 700;
+  font-style: normal;
+}
+
 @keyframes fade-in-up {
   from {
     opacity: 0;
@@ -31,6 +124,14 @@
   --color-text: #e2e8f0;
   --color-card: #1e293b;
   --color-border: #334155;
+}
+
+body {
+  font-family: var(--font-body);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
 }
 
 .dark body {

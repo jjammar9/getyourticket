@@ -39,7 +39,7 @@ defineProps({
           'text-[32px] font-bold tracking-[-0.5px] leading-tight',
           color === 'primary' ? 'text-[#0b2343] dark:text-white' : 'text-white',
         ]"
-        style="font-family: 'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif;"
+
       >
         {{ title }}
       </h2>

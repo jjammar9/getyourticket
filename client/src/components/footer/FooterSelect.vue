@@ -40,7 +40,7 @@ function selectCurrency(curr) {
 
 <template>
   <div class="shrink-0" style="width: 240px">
-    <p class="text-[13px] font-bold mb-[6px]">Language</p>
+    <p class="text-[13px] font-bold mb-[6px]" style="font-family: var(--font-display);">Language</p>
     <div class="relative">
       <button
         @click="
@@ -50,7 +50,6 @@ function selectCurrency(curr) {
         class="w-full bg-white rounded-lg px-4 h-[44px] flex items-center justify-between text-[13px] font-semibold border-0 cursor-pointer"
         style="
           color: #0f2147;
-          font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif;
         "
       >
         <span>{{ selectedLanguage }}</span>
@@ -86,8 +85,6 @@ function selectCurrency(curr) {
           "
           style="
             color: #0f2147;
-            font-family:
-              &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif;
           "
         >
           {{ lang }}
@@ -95,7 +92,7 @@ function selectCurrency(curr) {
       </div>
     </div>
 
-    <p class="text-[13px] font-bold mt-4 mb-[6px]">Currency</p>
+    <p class="text-[13px] font-bold mt-4 mb-[6px]" style="font-family: var(--font-display);">Currency</p>
     <div class="relative">
       <button
         @click="
@@ -105,7 +102,6 @@ function selectCurrency(curr) {
         class="w-full bg-white rounded-lg px-4 h-[44px] flex items-center justify-between text-[13px] font-semibold border-0 cursor-pointer"
         style="
           color: #0f2147;
-          font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif;
         "
       >
         <span>{{ selectedCurrency }}</span>
@@ -141,8 +137,6 @@ function selectCurrency(curr) {
           "
           style="
             color: #0f2147;
-            font-family:
-              &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif;
           "
         >
           {{ curr }}
