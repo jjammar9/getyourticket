@@ -99,11 +99,25 @@ const handleSearch = () => {
       <!-- LOGO -->
       <div
         @click="router.push('/')"
-        class="w-[58px] select-none cursor-pointer shrink-0 font-black uppercase leading-[0.78] text-[#ff5b00]"
+        class="select-none cursor-pointer shrink-0 flex items-center gap-2"
       >
-        <p class="text-[18px] tracking-[-1.4px]">Get</p>
-        <p class="text-[18px] tracking-[-1.4px]">Your</p>
-        <p class="text-[18px] tracking-[-1.4px]">Ticket</p>
+        <!-- G mark -->
+        <svg width="38" height="38" viewBox="0 0 38 38" fill="none">
+          <circle cx="19" cy="19" r="17.5" stroke="currentColor" stroke-width="3" class="text-gray-900 dark:text-white" />
+          <path d="M19 7C12 7 7 12 7 19s5 12 12 12c3.5 0 6.5-1.5 8.5-3.5" stroke="currentColor" stroke-width="3" stroke-linecap="round" class="text-gray-900 dark:text-white" />
+          <path d="M19 16h8" stroke="currentColor" stroke-width="3" stroke-linecap="round" class="text-gray-900 dark:text-white" />
+          <circle cx="27" cy="23" r="2" fill="#ff5a1f" />
+        </svg>
+
+        <!-- Y mark -->
+        <svg width="38" height="38" viewBox="0 0 38 38" fill="none">
+          <circle cx="19" cy="19" r="17.5" stroke="currentColor" stroke-width="3" class="text-gray-900 dark:text-white" />
+          <path d="M10 10L14 14" stroke="currentColor" stroke-width="3" stroke-linecap="round" class="text-gray-900 dark:text-white" />
+          <path d="M28 10L24 14" stroke="currentColor" stroke-width="3" stroke-linecap="round" class="text-gray-900 dark:text-white" />
+          <path d="M19 22v5" stroke="currentColor" stroke-width="3" stroke-linecap="round" class="text-gray-900 dark:text-white" />
+          <circle cx="19" cy="17" r="2" fill="#ff5a1f" />
+        </svg>
+
       </div>
 
       <!-- SEARCH -->

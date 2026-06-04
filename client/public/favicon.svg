@@ -1,1 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" rx="20" fill="#ff5b00"/><text x="50" y="68" font-family="Inter, Helvetica, Arial, sans-serif" font-size="52" font-weight="800" fill="white" text-anchor="middle">GT</text></svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="38" height="38" viewBox="0 0 38 38" fill="none">
+  <circle cx="19" cy="19" r="17.5" stroke="#111827" stroke-width="3" />
+  <path d="M19 7C12 7 7 12 7 19s5 12 12 12c3.5 0 6.5-1.5 8.5-3.5" stroke="#111827" stroke-width="3" stroke-linecap="round" />
+  <path d="M19 16h8" stroke="#111827" stroke-width="3" stroke-linecap="round" />
+  <circle cx="27" cy="23" r="2" fill="#ff5a1f" />
+</svg>
