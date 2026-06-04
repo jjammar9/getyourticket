@@ -1,6 +1,7 @@
 <script setup>
 import { useRouter } from "vue-router";
 import { Heart, Star } from "lucide-vue-next";
+import { handleImageError } from "../../constants/placeholder.js";
 import Card from "../ui/Card.vue";
 
 const router = useRouter();
@@ -21,6 +22,7 @@ const goToExperience = () => {
       <img
         :src="item.image"
         :alt="item.title"
+        @error="handleImageError"
         class="w-full h-full object-cover group-hover:scale-[1.03] transition duration-500"
       />
 

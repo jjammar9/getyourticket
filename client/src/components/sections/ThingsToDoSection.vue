@@ -1,6 +1,7 @@
 <script setup>
 import { useRouter } from "vue-router";
 import { thingsToDoCards } from "../../data/homeData.js";
+import { handleImageError } from "../../constants/placeholder.js";
 import SectionTitle from "../ui/SectionTitle.vue";
 import fadeIn from "../../directives/fadeIn.js";
 
@@ -21,6 +22,7 @@ const router = useRouter();
         <img
           :src="card.image"
           :alt="card.title"
+          @error="handleImageError"
           class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition duration-700"
         />
 

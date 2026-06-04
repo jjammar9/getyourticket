@@ -1,12 +1,18 @@
 <script setup>
 import { computed } from "vue";
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 import Container from "../components/ui/Container.vue";
 import Breadcrumbs from "../components/ui/Breadcrumbs.vue";
 import SearchCard from "../components/cards/SearchCard.vue";
 import { experiencesData } from "../data/experiencesData.js";
+import { navData } from "../data/megaMenuData.js";
 
 const route = useRoute();
+const router = useRouter();
+
+function toSlug(str) {
+  return str.toLowerCase().replace(/\s+/g, "-");
+}
 
 const title = computed(() => {
   return (route.params.slug || "")
@@ -14,38 +20,105 @@ const title = computed(() => {
     .replace(/\b\w/g, (c) => c.toUpperCase());
 });
 
-function toSlug(str) {
-  return str.toLowerCase().replace(/\s+/g, "-");
-}
+const itemInfo = computed(() => {
+  const slug = (route.params.slug || "").toLowerCase();
+
+  for (const [sectionKey, section] of Object.entries(navData)) {
+    for (const [category, items] of Object.entries(section.categories)) {
+      for (const item of items) {
+        if (toSlug(item.title) === slug) {
+          return { sectionKey, section: section.label, category, item };
+        }
+      }
+    }
+  }
+  return null;
+});
+
+const sectionRoute = computed(() => {
+  if (!itemInfo.value) return "/";
+  const map = { places: "/attractions", things: "/things-to-do", inspiration: "/" };
+  return map[itemInfo.value.sectionKey] || "/";
+});
 
 const experiences = computed(() => {
   const slug = (route.params.slug || "").toLowerCase();
+  const loc = itemInfo.value?.item?.subtitle?.split(",")[0]?.trim() || "";
+
   return experiencesData.filter(
-    (item) => toSlug(item.location) === slug
+    (exp) => toSlug(exp.location) === slug || (loc && toSlug(exp.location) === toSlug(loc))
   );
 });
 
-const breadcrumbs = computed(() => [
-  { label: "Destinations" },
-  { label: title.value },
-]);
+const breadcrumbs = computed(() => {
+  const crumbs = [];
+  if (itemInfo.value) {
+    crumbs.push({ label: itemInfo.value.section, to: sectionRoute.value });
+    crumbs.push({ label: itemInfo.value.category });
+  }
+  crumbs.push({ label: title.value });
+  return crumbs;
+});
+
+const randomExperiences = computed(() => {
+  const shuffled = [...experiencesData].sort(() => Math.random() - 0.5);
+  return shuffled.slice(0, 4);
+});
 </script>
 
 <template>
   <Container>
     <div class="pt-32 pb-12">
       <Breadcrumbs :pages="breadcrumbs" />
-      <h1 class="text-[32px] font-bold tracking-[-0.5px] text-[#0b2343] mb-8">
+
+      <div v-if="itemInfo" class="mb-10">
+        <div class="relative h-[300px] rounded-2xl overflow-hidden mb-6">
+          <img
+            :src="itemInfo.item.image"
+            :alt="itemInfo.item.title"
+            class="w-full h-full object-cover"
+          />
+          <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+          <div class="absolute bottom-0 left-0 p-8">
+            <h1 class="text-[36px] font-bold text-white tracking-[-0.5px]">
+              {{ itemInfo.item.title }}
+            </h1>
+            <p class="text-white/80 text-[16px] mt-1 font-medium">
+              {{ itemInfo.item.subtitle }}
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <h1 v-else class="text-[32px] font-bold tracking-[-0.5px] text-[#0b2343] mb-8">
         {{ title }}
       </h1>
 
-      <div v-if="experiences.length" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-8">
-        <SearchCard v-for="item in experiences" :key="item.id" :item="item" />
+      <div v-if="experiences.length" class="mb-6">
+        <h2 class="text-[22px] font-bold text-[#0b2343] mb-6">Tours & activities</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-8">
+          <SearchCard v-for="item in experiences" :key="item.id" :item="item" />
+        </div>
       </div>
 
-      <div v-else class="py-20 text-center">
-        <h2 class="text-3xl font-bold text-[#0b2343]">No experiences found</h2>
-        <p class="mt-2 text-gray-500">No experiences available for this destination yet.</p>
+      <div v-else class="py-16 text-center border-t border-gray-100">
+        <h2 class="text-3xl font-bold text-[#0b2343]">Explore {{ title }}</h2>
+        <p class="mt-2 text-gray-500 max-w-md mx-auto">
+          Discover tours, activities, and attractions for this destination.
+        </p>
+        <button
+          @click="router.push('/attractions')"
+          class="mt-6 inline-block bg-[#0a6cff] hover:bg-[#0057d8] text-white font-semibold px-8 py-3 rounded-full transition"
+        >
+          Browse all attractions
+        </button>
+      </div>
+
+      <div v-if="!experiences.length" class="mt-16">
+        <h2 class="text-[22px] font-bold text-[#0b2343] mb-6">Popular experiences</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-8">
+          <SearchCard v-for="item in randomExperiences" :key="item.id" :item="item" />
+        </div>
       </div>
     </div>
   </Container>

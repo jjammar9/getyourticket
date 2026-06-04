@@ -1,8 +1,8 @@
 <script setup>
-import NavbarTop from "../navbar/NavbarTop.vue";
-import NavbarLinks from "../navbar/NavbarLinks.vue";
-import MegaMenu from "../navbar/MegaMenu.vue";
-import MobileNavbar from "../navbar/MobileNavbar.vue";
+import NavbarTop from "../Navbar/NavbarTop.vue";
+import NavbarLinks from "../Navbar/NavbarLinks.vue";
+import MegaMenu from "../Navbar/MegaMenu.vue";
+import MobileNavbar from "../Navbar/MobileNavbar.vue";
 import Container from "../ui/Container.vue";
 
 import { ref, computed, onMounted, onUnmounted } from "vue";
@@ -74,13 +74,13 @@ onUnmounted(() => {
 const currentCategories = computed(() => {
   if (!activeDropdown.value) return [];
 
-  return Object.keys(navData[activeDropdown.value].categories);
+  return Object.keys(navData[activeDropdown.value]?.categories || {});
 });
 
 const currentItems = computed(() => {
   if (!activeDropdown.value || !activeCategory.value) return [];
 
-  return navData[activeDropdown.value].categories[activeCategory.value] || [];
+  return navData[activeDropdown.value]?.categories[activeCategory.value] || [];
 });
 
 const toggleDropdown = (id) => {
@@ -103,7 +103,7 @@ const handleHoverStart = (id) => {
 
   hoverTimer = setTimeout(() => {
     activeDropdown.value = id;
-    activeCategory.value = Object.keys(navData[id].categories)[0];
+    activeCategory.value = Object.keys(navData[id]?.categories || {})[0] || null;
   }, 120);
 };
 
@@ -139,7 +139,7 @@ const handleHoverEnd = () => {
 
         <div
           v-if="isHomePage"
-          class="overflow-hidden transition-all duration-300 ease-out"
+          class="overflow-hidden transition-all duration-300 ease-out pt-3"
           :class="
             isScrolled
               ? 'opacity-0 max-h-0 -translate-y-2 pointer-events-none'

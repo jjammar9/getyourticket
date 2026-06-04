@@ -1,5 +1,8 @@
 <script setup>
 import { ChevronDown } from "lucide-vue-next";
+import { useRouter } from "vue-router";
+
+const router = useRouter();
 
 defineProps({
   navData: Object,
@@ -7,6 +10,16 @@ defineProps({
   handleHoverStart: Function,
   handleHoverEnd: Function,
 });
+
+const navRoutes = {
+  places: "/attractions",
+  things: "/things-to-do",
+  inspiration: "/experiences",
+};
+
+function handleClick(key) {
+  router.push(navRoutes[key] || "/");
+}
 </script>
 
 <template>
@@ -14,10 +27,10 @@ defineProps({
     <button
       v-for="(item, key) in navData"
       :key="key"
-      @click="toggleDropdown(key)"
+      @click="handleClick(key)"
       @mouseenter="handleHoverStart(key)"
       @mouseleave="handleHoverEnd"
-      class="group relative flex items-center gap-1.5 text-[14px] font-medium text-[#061d44] hover:text-[#ff5533] transition-colors"
+      class="group relative flex items-center gap-1.5 text-[15px] font-semibold text-[#061d44] hover:text-[#ff5533] transition-colors"
     >
       {{ item.label }}
 

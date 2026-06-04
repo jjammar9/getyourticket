@@ -2,6 +2,7 @@
 import { ref, computed } from "vue";
 import { useRouter } from "vue-router";
 import { attractionsCards } from "../../data/homeData.js";
+import { handleImageError } from "../../constants/placeholder.js";
 import { Star } from "lucide-vue-next";
 
 import SectionTitle from "../ui/SectionTitle.vue";
@@ -64,6 +65,7 @@ const prevPage = () => {
               <img
                 :src="card.image"
                 :alt="card.title"
+                @error="handleImageError"
                 class="w-full h-full object-cover group-hover:scale-[1.03] transition duration-500"
               />
 

@@ -1,4 +1,6 @@
 <script setup>
+import { handleImageError } from "../../constants/placeholder.js";
+
 defineProps({
   experience: {
     type: Object,
@@ -15,6 +17,7 @@ defineProps({
         :src="experience.image"
         :alt="experience.title"
         class="w-full h-[500px] object-cover rounded-3xl"
+        @error="handleImageError"
       />
     </div>
 
@@ -24,18 +27,21 @@ defineProps({
         :src="experience.image"
         :alt="experience.title"
         class="h-[116px] object-cover rounded-2xl"
+        @error="handleImageError"
       />
 
       <img
         :src="experience.image"
         :alt="experience.title"
         class="h-[116px] object-cover rounded-2xl"
+        @error="handleImageError"
       />
 
       <img
         :src="experience.image"
         :alt="experience.title"
         class="h-[116px] object-cover rounded-2xl"
+        @error="handleImageError"
       />
 
       <div class="relative">
@@ -43,6 +49,7 @@ defineProps({
           :src="experience.image"
           :alt="experience.title"
           class="h-[116px] w-full object-cover rounded-2xl"
+          @error="handleImageError"
         />
 
         <div

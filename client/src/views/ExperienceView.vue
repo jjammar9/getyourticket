@@ -26,7 +26,7 @@ const experience = computed(() => {
 
 <template>
   <Container>
-    <div v-if="experience" class="py-12">
+    <div v-if="experience" class="pt-32 pb-12">
       <!-- BREADCRUMBS -->
       <ExperienceBreadcrumbs :location="experience.location" />
 
@@ -34,12 +34,12 @@ const experience = computed(() => {
       <ExperienceHeader :experience="experience" />
 
       <!-- GALLERY + BOOKING -->
-      <div class="mt-8 grid grid-cols-12 gap-8">
-        <div class="col-span-8">
+      <div class="mt-8 grid grid-cols-1 md:grid-cols-12 gap-8">
+        <div class="md:col-span-8">
           <ExperienceGallery :experience="experience" />
         </div>
 
-        <div class="col-span-4">
+        <div class="md:col-span-4">
           <ExperienceBookingCard :experience="experience" />
         </div>
       </div>

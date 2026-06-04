@@ -1,11 +1,24 @@
 <script setup>
 import { Menu, X } from "lucide-vue-next";
+import { useRouter } from "vue-router";
+
+const router = useRouter();
 
 defineProps({
   mobileMenuOpen: Boolean,
   navData: Object,
   toggleMobileMenu: Function,
 });
+
+const navRoutes = {
+  places: "/attractions",
+  things: "/things-to-do",
+  inspiration: "/experiences",
+};
+
+function goTo(key) {
+  router.push(navRoutes[key] || "/");
+}
 </script>
 
 <template>
@@ -31,14 +44,14 @@ defineProps({
     <!-- mobile menu -->
     <div v-if="mobileMenuOpen" class="px-5 pb-6 border-t bg-white">
       <div class="flex flex-col gap-5 pt-5">
-        <a
+        <button
           v-for="(item, key) in navData"
           :key="key"
-          href="#"
-          class="font-semibold text-gray-700"
+          @click="goTo(key)"
+          class="text-left font-semibold text-gray-700"
         >
           {{ item.label }}
-        </a>
+        </button>
       </div>
     </div>
   </div>
