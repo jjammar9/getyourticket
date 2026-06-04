@@ -59,7 +59,8 @@ const handleSearch = () => {
         :class="showSearch ? 'opacity-100' : 'opacity-0'"
       >
         <div
-          class="w-[420px] flex items-center bg-white border border-gray-300 rounded-full p-1"
+          class="w-[420px] flex items-center bg-white rounded-full p-1"
+          :class="isHomePage ? 'border border-gray-300' : 'border border-black'"
         >
           <input
             v-model="searchTerm"

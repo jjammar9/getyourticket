@@ -1,0 +1,35 @@
+[33mcommit 093791ad5c929abbb2a89b73f760f18101cb99ae[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: jjammar9 <jjam24306@gmail.com>
+Date:   Wed Jun 3 09:26:18 2026 +0200
+
+    so many changes to the Home page, added sections, modified some sections
+
+ client/index.html                                  |   2 [32m+[m[31m-[m
+ client/public/favicon.svg                          |   2 [32m+[m[31m-[m
+ client/src/components/Navbar/NavbarTop.vue         |   1 [32m+[m
+ client/src/components/UI/BackToTop.vue             |  33 [32m++++++[m
+ client/src/components/UI/Card.vue                  |  57 [32m+[m[31m---------[m
+ client/src/components/UI/SectionTitle.vue          |  44 [32m+++++[m[31m---[m
+ client/src/components/UI/SkeletonCard.vue          |  25 [32m+++++[m
+ client/src/components/cards/ExperienceCard.vue     |  53 [32m++[m[31m-------[m
+ client/src/components/cards/WhyBookCard.vue        |  51 [32m++[m[31m-------[m
+ .../experience/ExperienceDescription.vue           |   2 [32m+[m[31m-[m
+ .../src/components/experience/ExperienceHeader.vue |   3 [32m+[m[31m-[m
+ .../components/experience/ExperienceHighlights.vue |   2 [32m+[m[31m-[m
+ .../components/experience/ExperienceIncluded.vue   |   2 [32m+[m[31m-[m
+ .../experience/ExperienceMeetingPoint.vue          |   2 [32m+[m[31m-[m
+ .../components/experience/ExperienceReviews.vue    |   2 [32m+[m[31m-[m
+ .../src/components/sections/AttractionsSection.vue |  88 [32m++++++++++[m[31m-----[m
+ .../src/components/sections/CategoriesSection.vue  |  37 [32m+++++++[m
+ .../src/components/sections/ExperiencesSection.vue |   5 [32m+[m[31m-[m
+ client/src/components/sections/HeroSection.vue     |   4 [32m+[m[31m-[m
+ .../src/components/sections/NewsletterSection.vue  |  44 [32m++++++++[m
+ .../src/components/sections/ThingsToDoSection.vue  |  36 [32m+++++[m[31m--[m
+ .../src/components/sections/TrendingSearches.vue   |  51 [32m+++++++++[m
+ client/src/components/sections/TrustBar.vue        |  18 [32m++++[m
+ client/src/components/sections/WhyBookSection.vue  |   3 [32m+[m[31m-[m
+ client/src/data/homeData.js                        | 120 [32m+++++++++++++++++[m[31m----[m
+ client/src/directives/fadeIn.js                    |  14 [32m+++[m
+ client/src/style.css                               |  17 [32m++[m[31m-[m
+ client/src/views/HomeView.vue                      |  10 [32m++[m
+ 28 files changed, 509 insertions(+), 219 deletions(-)

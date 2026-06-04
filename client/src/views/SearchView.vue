@@ -1,111 +1,49 @@
 <script setup>
-import { useRouter } from "vue-router";
-import { Heart, Star } from "lucide-vue-next";
+import { computed } from "vue";
+import { useRoute } from "vue-router";
+import Container from "../components/ui/Container.vue";
+import Breadcrumbs from "../components/ui/Breadcrumbs.vue";
+import SearchCard from "../components/cards/SearchCard.vue";
+import { experiencesData } from "../data/experiencesData.js";
 
-const router = useRouter();
+const route = useRoute();
 
-const props = defineProps({
-  item: Object,
+const results = computed(() => {
+  const q = (route.query.q || "").toLowerCase().trim();
+  if (!q) return [];
+  return experiencesData.filter(
+    (item) =>
+      item.title.toLowerCase().includes(q) ||
+      item.location.toLowerCase().includes(q) ||
+      item.category.toLowerCase().includes(q)
+  );
 });
-
-const goToExperience = () => {
-  router.push(`/experience/${props.item.id}`);
-};
 </script>
 
 <template>
-  <div
-    @click="goToExperience"
-    class="bg-white rounded-[18px] border border-[#d9dee8] overflow-hidden cursor-pointer group flex flex-col h-full hover:shadow-md transition-all duration-300"
-  >
-    <!-- IMAGE -->
-    <div class="relative h-[175px] overflow-hidden">
-      <img
-        :src="item.image"
-        :alt="item.title"
-        class="w-full h-full object-cover group-hover:scale-[1.03] transition duration-500"
-      />
-
-      <!-- BLUE OVERLAY -->
-      <div
-        class="absolute inset-0 bg-gradient-to-b from-[#245fb8]/50 via-[#245fb8]/30 via-40% to-transparent"
-      ></div>
-
-      <div
-        class="absolute inset-0 bg-gradient-to-b from-[#163d7a]/30 via-[#163d7a]/12 to-transparent"
-      ></div>
-
-      <!-- BADGE -->
-      <div
-        class="absolute top-3 left-3 bg-[#0b2343] text-white text-[10px] font-extrabold px-3 py-1 rounded-[10px] z-10 leading-none"
-      >
-        {{ item.badge }}
-      </div>
-
-      <!-- HEART -->
-      <button
-        @click.stop
-        class="absolute top-3 right-3 w-10 h-10 bg-white rounded-full shadow-sm flex items-center justify-center z-10"
-      >
-        <Heart :size="18" stroke-width="2.3" class="text-[#0b2343]" />
-      </button>
-
-      <!-- ORANGE BAR -->
-      <div class="absolute bottom-0 left-0 w-full h-[10px] bg-[#ff5a1f]"></div>
-    </div>
-
-    <!-- CONTENT -->
-    <div class="px-4 pt-3 pb-2 flex flex-col flex-1">
-      <!-- LOCATION -->
-      <p class="text-[13px] font-semibold text-[#59657b] leading-tight">
-        {{ item.location }} • {{ item.category }}
+  <Container>
+    <div class="pt-32 pb-12">
+      <Breadcrumbs :pages="route.query.q ? [{ label: 'Search' }] : []" />
+      <h1 v-if="route.query.q" class="text-[32px] font-bold tracking-[-0.5px] text-[#0b2343] mb-2">
+        Search results
+      </h1>
+      <p v-if="route.query.q" class="text-[16px] font-medium text-gray-500 mb-8">
+        {{ results.length }} result{{ results.length === 1 ? "" : "s" }} for "{{ route.query.q }}"
       </p>
 
-      <!-- TITLE -->
-      <h3
-        class="mt-1 text-[15px] leading-[1.12] font-extrabold text-[#0b2343] line-clamp-3 min-h-[50px]"
-      >
-        {{ item.title }}
-      </h3>
+      <div v-if="results.length" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-8">
+        <SearchCard v-for="item in results" :key="item.id" :item="item" />
+      </div>
 
-      <!-- META -->
-      <p class="mt-1 text-[13px] text-[#4f5b72] font-medium">
-        {{ item.duration }}
-        <span v-if="item.extras"> • {{ item.extras }}</span>
-      </p>
+      <div v-else-if="route.query.q" class="py-20 text-center">
+        <h2 class="text-3xl font-bold text-[#0b2343]">No results found</h2>
+        <p class="mt-2 text-gray-500">Try a different search term</p>
+      </div>
 
-      <!-- BOTTOM -->
-      <div class="mt-auto pt-2 flex items-end justify-between">
-        <div class="flex items-center gap-1">
-          <span class="text-[15px] font-bold text-[#0b2343]">
-            {{ item.rating }}
-          </span>
-
-          <Star
-            :size="16"
-            fill="currentColor"
-            stroke-width="0"
-            class="text-[#0b2343]"
-          />
-
-          <span class="text-[13px] text-[#6d788d] font-medium">
-            ({{ item.reviews }})
-          </span>
-        </div>
-
-        <div class="text-right leading-none">
-          <p
-            v-if="item.oldPrice"
-            class="text-[12px] text-[#8a94a6] line-through font-medium"
-          >
-            From €{{ item.oldPrice }}
-          </p>
-
-          <p class="text-[18px] font-extrabold text-[#e53935] mt-0.5">
-            €{{ item.price }}
-          </p>
-        </div>
+      <div v-else class="py-20 text-center">
+        <h2 class="text-3xl font-bold text-[#0b2343]">Search experiences & attractions</h2>
+        <p class="mt-2 text-gray-500">Type above to find top-rated tours worldwide.</p>
       </div>
     </div>
-  </div>
+  </Container>
 </template>
