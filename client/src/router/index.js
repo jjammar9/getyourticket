@@ -8,6 +8,7 @@ import CategoryView from "../views/CategoryView.vue";
 import ThingsToDoView from "../views/ThingsToDoView.vue";
 import ExperiencesView from "../views/ExperiencesView.vue";
 import AttractionsView from "../views/AttractionsView.vue";
+import AboutView from "../views/AboutView.vue";
 import SupportView from "../views/SupportView.vue";
 import LegalNoticeView from "../views/LegalNoticeView.vue";
 import PrivacyPolicyView from "../views/PrivacyPolicyView.vue";
@@ -16,6 +17,7 @@ import DigitalServicesActView from "../views/DigitalServicesActView.vue";
 import SecurityView from "../views/SecurityView.vue";
 import SitemapView from "../views/SitemapView.vue";
 import CountryView from "../views/CountryView.vue";
+import CareersView from "../views/CareersView.vue";
 import NotFoundView from "../views/NotFoundView.vue";
 
 const routes = [
@@ -65,6 +67,11 @@ const routes = [
     component: SupportView,
   },
   {
+    path: "/about",
+    name: "about",
+    component: AboutView,
+  },
+  {
     path: "/legal-notice",
     name: "legal-notice",
     component: LegalNoticeView,
@@ -98,6 +105,11 @@ const routes = [
     path: "/country/:slug",
     name: "country",
     component: CountryView,
+  },
+  {
+    path: "/careers",
+    name: "careers",
+    component: CareersView,
   },
   {
     path: "/:pathMatch(.*)*",

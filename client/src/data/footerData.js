@@ -9,7 +9,7 @@ export const supportLinks = [
 ];
 
 export const companyLinks = [
-  { name: "About Us", to: "#" },
+  { name: "About Us", to: "/about" },
   { name: "Careers", to: "#" },
   { name: "Blog", to: "#" },
   { name: "Press", to: "#" },

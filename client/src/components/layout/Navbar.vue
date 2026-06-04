@@ -26,6 +26,10 @@ const isHomePage = computed(() => {
   return route.path === "/";
 });
 
+const showNavLinks = computed(() => {
+  return route.path === "/" || route.path === "/about";
+});
+
 const handleClickOutside = (event) => {
   if (!navbarRef.value) return;
 
@@ -138,7 +142,7 @@ const handleHoverEnd = () => {
         <NavbarTop :isScrolled="isScrolled" :scrollY="scrollY" :isHomePage="isHomePage" />
 
         <div
-          v-if="isHomePage"
+          v-if="showNavLinks"
           class="overflow-hidden transition-all duration-300 ease-out pt-3"
           :class="
             isScrolled
