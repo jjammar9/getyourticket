@@ -2,7 +2,7 @@
 import { ref, computed } from "vue";
 import { useRouter } from "vue-router";
 import Container from "../components/ui/Container.vue";
-import { ChevronDown, Search, MessageCircle, Mail, Phone, ExternalLink, HelpCircle } from "lucide-vue-next";
+import { ChevronDown, Search, MessageCircle, Mail, Phone, ExternalLink } from "lucide-vue-next";
 
 
 const faqs = ref([
@@ -117,12 +117,16 @@ function toggleFaq(idx) {
     <!-- Hero -->
     <div class="bg-gradient-to-br from-[#0b2343] to-[#163d7a] text-white py-16">
       <Container>
-        <div class="max-w-2xl mx-auto text-center">
-          <HelpCircle :size="40" class="mx-auto mb-4 text-blue-300" />
+        <div class="max-w-2xl mx-auto">
+          <nav class="flex items-center gap-2 text-[13px] text-blue-300 mb-2 flex-wrap">
+            <router-link to="/" class="hover:text-white transition-colors">Home</router-link>
+            <span class="text-blue-400/50">›</span>
+            <span class="text-white font-semibold">Support</span>
+          </nav>
           <h1 class="text-[36px] font-bold tracking-[-0.5px]">How can we help?</h1>
           <p class="text-blue-200 mt-2 text-[16px]">Search our help centre or browse the FAQs below.</p>
 
-          <div class="mt-8 max-w-lg mx-auto relative">
+          <div class="mt-8 relative">
             <div class="flex items-center bg-white rounded-full overflow-hidden">
               <div class="pl-5 pr-2 text-gray-400">
                 <Search :size="18" />

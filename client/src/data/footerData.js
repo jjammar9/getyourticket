@@ -3,9 +3,9 @@ export const supportLinks = [
   { name: "Legal Notice", to: "/legal-notice" },
   { name: "Privacy Policy", to: "/privacy-policy" },
   { name: "Cookies and Marketing Preferences", to: "#" },
-  { name: "General Terms and Conditions", to: "#" },
-  { name: "Information according to the Digital Services Act", to: "#" },
-  { name: "Sitemap", to: "#" },
+  { name: "General Terms and Conditions", to: "/general-terms-and-conditions" },
+  { name: "Information according to the Digital Services Act", to: "/digital-services-act" },
+  { name: "Sitemap", to: "/sitemap" },
 ];
 
 export const companyLinks = [

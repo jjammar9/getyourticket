@@ -11,6 +11,11 @@ import AttractionsView from "../views/AttractionsView.vue";
 import SupportView from "../views/SupportView.vue";
 import LegalNoticeView from "../views/LegalNoticeView.vue";
 import PrivacyPolicyView from "../views/PrivacyPolicyView.vue";
+import GeneralTermsView from "../views/GeneralTermsView.vue";
+import DigitalServicesActView from "../views/DigitalServicesActView.vue";
+import SecurityView from "../views/SecurityView.vue";
+import SitemapView from "../views/SitemapView.vue";
+import CountryView from "../views/CountryView.vue";
 import NotFoundView from "../views/NotFoundView.vue";
 
 const routes = [
@@ -68,6 +73,31 @@ const routes = [
     path: "/privacy-policy",
     name: "privacy-policy",
     component: PrivacyPolicyView,
+  },
+  {
+    path: "/general-terms-and-conditions",
+    name: "general-terms",
+    component: GeneralTermsView,
+  },
+  {
+    path: "/digital-services-act",
+    name: "digital-services-act",
+    component: DigitalServicesActView,
+  },
+  {
+    path: "/security",
+    name: "security",
+    component: SecurityView,
+  },
+  {
+    path: "/sitemap",
+    name: "sitemap",
+    component: SitemapView,
+  },
+  {
+    path: "/country/:slug",
+    name: "country",
+    component: CountryView,
   },
   {
     path: "/:pathMatch(.*)*",

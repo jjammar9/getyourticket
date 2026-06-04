@@ -12,9 +12,11 @@ import Container from "../components/ui/Container.vue";
             <span class="text-blue-400/50">›</span>
             <router-link to="/privacy-policy" class="hover:text-white transition-colors">Privacy Policy</router-link>
             <span class="text-blue-400/50">›</span>
-            <a href="#" class="hover:text-white transition-colors">General Terms and Conditions</a>
+            <router-link to="/general-terms-and-conditions" class="hover:text-white transition-colors">General Terms and Conditions</router-link>
             <span class="text-blue-400/50">›</span>
-            <a href="#" class="hover:text-white transition-colors">Security</a>
+            <router-link to="/security" class="hover:text-white transition-colors">Security</router-link>
+            <span class="text-blue-400/50">›</span>
+            <router-link to="/digital-services-act" class="hover:text-white transition-colors">Information according to the Digital Services Act</router-link>
           </nav>
           <h1 class="text-[36px] font-bold tracking-[-0.5px]">Legal Notice</h1>
         </div>
