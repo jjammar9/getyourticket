@@ -12,7 +12,7 @@ export const companyLinks = [
   { name: "About Us", to: "/about" },
   { name: "Careers", to: "/careers" },
   { name: "Blog", to: "/blog" },
-  { name: "Press", to: "/press" },
+  { name: "Media", to: "/media" },
   { name: "Gift Cards", to: "#" },
   { name: "Explorer", to: "#" },
 ];

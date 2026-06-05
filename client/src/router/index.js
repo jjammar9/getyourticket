@@ -19,7 +19,7 @@ import SitemapView from "../views/SitemapView.vue";
 import CountryView from "../views/CountryView.vue";
 import CareersView from "../views/CareersView.vue";
 import BlogView from "../views/BlogView.vue";
-import PressView from "../views/PressView.vue";
+import MediaView from "../views/MediaView.vue";
 import NotFoundView from "../views/NotFoundView.vue";
 
 const routes = [
@@ -119,9 +119,9 @@ const routes = [
     component: BlogView,
   },
   {
-    path: "/press",
-    name: "press",
-    component: PressView,
+    path: "/media",
+    name: "media",
+    component: MediaView,
   },
   {
     path: "/:pathMatch(.*)*",
