@@ -21,6 +21,7 @@ import CareersView from "../views/CareersView.vue";
 import BlogView from "../views/BlogView.vue";
 import MediaView from "../views/MediaView.vue";
 import DownloadCenterView from "../views/DownloadCenterView.vue";
+import ExplorerView from "../views/ExplorerView.vue";
 import NotFoundView from "../views/NotFoundView.vue";
 
 const routes = [
@@ -128,6 +129,11 @@ const routes = [
     path: "/download-center",
     name: "download-center",
     component: DownloadCenterView,
+  },
+  {
+    path: "/explorer",
+    name: "explorer",
+    component: ExplorerView,
   },
   {
     path: "/:pathMatch(.*)*",

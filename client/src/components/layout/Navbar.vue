@@ -27,7 +27,7 @@ const isHomePage = computed(() => {
 });
 
 const showNavLinks = computed(() => {
-  return route.path === "/" || route.path === "/about";
+  return route.path === "/" || route.path === "/about" || route.path === "/explorer";
 });
 
 const handleClickOutside = (event) => {

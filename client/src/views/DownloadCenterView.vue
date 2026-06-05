@@ -3,6 +3,7 @@ import { ref, onMounted, onUnmounted } from "vue";
 import Container from "../components/ui/Container.vue";
 
 const activeSection = ref("logo-pack");
+const activeTab = ref("factsheets");
 const headingVisible = ref(false);
 
 let scrollHandler = null;
@@ -85,95 +86,31 @@ function scrollTo(id) {
       class="bg-gradient-to-r from-gray-100 from-[288px] to-white to-[288px] dark:from-gray-800 dark:to-gray-900"
     >
       <Container>
-        <div class="flex items-center justify-between h-24">
+        <div class="flex items-center h-24">
           <router-link to="/" class="flex items-center gap-2 shrink-0">
             <svg width="32" height="32" viewBox="0 0 38 38" fill="none">
-              <circle
-                cx="19"
-                cy="19"
-                r="17.5"
-                stroke="currentColor"
-                stroke-width="3"
-                class="text-gray-900 dark:text-white"
-              />
-              <path
-                d="M19 7C12 7 7 12 7 19s5 12 12 12c3.5 0 6.5-1.5 8.5-3.5"
-                stroke="currentColor"
-                stroke-width="3"
-                stroke-linecap="round"
-                class="text-gray-900 dark:text-white"
-              />
-              <path
-                d="M19 16h8"
-                stroke="currentColor"
-                stroke-width="3"
-                stroke-linecap="round"
-                class="text-gray-900 dark:text-white"
-              />
+              <circle cx="19" cy="19" r="17.5" stroke="currentColor" stroke-width="3" class="text-gray-900 dark:text-white" />
+              <path d="M19 7C12 7 7 12 7 19s5 12 12 12c3.5 0 6.5-1.5 8.5-3.5" stroke="currentColor" stroke-width="3" stroke-linecap="round" class="text-gray-900 dark:text-white" />
+              <path d="M19 16h8" stroke="currentColor" stroke-width="3" stroke-linecap="round" class="text-gray-900 dark:text-white" />
               <circle cx="27" cy="23" r="2" fill="#ff5a1f" />
             </svg>
             <svg width="32" height="32" viewBox="0 0 38 38" fill="none">
-              <circle
-                cx="19"
-                cy="19"
-                r="17.5"
-                stroke="currentColor"
-                stroke-width="3"
-                class="text-gray-900 dark:text-white"
-              />
-              <path
-                d="M10 10L14 14"
-                stroke="currentColor"
-                stroke-width="3"
-                stroke-linecap="round"
-                class="text-gray-900 dark:text-white"
-              />
-              <path
-                d="M28 10L24 14"
-                stroke="currentColor"
-                stroke-width="3"
-                stroke-linecap="round"
-                class="text-gray-900 dark:text-white"
-              />
-              <path
-                d="M19 22v5"
-                stroke="currentColor"
-                stroke-width="3"
-                stroke-linecap="round"
-                class="text-gray-900 dark:text-white"
-              />
+              <circle cx="19" cy="19" r="17.5" stroke="currentColor" stroke-width="3" class="text-gray-900 dark:text-white" />
+              <path d="M10 10L14 14" stroke="currentColor" stroke-width="3" stroke-linecap="round" class="text-gray-900 dark:text-white" />
+              <path d="M28 10L24 14" stroke="currentColor" stroke-width="3" stroke-linecap="round" class="text-gray-900 dark:text-white" />
+              <path d="M19 22v5" stroke="currentColor" stroke-width="3" stroke-linecap="round" class="text-gray-900 dark:text-white" />
               <circle cx="19" cy="17" r="2" fill="#ff5a1f" />
             </svg>
           </router-link>
 
-          <div class="flex items-center gap-8">
-            <router-link
-              to="/about"
-              class="text-[14px] font-medium text-gray-700 dark:text-gray-200 hover:text-[#0a6cff] transition-colors"
-              >About Us</router-link
-            >
-            <a
-              href="/news"
-              class="text-[14px] font-medium text-gray-700 dark:text-gray-200 hover:text-[#0a6cff] transition-colors"
-              >News</a
-            >
-            <a
-              href="/media"
-              class="text-[14px] font-medium text-gray-700 dark:text-gray-200 hover:text-[#0a6cff] transition-colors"
-              >Media</a
-            >
-            <a
-              href="/download-center"
-              class="text-[14px] font-medium text-[#0a6cff] transition-colors"
-              >Download Center</a
-            >
+          <div class="flex items-center gap-8 ml-[16.2vw]">
+            <router-link to="/about" class="text-[14px] font-medium text-gray-700 dark:text-gray-200 hover:text-[#0a6cff] transition-colors">About Us</router-link>
+            <a href="/news" class="text-[14px] font-medium text-gray-700 dark:text-gray-200 hover:text-[#0a6cff] transition-colors">News</a>
+            <a href="/media" class="text-[14px] font-medium text-gray-700 dark:text-gray-200 hover:text-[#0a6cff] transition-colors">Media</a>
+            <a href="/download-center" class="text-[14px] font-medium text-[#0a6cff] transition-colors">Download Center</a>
           </div>
 
-          <a
-            href="#"
-            class="bg-[#0a6cff] hover:bg-[#0057d8] text-white text-[13px] font-semibold px-6 py-2.5 rounded-full transition-colors"
-            >Contact</a
-          >
+          <a href="#" class="ml-auto bg-[#0a6cff] hover:bg-[#0057d8] text-white text-[13px] font-semibold px-6 py-2.5 rounded-full transition-colors">Contact</a>
         </div>
       </Container>
     </nav>
@@ -224,12 +161,13 @@ function scrollTo(id) {
       </div>
 
       <!-- Main content -->
-      <div class="flex-1 pb-16 bg-white dark:bg-gray-900">
+      <div class="flex-1 max-w-[50%] ml-[10vw] pb-16 bg-white dark:bg-gray-900">
         <Container>
           <!-- Hero -->
-          <div class="mt-16 mb-12">
-            <h1 class="text-4xl font-bold text-gray-900 dark:text-white">
-              GetYourTicket Media Kit
+           <div class="mt-16 mb-24">
+            <h1 class="font-bold text-gray-900 dark:text-white leading-[0.85] pb-12">
+              <span class="text-[70px]">GetYourTicket</span><br>
+              <span class="text-[70px]">Media Kit</span>
             </h1>
             <p class="mt-4 text-gray-500 dark:text-gray-400 max-w-2xl">
               Here you will find visuals, video assets and logo files as well as
@@ -238,111 +176,102 @@ function scrollTo(id) {
           </div>
 
           <!-- Logo Pack -->
-          <section id="logo-pack" class="mb-24">
-            <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-6">
-              Logo Pack
-            </h2>
-            <div class="flex items-start gap-8">
+          <section id="logo-pack" class="mb-24 pb-12 border-b border-gray-200 dark:border-gray-700">
+            <div class="flex items-center gap-12">
               <div
-                class="w-48 h-36 bg-gray-100 dark:bg-gray-800 rounded-xl flex items-center justify-center shrink-0"
+                class="w-96 h-64 bg-orange-600 rounded-xl flex items-center justify-center shrink-0"
               >
-                <div
-                  class="text-4xl font-bold text-gray-300 dark:text-gray-600"
-                >
-                  LOGO
+                <div class="flex items-center gap-6">
+                  <svg width="80" height="80" viewBox="0 0 38 38" fill="none">
+                    <circle cx="19" cy="19" r="17.5" stroke="white" stroke-width="3" />
+                    <path d="M19 7C12 7 7 12 7 19s5 12 12 12c3.5 0 6.5-1.5 8.5-3.5" stroke="white" stroke-width="3" stroke-linecap="round" />
+                    <path d="M19 16h8" stroke="white" stroke-width="3" stroke-linecap="round" />
+                    <circle cx="27" cy="23" r="2" fill="#ff5a1f" />
+                  </svg>
+                  <svg width="80" height="80" viewBox="0 0 38 38" fill="none">
+                    <circle cx="19" cy="19" r="17.5" stroke="white" stroke-width="3" />
+                    <path d="M10 10L14 14" stroke="white" stroke-width="3" stroke-linecap="round" />
+                    <path d="M28 10L24 14" stroke="white" stroke-width="3" stroke-linecap="round" />
+                    <path d="M19 22v5" stroke="white" stroke-width="3" stroke-linecap="round" />
+                    <circle cx="19" cy="17" r="2" fill="#ff5a1f" />
+                  </svg>
                 </div>
               </div>
               <div>
+                <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-2">
+                  Logo Pack
+                </h2>
                 <p class="text-sm text-gray-500 dark:text-gray-400 mb-6">
                   Files in .jpeg, .png, .eps format
                 </p>
                 <a
                   href="#"
-                  class="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold px-6 py-3 rounded-full transition-colors"
+                  class="inline-flex items-center gap-2 border border-blue-600 bg-white text-blue-600 text-sm font-semibold px-6 py-3 rounded-full hover:bg-blue-50 transition-colors"
                 >
-                  Download the pack
-                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-                    <path
-                      d="M7 1v9M3 6l4 4 4-4"
-                      stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    />
-                  </svg>
+                  Download pack
                 </a>
               </div>
             </div>
           </section>
 
           <!-- Photo Sets -->
-          <section id="photo-sets" class="mb-24">
-            <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-6">
-              Photo Sets
-            </h2>
-            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
-              <div
-                v-for="(photo, i) in photos"
-                :key="i"
-                @click="openLightbox(photo.src)"
-                class="group relative aspect-[4/3] rounded-xl overflow-hidden cursor-pointer"
-              >
+          <section id="photo-sets" class="mb-24 pb-12 border-b border-gray-200 dark:border-gray-700">
+            <div class="flex items-center gap-12">
+              <div class="w-96 h-64 rounded-xl overflow-hidden shrink-0">
                 <img
-                  :src="photo.src"
-                  :alt="photo.title"
-                  class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
+                  src="https://cdn.prod.website-files.com/637b6b9b9e498750e58dca08/6989f834f23bff1d33257503_Photo%20Sets.png"
+                  alt="Photo Sets"
+                  class="w-full h-full object-cover"
                 />
-                <div
-                  class="absolute inset-0 bg-white/0 group-hover:bg-white/20 transition-colors"
-                />
+              </div>
+              <div>
+                <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-4">
+                  Photo Sets
+                </h2>
+                <ul class="space-y-3 mb-6">
+                  <li class="flex items-center gap-3 text-base font-medium text-gray-900 dark:text-white cursor-pointer hover:text-blue-600 transition-colors">
+                    <span class="w-2 h-2 rounded-full bg-[#ff5533] shrink-0"></span>
+                    Experiences
+                  </li>
+                  <li class="flex items-center gap-3 text-base font-medium text-gray-900 dark:text-white cursor-pointer hover:text-blue-600 transition-colors">
+                    <span class="w-2 h-2 rounded-full bg-[#ff5533] shrink-0"></span>
+                    Mobile App
+                  </li>
+                  <li class="flex items-center gap-3 text-base font-medium text-gray-900 dark:text-white cursor-pointer hover:text-blue-600 transition-colors">
+                    <span class="w-2 h-2 rounded-full bg-[#ff5533] shrink-0"></span>
+                    Executive Team
+                  </li>
+                </ul>
+                <a
+                  href="#"
+                  class="inline-flex items-center gap-2 border border-blue-600 bg-white text-blue-600 text-sm font-semibold px-6 py-3 rounded-full hover:bg-blue-50 transition-colors"
+                >
+                  Download the pack
+                </a>
               </div>
             </div>
           </section>
 
           <!-- Videos -->
-          <section id="videos" class="mb-24">
-            <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-6">
-              Videos
-            </h2>
-            <div class="flex items-start gap-8">
-              <div
-                class="w-48 h-36 bg-gray-100 dark:bg-gray-800 rounded-xl flex items-center justify-center shrink-0"
-              >
-                <svg
-                  width="40"
-                  height="40"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  class="text-gray-300 dark:text-gray-600"
-                >
-                  <circle
-                    cx="12"
-                    cy="12"
-                    r="10"
-                    stroke="currentColor"
-                    stroke-width="1.5"
-                  />
-                  <path d="M10 8l6 4-6 4V8z" fill="currentColor" />
-                </svg>
+          <section id="videos" class="mb-24 pb-12 border-b border-gray-200 dark:border-gray-700">
+            <div class="flex items-center gap-12">
+              <div class="w-96 h-64 rounded-xl overflow-hidden shrink-0">
+                <img
+                  src="https://cdn.prod.website-files.com/637b6b9b9e498750e58dca08/639c6879e38a6d3e05849885_image_downloads_videos.jpg"
+                  alt="Videos"
+                  class="w-full h-full object-cover"
+                />
               </div>
               <div>
-                <p class="text-sm text-gray-500 dark:text-gray-400 mb-6">
-                  Files in .mp4 format
-                </p>
+                <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-2">
+                  Videos
+                </h2>
+                <p class="text-sm text-gray-500 dark:text-gray-400 mb-6">Files in .mp4 format</p>
                 <a
                   href="#"
-                  class="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold px-6 py-3 rounded-full transition-colors"
+                  class="inline-flex items-center gap-2 border border-blue-600 bg-white text-blue-600 text-sm font-semibold px-6 py-3 rounded-full hover:bg-blue-50 transition-colors"
                 >
                   View & Download
-                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-                    <path
-                      d="M7 1v9M3 6l4 4 4-4"
-                      stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    />
-                  </svg>
                 </a>
               </div>
             </div>
@@ -356,25 +285,25 @@ function scrollTo(id) {
             <div class="border-b border-gray-200 dark:border-gray-700">
               <div class="flex gap-8">
                 <button
-                  class="pb-3 text-sm font-semibold text-gray-900 dark:text-white border-b-2 border-blue-600"
+                  @click="activeTab = 'factsheets'"
+                  class="pb-3 text-sm font-semibold transition-colors"
+                  :class="activeTab === 'factsheets' ? 'text-gray-900 dark:text-white border-b-2 border-blue-600' : 'text-gray-500 dark:text-gray-400'"
                 >
                   Factsheets
                 </button>
                 <button
-                  class="pb-3 text-sm font-semibold text-gray-500 dark:text-gray-400"
+                  @click="activeTab = 'reports'"
+                  class="pb-3 text-sm font-semibold transition-colors"
+                  :class="activeTab === 'reports' ? 'text-gray-900 dark:text-white border-b-2 border-blue-600' : 'text-gray-500 dark:text-gray-400'"
                 >
                   Reports
                 </button>
               </div>
             </div>
-            <div class="py-6">
-              <div
-                class="flex items-center justify-between py-4 border-b border-gray-100 dark:border-gray-800"
-              >
+            <div v-if="activeTab === 'factsheets'" class="py-6 space-y-2">
+              <div class="flex items-center justify-between py-4 border-b border-gray-100 dark:border-gray-800">
                 <div>
-                  <p
-                    class="text-sm font-semibold text-gray-900 dark:text-white"
-                  >
+                  <p class="text-sm font-semibold text-gray-900 dark:text-white">
                     GetYourTicket Fact Sheet: 2026
                   </p>
                   <p class="text-xs text-gray-400 mt-0.5">
@@ -387,13 +316,85 @@ function scrollTo(id) {
                 >
                   Download PDF
                   <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-                    <path
-                      d="M6 1v8M2 5l4 4 4-4"
-                      stroke="currentColor"
-                      stroke-width="1.5"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    />
+                    <path d="M6 1v8M2 5l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </a>
+              </div>
+              <div class="flex items-center justify-between py-4 border-b border-gray-100 dark:border-gray-800">
+                <div>
+                  <p class="text-sm font-semibold text-gray-900 dark:text-white">
+                    GetYourTicket Sustainability Report: 2025
+                  </p>
+                  <p class="text-xs text-gray-400 mt-0.5">
+                    Last updated: Dec 15, 2025
+                  </p>
+                </div>
+                <a
+                  href="#"
+                  class="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold px-5 py-2.5 rounded-full transition-colors"
+                >
+                  Download PDF
+                  <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                    <path d="M6 1v8M2 5l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </a>
+              </div>
+              <div class="flex items-center justify-between py-4 border-b border-gray-100 dark:border-gray-800">
+                <div>
+                  <p class="text-sm font-semibold text-gray-900 dark:text-white">
+                    GetYourTicket Annual Review: 2025
+                  </p>
+                  <p class="text-xs text-gray-400 mt-0.5">
+                    Last updated: Mar 10, 2026
+                  </p>
+                </div>
+                <a
+                  href="#"
+                  class="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold px-5 py-2.5 rounded-full transition-colors"
+                >
+                  Download PDF
+                  <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                    <path d="M6 1v8M2 5l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </a>
+              </div>
+            </div>
+            <div v-else class="py-6 space-y-2">
+              <div class="flex items-center justify-between py-4 border-b border-gray-100 dark:border-gray-800">
+                <div>
+                  <p class="text-sm font-semibold text-gray-900 dark:text-white">
+                    GetYourTicket Market Insights: Q1 2026
+                  </p>
+                  <p class="text-xs text-gray-400 mt-0.5">
+                    Published: Apr 15, 2026
+                  </p>
+                </div>
+                <a
+                  href="#"
+                  class="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold px-5 py-2.5 rounded-full transition-colors"
+                >
+                  Download PDF
+                  <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                    <path d="M6 1v8M2 5l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </a>
+              </div>
+              <div class="flex items-center justify-between py-4 border-b border-gray-100 dark:border-gray-800">
+                <div>
+                  <p class="text-sm font-semibold text-gray-900 dark:text-white">
+                    Travel Industry Trends Report: 2026
+                  </p>
+                  <p class="text-xs text-gray-400 mt-0.5">
+                    Published: Feb 28, 2026
+                  </p>
+                </div>
+                <a
+                  href="#"
+                  class="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold px-5 py-2.5 rounded-full transition-colors"
+                >
+                  Download PDF
+                  <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                    <path d="M6 1v8M2 5l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                   </svg>
                 </a>
               </div>

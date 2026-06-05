@@ -14,7 +14,7 @@ export const companyLinks = [
   { name: "News", to: "/news" },
   { name: "Media", to: "/media" },
   { name: "Download Center", to: "/download-center" },
-  { name: "Explorer", to: "#" },
+  { name: "Explorer", to: "/explorer" },
 ];
 
 export const workLinks = [
