@@ -18,6 +18,8 @@ import SecurityView from "../views/SecurityView.vue";
 import SitemapView from "../views/SitemapView.vue";
 import CountryView from "../views/CountryView.vue";
 import CareersView from "../views/CareersView.vue";
+import BlogView from "../views/BlogView.vue";
+import PressView from "../views/PressView.vue";
 import NotFoundView from "../views/NotFoundView.vue";
 
 const routes = [
@@ -110,6 +112,16 @@ const routes = [
     path: "/careers",
     name: "careers",
     component: CareersView,
+  },
+  {
+    path: "/blog",
+    name: "blog",
+    component: BlogView,
+  },
+  {
+    path: "/press",
+    name: "press",
+    component: PressView,
   },
   {
     path: "/:pathMatch(.*)*",

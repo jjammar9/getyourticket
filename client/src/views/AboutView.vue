@@ -7,7 +7,7 @@ import Container from "../components/ui/Container.vue";
     <!-- Hero -->
     <section
       class="relative h-[70vh] sm:h-[75vh] lg:h-[85vh] bg-cover bg-center flex items-center justify-center"
-      style="background-image: url('https://images.unsplash.com/photo-1502920917128-1aa500764cbd?auto=format&fit=crop&w=1920&q=80');"
+      style="background-image: url('https://images.unsplash.com/photo-1509316785289-025f5b846b35?auto=format&fit=crop&w=1920&q=80');"
     >
       <div class="absolute inset-0 bg-black/40" />
 

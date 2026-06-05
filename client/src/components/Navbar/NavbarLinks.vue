@@ -44,5 +44,19 @@ function handleClick(key) {
         class="absolute left-1/2 -bottom-2 h-[2px] w-0 bg-[#ff5533] transition-all duration-300 -translate-x-1/2 group-hover:w-full"
       ></span>
     </button>
+
+    <router-link
+      to="/blog"
+      class="text-[15px] font-semibold text-[#061d44] dark:text-gray-200 hover:text-[#ff5533] transition-colors"
+    >
+      Blog
+    </router-link>
+
+    <router-link
+      to="/press"
+      class="text-[15px] font-semibold text-[#061d44] dark:text-gray-200 hover:text-[#ff5533] transition-colors"
+    >
+      Press
+    </router-link>
   </div>
 </template>

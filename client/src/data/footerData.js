@@ -10,9 +10,9 @@ export const supportLinks = [
 
 export const companyLinks = [
   { name: "About Us", to: "/about" },
-  { name: "Careers", to: "#" },
-  { name: "Blog", to: "#" },
-  { name: "Press", to: "#" },
+  { name: "Careers", to: "/careers" },
+  { name: "Blog", to: "/blog" },
+  { name: "Press", to: "/press" },
   { name: "Gift Cards", to: "#" },
   { name: "Explorer", to: "#" },
 ];

@@ -19,7 +19,7 @@ onUnmounted(() => window.removeEventListener("scroll", onScroll));
   <button
     v-show="visible"
     @click="scrollToTop"
-    class="fixed bottom-6 right-6 z-50 w-12 h-12 rounded-full bg-[#fcb034] shadow-lg hover:bg-[#e89f2a] transition-all duration-300 flex items-center justify-center"
+    class="fixed bottom-6 right-6 z-50 w-12 h-12 rounded-full bg-[#0a6cff] shadow-lg hover:bg-[#0057d8] transition-all duration-300 flex items-center justify-center"
     aria-label="Scroll to top"
   >
     <svg
