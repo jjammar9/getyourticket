@@ -11,9 +11,9 @@ export const supportLinks = [
 export const companyLinks = [
   { name: "About Us", to: "/about" },
   { name: "Careers", to: "/careers" },
-  { name: "Blog", to: "/blog" },
+  { name: "News", to: "/news" },
   { name: "Media", to: "/media" },
-  { name: "Gift Cards", to: "#" },
+  { name: "Download Center", to: "/download-center" },
   { name: "Explorer", to: "#" },
 ];
 

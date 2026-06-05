@@ -4,6 +4,38 @@ import Container from "../components/ui/Container.vue";
 
 <template>
   <div>
+    <!-- Media Nav -->
+    <nav class="w-full bg-white dark:bg-gray-900">
+      <Container>
+        <div class="flex items-center justify-between h-24">
+          <router-link to="/" class="flex items-center gap-2 shrink-0">
+            <svg width="32" height="32" viewBox="0 0 38 38" fill="none">
+              <circle cx="19" cy="19" r="17.5" stroke="currentColor" stroke-width="3" class="text-gray-900 dark:text-white" />
+              <path d="M19 7C12 7 7 12 7 19s5 12 12 12c3.5 0 6.5-1.5 8.5-3.5" stroke="currentColor" stroke-width="3" stroke-linecap="round" class="text-gray-900 dark:text-white" />
+              <path d="M19 16h8" stroke="currentColor" stroke-width="3" stroke-linecap="round" class="text-gray-900 dark:text-white" />
+              <circle cx="27" cy="23" r="2" fill="#ff5a1f" />
+            </svg>
+            <svg width="32" height="32" viewBox="0 0 38 38" fill="none">
+              <circle cx="19" cy="19" r="17.5" stroke="currentColor" stroke-width="3" class="text-gray-900 dark:text-white" />
+              <path d="M10 10L14 14" stroke="currentColor" stroke-width="3" stroke-linecap="round" class="text-gray-900 dark:text-white" />
+              <path d="M28 10L24 14" stroke="currentColor" stroke-width="3" stroke-linecap="round" class="text-gray-900 dark:text-white" />
+              <path d="M19 22v5" stroke="currentColor" stroke-width="3" stroke-linecap="round" class="text-gray-900 dark:text-white" />
+              <circle cx="19" cy="17" r="2" fill="#ff5a1f" />
+            </svg>
+          </router-link>
+
+          <div class="flex items-center gap-8">
+            <router-link to="/about" class="text-[14px] font-medium text-[#0a6cff] transition-colors">About Us</router-link>
+            <a href="/news" class="text-[14px] font-medium text-gray-700 dark:text-gray-200 hover:text-[#0a6cff] transition-colors">News</a>
+            <a href="/media" class="text-[14px] font-medium text-gray-700 dark:text-gray-200 hover:text-[#0a6cff] transition-colors">Media</a>
+            <a href="/download-center" class="text-[14px] font-medium text-gray-700 dark:text-gray-200 hover:text-[#0a6cff] transition-colors">Download Center</a>
+          </div>
+
+          <a href="#" class="bg-[#0a6cff] hover:bg-[#0057d8] text-white text-[13px] font-semibold px-6 py-2.5 rounded-full transition-colors">Contact</a>
+        </div>
+      </Container>
+    </nav>
+
     <!-- Hero -->
     <section
       class="relative h-[70vh] sm:h-[75vh] lg:h-[85vh] bg-cover bg-center flex items-center justify-center"

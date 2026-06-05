@@ -16,7 +16,7 @@ import {
 
 <template>
   <footer
-    class="w-full bg-[#0f2147] text-white mt-24"
+    class="w-full bg-[#0f2147] text-white"
   >
     <Container>
       <div class="py-20">

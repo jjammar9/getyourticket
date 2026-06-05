@@ -9,7 +9,7 @@ import { computed } from "vue";
 
 const bookingStore = useBookingStore();
 const route = useRoute();
-const showMainNav = computed(() => route.path !== "/media");
+const showMainNav = computed(() => route.path !== "/media" && route.path !== "/news" && route.path !== "/download-center" && route.path !== "/about");
 </script>
 
 <template>

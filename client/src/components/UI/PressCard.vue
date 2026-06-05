@@ -29,9 +29,12 @@ function goToSlide(index) {
 </script>
 
 <template>
-  <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700">
+  <div class="group bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700">
     <div class="p-10 pb-0">
-      <img :src="limitedSlides[currentSlide].image" alt="Press" class="w-full h-52 object-cover rounded-lg" />
+      <div class="overflow-hidden rounded-lg relative">
+        <div class="absolute inset-0 bg-white/0 group-hover:bg-white/20 transition-colors duration-500 z-10"></div>
+        <img :src="limitedSlides[currentSlide].image" alt="Press" class="w-full h-52 object-cover transition-transform duration-500 group-hover:scale-125" />
+      </div>
     </div>
     <div class="px-10 pb-10 pt-12">
       <div class="flex items-center gap-3">

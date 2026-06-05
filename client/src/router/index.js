@@ -20,6 +20,7 @@ import CountryView from "../views/CountryView.vue";
 import CareersView from "../views/CareersView.vue";
 import BlogView from "../views/BlogView.vue";
 import MediaView from "../views/MediaView.vue";
+import DownloadCenterView from "../views/DownloadCenterView.vue";
 import NotFoundView from "../views/NotFoundView.vue";
 
 const routes = [
@@ -114,14 +115,19 @@ const routes = [
     component: CareersView,
   },
   {
-    path: "/blog",
-    name: "blog",
+    path: "/news",
+    name: "news",
     component: BlogView,
   },
   {
     path: "/media",
     name: "media",
     component: MediaView,
+  },
+  {
+    path: "/download-center",
+    name: "download-center",
+    component: DownloadCenterView,
   },
   {
     path: "/:pathMatch(.*)*",
