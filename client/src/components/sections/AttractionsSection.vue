@@ -4,12 +4,14 @@ import { useRouter } from "vue-router";
 import { attractionsCards } from "../../data/homeData.js";
 import { handleImageError } from "../../constants/placeholder.js";
 import { Star } from "lucide-vue-next";
+import { useCurrencyStore } from "../../stores/currencyStore.js";
 
 import SectionTitle from "../ui/SectionTitle.vue";
 import Card from "../ui/Card.vue";
 import fadeIn from "../../directives/fadeIn.js";
 
 const router = useRouter();
+const currencyStore = useCurrencyStore();
 
 const currentPage = ref(0);
 const itemsPerPage = 4;
@@ -103,10 +105,10 @@ const prevPage = () => {
 
                 <div class="text-right leading-none">
                   <p v-if="card.oldPrice" class="text-[12px] text-[#8a94a6] dark:text-gray-500 line-through font-medium">
-                    From €{{ card.oldPrice }}
+                    From {{ currencyStore.formatPrice(card.oldPrice) }}
                   </p>
                   <p class="text-[18px] font-extrabold text-[#e53935] mt-0.5">
-                    €{{ card.price }}
+                    {{ currencyStore.formatPrice(card.price) }}
                   </p>
                 </div>
               </div>

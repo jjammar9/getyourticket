@@ -3,10 +3,12 @@ import { ref } from "vue";
 import { useRouter } from "vue-router";
 import { Heart, Star } from "lucide-vue-next";
 import Card from "../ui/Card.vue";
+import { useCurrencyStore } from "../../stores/currencyStore.js";
 
 const router = useRouter();
+const currencyStore = useCurrencyStore();
 
-const props = defineProps({
+defineProps({
   item: Object,
 });
 
@@ -74,10 +76,10 @@ const onImageError = (e) => {
 
         <div class="text-right leading-none">
           <p v-if="item.oldPrice" class="text-[12px] text-[#8a94a6] dark:text-gray-500 line-through font-medium">
-            From €{{ item.oldPrice }}
+            From {{ currencyStore.formatPrice(item.oldPrice) }}
           </p>
           <p class="text-[18px] font-extrabold text-[#e53935] mt-0.5">
-            €{{ item.price }}
+            {{ currencyStore.formatPrice(item.price) }}
           </p>
         </div>
       </div>

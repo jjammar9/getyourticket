@@ -18,6 +18,8 @@ import { useSearchSuggestions } from "../../composables/useSearchSuggestions.js"
 import { countries } from "../../data/countryData.js";
 import { useNavSearch } from "../../composables/useNavSearch.js";
 import { useThemeStore } from "../../stores/themeStore.js";
+import { useLocaleStore } from "../../stores/localeStore.js";
+import { useCurrencyStore } from "../../stores/currencyStore.js";
 import logoImage from "../../assets/0e31b4a5-ec0a-496e-81a1-cc44c5729c06.png";
 
 const props = defineProps({
@@ -27,6 +29,8 @@ const props = defineProps({
 });
 
 const router = useRouter();
+const localeStore = useLocaleStore();
+const currencyStore = useCurrencyStore();
 
 const { searchQuery, setSearchQuery } = useNavSearch();
 const searchTerm = ref("");
@@ -139,7 +143,7 @@ const handleSearch = () => {
             @blur="onSearchBlur"
             @input="showSuggestions = true"
             type="text"
-            placeholder="Find places and things to do"
+            :placeholder="localeStore.t('nav.search.placeholder')"
             class="flex-1 px-5 py-2 outline-none rounded-full text-[14px] text-gray-700 dark:text-gray-200 placeholder:text-black dark:placeholder:text-gray-400"
           />
 
@@ -147,7 +151,7 @@ const handleSearch = () => {
             @click="handleSearch"
             class="bg-[#0a6cff] hover:bg-[#0057d8] text-white text-[14px] font-semibold px-7 py-2 rounded-full transition"
           >
-            Search
+            {{ localeStore.t("nav.search") }}
           </button>
         </div>
 
@@ -184,7 +188,7 @@ const handleSearch = () => {
         class="group relative flex flex-col items-center gap-1 text-[13px] font-medium text-[#4f5a72] dark:text-gray-300 hover:text-[#ff5533] transition-colors"
       >
         <Heart :size="22" :stroke-width="2.5" />
-        <span>Wishlist</span>
+        <span>{{ localeStore.t("nav.wishlist") }}</span>
         <span
           class="absolute left-1/2 -bottom-2 h-[2px] w-0 bg-[#ff5533] transition-all duration-300 -translate-x-1/2 group-hover:w-full"
         />
@@ -194,7 +198,7 @@ const handleSearch = () => {
         class="group relative flex flex-col items-center gap-1 text-[13px] font-medium text-[#4f5a72] dark:text-gray-300 hover:text-[#ff5533] transition-colors"
       >
         <ShoppingCart :size="22" :stroke-width="2.5" />
-        <span>Cart</span>
+        <span>{{ localeStore.t("nav.cart") }}</span>
         <span
           class="absolute left-1/2 -bottom-2 h-[2px] w-0 bg-[#ff5533] transition-all duration-300 -translate-x-1/2 group-hover:w-full"
         />
@@ -204,7 +208,7 @@ const handleSearch = () => {
         class="group relative flex flex-col items-center gap-1 text-[13px] font-medium text-[#4f5a72] dark:text-gray-300 hover:text-[#ff5533] transition-colors"
       >
         <Globe :size="22" :stroke-width="2.5" />
-        <span>EN/EUR €</span>
+        <span>{{ localeStore.selectedLocale.toUpperCase() }}/{{ currencyStore.symbol }}</span>
         <span
           class="absolute left-1/2 -bottom-2 h-[2px] w-0 bg-[#ff5533] transition-all duration-300 -translate-x-1/2 group-hover:w-full"
         />
@@ -218,7 +222,7 @@ const handleSearch = () => {
           class="group relative flex flex-col items-center gap-1 text-[13px] font-medium text-[#4f5a72] dark:text-gray-300 hover:text-[#ff5533] transition-colors"
         >
           <User :size="22" :stroke-width="2.5" />
-          <span>Profile</span>
+          <span>{{ localeStore.t("nav.profile") }}</span>
           <span
             class="absolute left-1/2 -bottom-2 h-[2px] w-0 bg-[#ff5533] transition-all duration-300 -translate-x-1/2 group-hover:w-full"
           />
@@ -251,10 +255,10 @@ const handleSearch = () => {
                   <User :size="20" class="text-gray-500 dark:text-gray-300" />
                 </div>
                 <div class="flex-1">
-                  <p class="text-[14px] font-semibold text-gray-900 dark:text-white">Profile</p>
+                  <p class="text-[14px] font-semibold text-gray-900 dark:text-white">{{ localeStore.t("nav.profile") }}</p>
                   <button class="flex items-center gap-1 text-[12px] text-blue-600 dark:text-blue-400 hover:text-blue-700 mt-0.5">
                     <LogIn :size="13" />
-                    <span>Log in or sign in</span>
+                    <span>{{ localeStore.t("nav.login") }}</span>
                     <ArrowRight :size="13" />
                   </button>
                 </div>
@@ -267,7 +271,7 @@ const handleSearch = () => {
             <div class="px-4 py-3 flex items-center justify-between hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer transition-colors">
               <div class="flex items-center gap-3">
                 <Bell :size="18" class="text-gray-500 dark:text-gray-300" />
-                <span class="text-[13px] text-gray-700 dark:text-gray-200 font-medium">Updates</span>
+                <span class="text-[13px] text-gray-700 dark:text-gray-200 font-medium">{{ localeStore.t("nav.updates") }}</span>
               </div>
               <ArrowRight :size="15" class="text-gray-400 dark:text-gray-500" />
             </div>
@@ -276,7 +280,7 @@ const handleSearch = () => {
             <div class="px-4 py-3 flex items-center justify-between">
               <div class="flex items-center gap-3">
                 <Sun :size="18" class="text-gray-500 dark:text-gray-300" />
-                <span class="text-[13px] text-gray-700 dark:text-gray-200 font-medium">Appearance</span>
+                <span class="text-[13px] text-gray-700 dark:text-gray-200 font-medium">{{ localeStore.t("nav.appearance") }}</span>
               </div>
               <div
                 @click="toggleTheme"
@@ -301,7 +305,7 @@ const handleSearch = () => {
             >
               <div class="flex items-center gap-3">
                 <Headphones :size="18" class="text-gray-500 dark:text-gray-300" />
-                <span class="text-[13px] text-gray-700 dark:text-gray-200 font-medium">Support</span>
+                <span class="text-[13px] text-gray-700 dark:text-gray-200 font-medium">{{ localeStore.t("nav.support") }}</span>
               </div>
               <ArrowRight :size="15" class="text-gray-400 dark:text-gray-500" />
             </div>
@@ -311,8 +315,8 @@ const handleSearch = () => {
               <div class="flex items-center gap-3">
                 <Smartphone :size="18" class="text-gray-500 dark:text-gray-300" />
                 <div>
-                  <span class="text-[13px] text-gray-700 dark:text-gray-200 font-medium">Download the app</span>
-                  <p class="text-[11px] text-gray-400 dark:text-gray-500">Get the best experience</p>
+                  <span class="text-[13px] text-gray-700 dark:text-gray-200 font-medium">{{ localeStore.t("nav.download") }}</span>
+                  <p class="text-[11px] text-gray-400 dark:text-gray-500">{{ localeStore.t("nav.best") }}</p>
                 </div>
               </div>
               <ArrowRight :size="15" class="text-gray-400 dark:text-gray-500" />
