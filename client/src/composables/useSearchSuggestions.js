@@ -1,5 +1,6 @@
 import { computed } from "vue";
 import { experiencesData } from "../data/experiencesData.js";
+import { countries } from "../data/countryData.js";
 
 const allSuggestions = [];
 
@@ -19,6 +20,14 @@ for (const exp of experiencesData) {
   if (category && !seen.has(category)) {
     seen.add(category);
     allSuggestions.push({ text: category, type: "category" });
+  }
+}
+
+for (const [slug, country] of Object.entries(countries)) {
+  const name = country.name?.trim();
+  if (name && !seen.has(name)) {
+    seen.add(name);
+    allSuggestions.push({ text: name, type: "country", slug });
   }
 }
 

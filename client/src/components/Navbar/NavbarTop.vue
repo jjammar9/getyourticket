@@ -13,9 +13,12 @@ import {
   Bell,
 } from "lucide-vue-next";
 import { useRouter } from "vue-router";
-import { ref, computed } from "vue";
+import { ref, computed, watch } from "vue";
 import { useSearchSuggestions } from "../../composables/useSearchSuggestions.js";
+import { countries } from "../../data/countryData.js";
+import { useNavSearch } from "../../composables/useNavSearch.js";
 import { useThemeStore } from "../../stores/themeStore.js";
+import logoImage from "../../assets/0e31b4a5-ec0a-496e-81a1-cc44c5729c06.png";
 
 const props = defineProps({
   isScrolled: Boolean,
@@ -25,10 +28,18 @@ const props = defineProps({
 
 const router = useRouter();
 
+const { searchQuery, setSearchQuery } = useNavSearch();
 const searchTerm = ref("");
 const showSuggestions = ref(false);
 const searchInput = ref(null);
 const { suggestions } = useSearchSuggestions(searchTerm);
+
+watch(searchQuery, (val) => {
+  if (val) {
+    searchTerm.value = val;
+    setSearchQuery("");
+  }
+});
 
 const showSearch = computed(() => {
   return !props.isHomePage || props.scrollY > 100;
@@ -57,10 +68,14 @@ const toggleTheme = () => {
   themeStore.toggle();
 };
 
-const selectSuggestion = (text) => {
-  searchTerm.value = text;
+const selectSuggestion = (s) => {
+  searchTerm.value = s.text;
   showSuggestions.value = false;
-  router.push({ path: "/search", query: { q: text } });
+  if (s.type === "country" && s.slug) {
+    router.push(`/country/${s.slug}`);
+  } else {
+    router.push({ path: "/search", query: { q: s.text } });
+  }
 };
 
 const onSearchBlur = () => {
@@ -78,12 +93,15 @@ const handleSearch = () => {
     return;
   }
 
-  router.push({
-    path: "/search",
-    query: {
-      q: query,
-    },
-  });
+  const slug = Object.entries(countries).find(
+    ([, c]) => c.name.toLowerCase() === query.toLowerCase()
+  )?.[0];
+
+  if (slug) {
+    router.push(`/country/${slug}`);
+  } else {
+    router.push({ path: "/search", query: { q: query } });
+  }
 };
 </script>
 
@@ -101,23 +119,7 @@ const handleSearch = () => {
         @click="router.push('/')"
         class="select-none cursor-pointer shrink-0 flex items-center gap-2"
       >
-        <!-- G mark -->
-        <svg width="38" height="38" viewBox="0 0 38 38" fill="none">
-          <circle cx="19" cy="19" r="17.5" stroke="currentColor" stroke-width="3" class="text-gray-900 dark:text-white" />
-          <path d="M19 7C12 7 7 12 7 19s5 12 12 12c3.5 0 6.5-1.5 8.5-3.5" stroke="currentColor" stroke-width="3" stroke-linecap="round" class="text-gray-900 dark:text-white" />
-          <path d="M19 16h8" stroke="currentColor" stroke-width="3" stroke-linecap="round" class="text-gray-900 dark:text-white" />
-          <circle cx="27" cy="23" r="2" fill="#ff5a1f" />
-        </svg>
-
-        <!-- Y mark -->
-        <svg width="38" height="38" viewBox="0 0 38 38" fill="none">
-          <circle cx="19" cy="19" r="17.5" stroke="currentColor" stroke-width="3" class="text-gray-900 dark:text-white" />
-          <path d="M10 10L14 14" stroke="currentColor" stroke-width="3" stroke-linecap="round" class="text-gray-900 dark:text-white" />
-          <path d="M28 10L24 14" stroke="currentColor" stroke-width="3" stroke-linecap="round" class="text-gray-900 dark:text-white" />
-          <path d="M19 22v5" stroke="currentColor" stroke-width="3" stroke-linecap="round" class="text-gray-900 dark:text-white" />
-          <circle cx="19" cy="17" r="2" fill="#ff5a1f" />
-        </svg>
-
+        <img :src="logoImage" alt="GetYourTicket" class="h-[52px] w-auto" />
       </div>
 
       <!-- SEARCH -->
@@ -157,7 +159,7 @@ const handleSearch = () => {
           <div
             v-for="s in suggestions"
             :key="s.text"
-            @mousedown.prevent="selectSuggestion(s.text)"
+            @mousedown.prevent="selectSuggestion(s)"
             class="px-4 py-2.5 flex items-center gap-3 hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer transition-colors"
           >
             <svg

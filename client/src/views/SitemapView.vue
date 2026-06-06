@@ -4,31 +4,78 @@ import Container from "../components/ui/Container.vue";
 const continents = [
   {
     name: "North America",
-    countries: ["USA", "Canada", "Mexico"],
+    countries: [
+      "Anguilla", "Antigua and Barbuda", "Aruba", "Bahamas", "Barbados",
+      "Belize", "Bermuda", "Bonaire", "British Virgin Islands", "Canada",
+      "Cayman Islands", "Costa Rica", "Curacao", "Dominica", "Dominican Republic",
+      "El Salvador", "Greenland", "Grenada", "Guadeloupe", "Guatemala",
+      "Honduras", "Jamaica", "Martinique", "Mexico", "Montserrat",
+      "Nicaragua", "Panama", "Puerto Rico", "Saint Barthelemy", "Saint Kitts and Nevis",
+      "Saint Lucia", "Saint Martin", "Saint Pierre and Miquelon", "Saint Vincent and the Grenadines",
+      "Sint Maarten", "Trinidad and Tobago", "Turks and Caicos Islands", "U.S. Virgin Islands", "United States",
+    ],
   },
   {
     name: "South America",
-    countries: ["Brazil", "Peru", "Argentina", "Chile", "Bolivia", "Ecuador", "Colombia", "Venezuela"],
+    countries: [
+      "Argentina", "Bolivia", "Brazil", "Chile", "Colombia",
+      "Ecuador", "Falkland Islands", "French Guiana", "Guyana", "Paraguay",
+      "Peru", "Suriname", "Uruguay", "Venezuela",
+    ],
   },
   {
     name: "Europe",
-    countries: ["France", "UK", "Netherlands", "Czech Republic", "Italy", "Switzerland", "Germany", "Croatia", "Vatican City", "Spain", "Austria", "Iceland", "Greece", "Portugal", "Hungary", "Denmark"],
+    countries: [
+      "Albania", "Andorra", "Austria", "Belgium", "Bosnia and Herzegovina",
+      "Bulgaria", "Croatia", "Cyprus", "Czechia", "Denmark",
+      "England", "Estonia", "Faroe Islands", "Finland", "France",
+      "Georgia", "Germany", "Gibraltar", "Great Britain", "Greece",
+      "Guernsey", "Hungary", "Iceland", "Ireland", "Isle of Man",
+      "Italy", "Jersey", "Kosovo", "Latvia", "Liechtenstein",
+      "Lithuania", "Luxembourg", "Malta", "Moldova", "Monaco",
+      "Montenegro", "Netherlands", "North Macedonia", "Northern Ireland", "Norway",
+      "Poland", "Portugal", "Republic of San Marino", "Romania", "Russia",
+      "Scotland", "Serbia", "Slovakia", "Slovenia", "Spain",
+      "Svalbard and Jan Mayen", "Sweden", "Switzerland", "Turkiye", "United Kingdom",
+      "Wales", "Aland Islands",
+    ],
   },
   {
     name: "Asia",
-    countries: ["Japan", "Thailand", "China", "India", "South Korea", "Vietnam", "Indonesia", "Malaysia", "Philippines", "Cambodia", "Sri Lanka", "Nepal", "Turkey"],
+    countries: [
+      "Afghanistan", "Armenia", "Azerbaijan", "Bahrain", "Bhutan",
+      "Brunei", "Cambodia", "China", "Hong Kong", "India",
+      "Indonesia", "Iraq", "Israel", "Japan", "Jordan",
+      "Kazakhstan", "Kuwait", "Kyrgyz Republic", "Laos", "Lebanon",
+      "Macao", "Malaysia", "Maldives", "Mongolia", "Myanmar",
+      "Nepal", "North Korea", "Oman", "Pakistan", "Palestine",
+      "Philippines", "Qatar", "Saudi Arabia", "Singapore", "South Korea",
+      "Sri Lanka", "Taiwan", "Tajikistan", "Thailand", "Timor-Leste",
+      "Turkmenistan", "United Arab Emirates", "Uzbekistan", "Vietnam", "Yemen",
+    ],
   },
   {
     name: "Africa",
-    countries: ["Egypt", "Morocco", "South Africa", "Kenya", "Tanzania", "Namibia", "Botswana", "Ethiopia", "Ghana"],
-  },
-  {
-    name: "Middle East",
-    countries: ["UAE", "Qatar", "Saudi Arabia", "Jordan", "Israel", "Oman"],
+    countries: [
+      "Algeria", "Angola", "Benin", "Botswana", "Burundi",
+      "Cameroon", "Cape Verde", "Comoros", "Cote d'Ivoire", "Democratic Republic of the Congo",
+      "Djibouti", "Egypt", "Eritrea", "Eswatini", "Ethiopia",
+      "Gabon", "Gambia", "Ghana", "Guinea-Bissau", "Kenya",
+      "Lesotho", "Liberia", "Libya", "Madagascar", "Malawi",
+      "Mali", "Mauritania", "Mauritius", "Mayotte", "Morocco",
+      "Mozambique", "Namibia", "Nigeria", "Republic of the Congo", "Rwanda",
+      "Reunion", "Senegal", "Seychelles", "Sierra Leone", "Somalia",
+      "South Africa", "South Sudan", "Sudan", "Sao Tome and Principe", "Tanzania",
+      "Togo", "Tunisia", "Uganda", "Zambia", "Zimbabwe",
+    ],
   },
   {
     name: "Oceania",
-    countries: ["Australia", "New Zealand", "Fiji"],
+    countries: [
+      "Australia", "Cook Islands", "Fiji", "French Polynesia", "Guam",
+      "Nauru", "New Caledonia", "New Zealand", "Palau", "Papua New Guinea",
+      "Samoa", "Solomon Islands", "Tonga", "Vanuatu",
+    ],
   },
 ];
 

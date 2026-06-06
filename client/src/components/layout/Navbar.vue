@@ -6,10 +6,12 @@ import MobileNavbar from "../Navbar/MobileNavbar.vue";
 import Container from "../ui/Container.vue";
 
 import { ref, computed, onMounted, onUnmounted } from "vue";
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 import { navData } from "../../data/megaMenuData.js";
+import { getCountryBySlug } from "../../data/countryData.js";
 
 const route = useRoute();
+const router = useRouter();
 
 let hoverTimer = null;
 
@@ -26,9 +28,36 @@ const isHomePage = computed(() => {
   return route.path === "/";
 });
 
-const showNavLinks = computed(() => {
-  return route.path === "/" || route.path === "/about" || route.path === "/explorer";
+const isSupportPage = computed(() => {
+  return route.path === "/support";
 });
+
+const isCountryPage = computed(() => {
+  return route.path.startsWith("/country/");
+});
+
+const countryName = computed(() => {
+  if (!isCountryPage.value) return "";
+  const slug = route.params.slug;
+  if (!slug) return "";
+  const country = getCountryBySlug(slug);
+  return country?.name || slug.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
+});
+
+const showNavLinks = computed(() => {
+  return route.path === "/" || route.path === "/about" || route.path === "/explorer" || isCountryPage.value;
+});
+
+const partnerBreadcrumb = computed(() => {
+  const map = {
+    "/supply-partner": "As a Supply Partner",
+    "/content-creator": "As a Content Creator",
+    "/affiliate-partner": "As an Affiliate Partner",
+  };
+  return map[route.path] || null;
+});
+
+const showBreadcrumbs = computed(() => !!partnerBreadcrumb.value);
 
 const handleClickOutside = (event) => {
   if (!navbarRef.value) return;
@@ -127,7 +156,7 @@ const handleHoverEnd = () => {
   <nav
     ref="navbarRef"
     class="w-full bg-white dark:bg-gray-900 z-50 fixed top-0 left-0 transition-all duration-500 ease-out"
-    :class="[isScrolled ? 'shadow-md' : '']"
+    :class="[isScrolled ? 'shadow-md' : '', !isSupportPage ? 'border-b border-gray-200 dark:border-gray-700' : '']"
   >
     <!-- MOBILE -->
     <MobileNavbar
@@ -142,7 +171,7 @@ const handleHoverEnd = () => {
         <NavbarTop :isScrolled="isScrolled" :scrollY="scrollY" :isHomePage="isHomePage" />
 
         <div
-          v-if="showNavLinks"
+          v-if="showNavLinks || showBreadcrumbs"
           class="overflow-hidden transition-all duration-300 ease-out pt-3"
           :class="
             isScrolled
@@ -151,11 +180,18 @@ const handleHoverEnd = () => {
           "
         >
           <NavbarLinks
+            v-if="showNavLinks"
             :navData="navData"
             :toggleDropdown="toggleDropdown"
             :handleHoverStart="handleHoverStart"
             :handleHoverEnd="handleHoverEnd"
+            :countryName="isCountryPage ? countryName : ''"
           />
+          <div v-if="showBreadcrumbs" class="flex items-center gap-2 text-[14px] pb-2">
+            <button @click="router.push('/')" class="text-gray-400 hover:text-[#0b2343] transition-colors cursor-pointer">Home</button>
+            <span class="text-gray-300 text-[18px] font-bold leading-none">&#8250;</span>
+            <span class="text-[#0b2343] font-semibold">{{ partnerBreadcrumb }}</span>
+          </div>
         </div>
       </Container>
 

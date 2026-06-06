@@ -22,6 +22,9 @@ import BlogView from "../views/BlogView.vue";
 import MediaView from "../views/MediaView.vue";
 import DownloadCenterView from "../views/DownloadCenterView.vue";
 import ExplorerView from "../views/ExplorerView.vue";
+import SupplyPartnerView from "../views/SupplyPartnerView.vue";
+import ContentCreatorView from "../views/ContentCreatorView.vue";
+import AffiliatePartnerView from "../views/AffiliatePartnerView.vue";
 import NotFoundView from "../views/NotFoundView.vue";
 
 const routes = [
@@ -134,6 +137,21 @@ const routes = [
     path: "/explorer",
     name: "explorer",
     component: ExplorerView,
+  },
+  {
+    path: "/supply-partner",
+    name: "supply-partner",
+    component: SupplyPartnerView,
+  },
+  {
+    path: "/content-creator",
+    name: "content-creator",
+    component: ContentCreatorView,
+  },
+  {
+    path: "/affiliate-partner",
+    name: "affiliate-partner",
+    component: AffiliatePartnerView,
   },
   {
     path: "/:pathMatch(.*)*",

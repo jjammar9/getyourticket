@@ -18,9 +18,9 @@ export const companyLinks = [
 ];
 
 export const workLinks = [
-  { name: "As a Supply Partner", to: "#" },
-  { name: "As a Content Creator", to: "#" },
-  { name: "As an Affiliate Partner", to: "#" },
+  { name: "As a Supply Partner", to: "/supply-partner" },
+  { name: "As a Content Creator", to: "/content-creator" },
+  { name: "As an Affiliate Partner", to: "/affiliate-partner" },
 ];
 
 export const footerCopyright =
