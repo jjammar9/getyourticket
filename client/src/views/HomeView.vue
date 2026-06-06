@@ -9,6 +9,9 @@ import TrustBar from "../components/sections/TrustBar.vue";
 import ExperiencesSection from "../components/sections/ExperiencesSection.vue";
 import WhyBookSection from "../components/sections/WhyBookSection.vue";
 import NewsletterSection from "../components/sections/NewsletterSection.vue";
+import { onMounted } from "vue";
+
+onMounted(() => { document.title = "GetYourTicket - Book Tickets & Experiences"; });
 </script>
 
 <template>

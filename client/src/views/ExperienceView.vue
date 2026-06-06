@@ -1,5 +1,5 @@
 <script setup>
-import { computed, ref, onMounted } from "vue";
+import { computed, ref, onMounted, watch } from "vue";
 import { useRoute } from "vue-router";
 import { useBookingStore } from "../stores/bookingStore.js";
 import SkeletonBlock from "../components/ui/SkeletonBlock.vue";
@@ -30,6 +30,10 @@ onMounted(() => {
 const experience = computed(() => {
   return experiencesData.find((item) => item.id === Number(route.params.id));
 });
+
+watch(experience, (exp) => {
+  if (exp) document.title = `${exp.title} - GetYourTicket`;
+}, { immediate: true });
 
 function handleBook(exp) {
   if (exp) bookingStore.addBooking(exp);

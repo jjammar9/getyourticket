@@ -1,5 +1,5 @@
 <script setup>
-import { ref, watch } from "vue";
+import { ref, watch, onMounted, onUnmounted } from "vue";
 import { X, ChevronLeft, ChevronRight } from "lucide-vue-next";
 
 const props = defineProps({
@@ -46,7 +46,6 @@ onUnmounted(() => {
   document.removeEventListener("keydown", onKeydown);
 });
 
-import { onMounted, onUnmounted } from "vue";
 </script>
 
 <template>

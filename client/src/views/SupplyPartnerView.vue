@@ -1,5 +1,7 @@
 <script setup>
 import Container from "../components/ui/Container.vue";
+import { onMounted } from "vue";
+onMounted(() => { document.title = "Become a Supply Partner - GetYourTicket"; });
 </script>
 
 <template>

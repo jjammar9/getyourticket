@@ -1,5 +1,7 @@
 <script setup>
 import Container from "../components/ui/Container.vue";
+import { onMounted } from "vue";
+onMounted(() => { document.title = "Become an Affiliate Partner - GetYourTicket"; });
 </script>
 
 <template>

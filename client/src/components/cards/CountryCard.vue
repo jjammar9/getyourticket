@@ -24,6 +24,7 @@ const goToExperience = (id) => {
         :src="item.image"
         :alt="item.title"
         @error="handleImageError"
+        loading="lazy"
         class="w-full h-full object-cover group-hover:scale-[1.03] transition duration-500"
       />
       <button @click.stop class="absolute top-3 right-3 w-10 h-10 bg-white rounded-full shadow-sm flex items-center justify-center z-10">

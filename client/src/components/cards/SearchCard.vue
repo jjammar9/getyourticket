@@ -24,6 +24,7 @@ const goToExperience = (id) => {
         :src="item.image"
         :alt="item.title"
         @error="handleImageError"
+        loading="lazy"
         class="w-full h-full object-cover group-hover:scale-[1.03] transition duration-500"
       />
       <div class="absolute inset-0 bg-gradient-to-b from-[#245fb8]/50 via-[#245fb8]/30 via-40% to-transparent"></div>

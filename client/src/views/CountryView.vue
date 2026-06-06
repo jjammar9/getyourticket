@@ -44,6 +44,8 @@ const country = computed(() => getCountryBySlug(slug.value));
 
 const countryName = computed(() => country.value?.name || slug.value.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase()));
 
+watch(countryName, (name) => { document.title = `${name} - GetYourTicket`; }, { immediate: true });
+
 const tags = [
   { label: "Dates", icon: Calendar },
   { label: "Food and Drink", icon: UtensilsCrossed },
