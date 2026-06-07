@@ -1,11 +1,10 @@
 <script setup>
-import { computed, ref } from "vue";
+import { computed, ref, onMounted } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import Container from "../components/ui/Container.vue";
 import Breadcrumbs from "../components/ui/Breadcrumbs.vue";
 import SearchCard from "../components/cards/SearchCard.vue";
-import { experiencesData } from "../data/experiencesData.js";
-import { navData } from "../data/megaMenuData.js";
+import { getListings, getSiteContent } from "../api.js";
 import { toSlug } from "../utils/helpers.js";
 import { useSearchSuggestions } from "../composables/useSearchSuggestions.js";
 import { useLocaleStore } from "../stores/localeStore.js";
@@ -18,13 +17,29 @@ const searchInput = ref("");
 const showSuggestions = ref(false);
 const { suggestions: autoSuggestions } = useSearchSuggestions(searchInput);
 
+const experiencesData = ref([]);
+const navData = ref({});
+
+onMounted(async () => {
+  try {
+    const [listings, megaMenu] = await Promise.all([
+      getListings(),
+      getSiteContent("megaMenu")
+    ]);
+    experiencesData.value = listings;
+    navData.value = megaMenu;
+  } catch (e) {
+    console.error("Failed to load data", e);
+  }
+});
+
 const query = computed(() => (route.query.q || "").toLowerCase().trim());
 
 const results = computed(() => {
   const q = query.value;
   if (!q) return [];
 
-  return experiencesData.filter(
+  return experiencesData.value.filter(
     (item) =>
       item.title.toLowerCase().includes(q) ||
       item.location.toLowerCase().includes(q) ||
@@ -39,7 +54,7 @@ const suggestions = computed(() => {
   const matches = [];
   const seen = new Set();
 
-  for (const section of Object.values(navData)) {
+  for (const section of Object.values(navData.value)) {
     for (const items of Object.values(section.categories)) {
       for (const item of items) {
         if (item.title.toLowerCase().includes(q) && !seen.has(item.title)) {

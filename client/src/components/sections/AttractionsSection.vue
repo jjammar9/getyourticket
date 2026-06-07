@@ -1,7 +1,7 @@
 <script setup>
-import { ref, computed } from "vue";
+import { ref, computed, onMounted } from "vue";
 import { useRouter } from "vue-router";
-import { attractionsCards } from "../../data/homeData.js";
+import { getSiteContent } from "../../api.js";
 import { handleImageError } from "../../constants/placeholder.js";
 import { Star } from "lucide-vue-next";
 import { useCurrencyStore } from "../../stores/currencyStore.js";
@@ -15,16 +15,26 @@ const router = useRouter();
 const currencyStore = useCurrencyStore();
 const localeStore = useLocaleStore();
 
+const attractionsCards = ref([]);
+
+onMounted(async () => {
+  try {
+    attractionsCards.value = await getSiteContent("homeAttractions");
+  } catch (e) {
+    console.error("Failed to load attractions", e);
+  }
+});
+
 const currentPage = ref(0);
 const itemsPerPage = 4;
 
 const visibleCards = computed(() => {
   const start = currentPage.value * itemsPerPage;
-  return attractionsCards.slice(start, start + itemsPerPage);
+  return attractionsCards.value.slice(start, start + itemsPerPage);
 });
 
 const nextPage = () => {
-  if ((currentPage.value + 1) * itemsPerPage < attractionsCards.length) {
+  if ((currentPage.value + 1) * itemsPerPage < attractionsCards.value.length) {
     currentPage.value++;
   }
 };

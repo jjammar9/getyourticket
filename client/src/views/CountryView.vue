@@ -2,9 +2,7 @@
 import { computed, watch, ref, onMounted, onUnmounted } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { useNavSearch } from "../composables/useNavSearch.js";
-import { getCountryBySlug } from "../data/countryData.js";
-import { experiencesData } from "../data/experiencesData.js";
-import { reviewsData } from "../data/reviewsData.js";
+import { getCountryBySlug, getListings, getReviews } from "../api.js";
 import CountryCard from "../components/cards/CountryCard.vue";
 import NewsletterSection from "../components/sections/NewsletterSection.vue";
 import { handleImageError } from "../constants/placeholder.js";
@@ -43,7 +41,31 @@ const router = useRouter();
 const { setSearchQuery } = useNavSearch();
 const slug = computed(() => route.params.slug);
 
-const country = computed(() => getCountryBySlug(slug.value));
+const country = ref(null);
+const experiencesList = ref([]);
+const countryReviews = ref([]);
+
+async function loadCountryData(slug) {
+  if (!slug) {
+    country.value = null;
+    experiencesList.value = [];
+    countryReviews.value = [];
+    return;
+  }
+  try {
+    const [c, listings] = await Promise.all([
+      getCountryBySlug(slug),
+      getListings()
+    ]);
+    country.value = c;
+    experiencesList.value = listings || [];
+  } catch (e) {
+    console.error("Failed to load country data", e);
+  }
+}
+
+onMounted(() => loadCountryData(slug.value));
+watch(slug, (newSlug) => loadCountryData(newSlug));
 
 const countryName = computed(() => country.value?.name || slug.value.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase()));
 
@@ -71,7 +93,7 @@ const tags = [
 const experiences = computed(() => {
   const c = country.value;
   if (!c) return [];
-  return experiencesData.filter(
+  return experiencesList.value.filter(
     (exp) => c.cities.some((city) => exp.location.toLowerCase() === city.toLowerCase())
   );
 });
@@ -122,16 +144,28 @@ const attractions = computed(() => country.value?.attractions || []);
 
 const recommended = computed(() => experiences.value.slice(0, 4));
 
-const countryReviews = computed(() => {
-  const all = [];
-  for (const exp of recommended.value) {
-    const expReviews = reviewsData[exp.id] || [];
-    for (const r of expReviews) {
-      all.push({ ...r, experienceTitle: exp.title, experienceImage: exp.image, experienceId: exp.id });
-    }
+watch(recommended, async (recs) => {
+  if (!recs.length) {
+    countryReviews.value = [];
+    return;
   }
-  return all;
-});
+  try {
+    const reviewsArrays = await Promise.all(
+      recs.map(exp => getReviews(exp.id))
+    );
+    const all = [];
+    for (let i = 0; i < recs.length; i++) {
+      const exp = recs[i];
+      const expReviews = reviewsArrays[i] || [];
+      for (const r of expReviews) {
+        all.push({ ...r, experienceTitle: exp.title, experienceImage: exp.image, experienceId: exp.id });
+      }
+    }
+    countryReviews.value = all;
+  } catch (e) {
+    console.error("Failed to load reviews", e);
+  }
+}, { immediate: true });
 
 const expandedReviews = ref(new Set());
 

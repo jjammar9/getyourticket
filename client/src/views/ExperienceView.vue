@@ -1,5 +1,5 @@
 <script setup>
-import { computed, ref, onMounted, watch } from "vue";
+import { ref, onMounted, watch } from "vue";
 import { useRoute } from "vue-router";
 import { useBookingStore } from "../stores/bookingStore.js";
 import SkeletonBlock from "../components/ui/SkeletonBlock.vue";
@@ -17,18 +17,20 @@ import ExperienceIncluded from "../components/experience/ExperienceIncluded.vue"
 import ExperienceMeetingPoint from "../components/experience/ExperienceMeetingPoint.vue";
 import ExperienceReviews from "../components/experience/ExperienceReviews.vue";
 import SearchBar from "../components/ui/SearchBar.vue";
-import { experiencesData } from "../data/experiencesData.js";
+import { getListingById } from "../api.js";
 
 const route = useRoute();
 const bookingStore = useBookingStore();
 const loading = ref(true);
+const experience = ref(null);
 
-onMounted(() => {
-  setTimeout(() => { loading.value = false; }, 400);
-});
-
-const experience = computed(() => {
-  return experiencesData.find((item) => item.id === Number(route.params.id));
+onMounted(async () => {
+  try {
+    experience.value = await getListingById(Number(route.params.id));
+  } catch (e) {
+    console.error("Failed to load experience", e);
+  }
+  loading.value = false;
 });
 
 watch(experience, (exp) => {

@@ -15,13 +15,15 @@ import {
 import { useRouter } from "vue-router";
 import { ref, computed, watch, onMounted, onUnmounted } from "vue";
 import { useSearchSuggestions } from "../../composables/useSearchSuggestions.js";
-import { countries } from "../../data/countryData.js";
+import { getCountries } from "../../api.js";
 import { useNavSearch } from "../../composables/useNavSearch.js";
 import { useThemeStore } from "../../stores/themeStore.js";
 import { useLocaleStore } from "../../stores/localeStore.js";
 import { useCurrencyStore } from "../../stores/currencyStore.js";
+import { useAuthStore } from "../../stores/authStore.js";
 import { locales } from "../../i18n/translations.js";
 import logoImage from "../../assets/0e31b4a5-ec0a-496e-81a1-cc44c5729c06.png";
+import AuthModal from "../auth/AuthModal.vue";
 
 const props = defineProps({
   isScrolled: Boolean,
@@ -32,12 +34,16 @@ const props = defineProps({
 const router = useRouter();
 const localeStore = useLocaleStore();
 const currencyStore = useCurrencyStore();
+const authStore = useAuthStore();
+
+const showAuthModal = ref(false);
 
 const { searchQuery, setSearchQuery } = useNavSearch();
 const searchTerm = ref("");
 const showSuggestions = ref(false);
 const searchInput = ref(null);
 const { suggestions } = useSearchSuggestions(searchTerm);
+const countries = ref({});
 
 watch(searchQuery, (val) => {
   if (val) {
@@ -81,7 +87,15 @@ function onDocumentClick(e) {
   currDrop.value = false;
 }
 
-onMounted(() => document.addEventListener("click", onDocumentClick));
+onMounted(() => {
+  authStore.init();
+  document.addEventListener("click", onDocumentClick);
+  getCountries().then(list => {
+    const map = {};
+    for (const c of list) map[c.slug] = c;
+    countries.value = map;
+  }).catch(e => console.error("Failed to load countries", e));
+});
 onUnmounted(() => document.removeEventListener("click", onDocumentClick));
 
 const onProfileEnter = () => {
@@ -128,7 +142,7 @@ const handleSearch = () => {
     return;
   }
 
-  const slug = Object.entries(countries).find(
+  const slug = Object.entries(countries.value).find(
     ([, c]) => c.name.toLowerCase() === query.toLowerCase()
   )?.[0];
 
@@ -349,13 +363,25 @@ const handleSearch = () => {
             <div class="w-[260px] bg-white dark:bg-gray-800 rounded-2xl shadow-[0_4px_24px_rgba(0,0,0,0.12)] border border-gray-100 dark:border-gray-700 overflow-hidden">
             <!-- Profile header -->
             <div class="px-4 pt-4 pb-3">
-              <div class="flex items-center gap-3">
+              <div v-if="authStore.isLoggedIn" class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-full bg-[#ff5533] flex items-center justify-center text-white text-[16px] font-bold">
+                  {{ (authStore.user?.name || "?").charAt(0).toUpperCase() }}
+                </div>
+                <div class="flex-1 min-w-0">
+                  <p class="text-[14px] font-semibold text-gray-900 dark:text-white truncate">{{ authStore.user?.name }}</p>
+                  <p class="text-[12px] text-gray-500 dark:text-gray-400 truncate">{{ authStore.user?.email }}</p>
+                </div>
+              </div>
+              <div v-else class="flex items-center gap-3">
                 <div class="w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-700 flex items-center justify-center">
                   <User :size="20" class="text-gray-500 dark:text-gray-300" />
                 </div>
                 <div class="flex-1">
                   <p class="text-[14px] font-semibold text-gray-900 dark:text-white">{{ localeStore.t("nav.profile") }}</p>
-                  <button class="flex items-center gap-1 text-[12px] text-blue-600 dark:text-blue-400 hover:text-blue-700 mt-0.5">
+                  <button
+                    @click="showAuthModal = true; showProfileMenu = false"
+                    class="flex items-center gap-1 text-[12px] text-blue-600 dark:text-blue-400 hover:text-blue-700 mt-0.5"
+                  >
                     <LogIn :size="13" />
                     <span>{{ localeStore.t("nav.login") }}</span>
                     <ArrowRight :size="13" />
@@ -420,7 +446,21 @@ const handleSearch = () => {
               </div>
               <ArrowRight :size="15" class="text-gray-400 dark:text-gray-500" />
             </div>
+
+            <!-- Logout (logged in only) -->
+            <div
+              v-if="authStore.isLoggedIn"
+              @click="authStore.logout(); showProfileMenu = false"
+              class="px-4 py-3 flex items-center justify-between hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer transition-colors border-t border-gray-100 dark:border-gray-700"
+            >
+              <div class="flex items-center gap-3">
+                <LogIn :size="18" class="text-gray-500 dark:text-gray-300 rotate-180" />
+                <span class="text-[13px] text-gray-700 dark:text-gray-200 font-medium">{{ localeStore.t("auth.logout") }}</span>
+              </div>
+            </div>
           </div>
         </div>
         </Transition>
+
+  <AuthModal :show="showAuthModal" @close="showAuthModal = false" />
 </template>

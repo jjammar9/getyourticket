@@ -1,10 +1,21 @@
 <script setup>
-import { whyBookData } from "../../data/whyBookData.js";
+import { ref, onMounted } from "vue";
+import { getSiteContent } from "../../api.js";
 import WhyBookCard from "../cards/WhyBookCard.vue";
 import fadeIn from "../../directives/fadeIn.js";
 import { useLocaleStore } from "../../stores/localeStore.js";
 
 const localeStore = useLocaleStore();
+
+const whyBookData = ref([]);
+
+onMounted(async () => {
+  try {
+    whyBookData.value = await getSiteContent("whyBook");
+  } catch (e) {
+    console.error("Failed to load why book data", e);
+  }
+});
 </script>
 
 <template>

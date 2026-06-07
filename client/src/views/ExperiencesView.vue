@@ -1,8 +1,19 @@
 <script setup>
+import { ref, onMounted } from "vue";
 import Container from "../components/ui/Container.vue";
 import Breadcrumbs from "../components/ui/Breadcrumbs.vue";
 import SearchCard from "../components/cards/SearchCard.vue";
-import { experiencesData } from "../data/experiencesData.js";
+import { getListings } from "../api.js";
+
+const experiencesData = ref([]);
+
+onMounted(async () => {
+  try {
+    experiencesData.value = await getListings();
+  } catch (e) {
+    console.error("Failed to load experiences", e);
+  }
+});
 </script>
 
 <template>

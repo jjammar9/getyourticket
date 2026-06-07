@@ -1,16 +1,26 @@
 <script setup>
-import { computed } from "vue";
+import { computed, ref, onMounted } from "vue";
 import ExperienceCard from "../cards/ExperienceCard.vue";
 import SectionTitle from "../ui/SectionTitle.vue";
-import { experiencesData } from "../../data/experiencesData.js";
+import { getListings } from "../../api.js";
 import fadeIn from "../../directives/fadeIn.js";
 import { useLocaleStore } from "../../stores/localeStore.js";
 
 const localeStore = useLocaleStore();
 
+const experiencesData = ref([]);
+
+onMounted(async () => {
+  try {
+    experiencesData.value = await getListings();
+  } catch (e) {
+    console.error("Failed to load experiences", e);
+  }
+});
+
 const uniqueImageExperiences = computed(() => {
   const seen = new Set();
-  return experiencesData.filter((item) => {
+  return experiencesData.value.filter((item) => {
     if (seen.has(item.image)) return false;
     seen.add(item.image);
     return true;

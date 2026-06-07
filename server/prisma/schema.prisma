@@ -18,6 +18,24 @@ model User {
   updatedAt DateTime  @updatedAt
 }
 
+model Review {
+  id        String   @id @default(cuid())
+  listingId String
+  name      String
+  date      String
+  rating    Int
+  text      String
+  image     String?
+  listing   Listing  @relation(fields: [listingId], references: [id])
+  createdAt DateTime @default(now())
+}
+
+model SiteContent {
+  id    String @id @default(cuid())
+  key   String @unique
+  value Json
+}
+
 model Country {
   id          String    @id @default(cuid())
   slug        String    @unique
@@ -25,6 +43,9 @@ model Country {
   description String?
   image       String?
   continent   String?
+  cities      Json?
+  attractions Json?
+  guides      Json?
   listings    Listing[]
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
@@ -43,18 +64,28 @@ model Category {
 model Listing {
   id                 String   @id @default(cuid())
   slug               String   @unique
+  expId              Int      @unique
   title              String
   description        String?
+  badge              String?
   images             String[]
+  gallery            String[]
   price              Float
-  duration           Int?
+  oldPrice           Float?
+  duration           String?
   location           String?
-  includes           String?
+  extras             String?
+  rating             Float?
+  reviewsCount       Int?
+  highlights         String[]
+  included           String[]
+  meetingPoint       String?
   cancellationPolicy String?
   countryId          String
   categoryId         String
   country            Country  @relation(fields: [countryId], references: [id])
   category           Category @relation(fields: [categoryId], references: [id])
+  reviews            Review[]
   createdAt          DateTime @default(now())
   updatedAt          DateTime @updatedAt
 }

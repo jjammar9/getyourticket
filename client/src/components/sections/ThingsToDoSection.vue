@@ -1,6 +1,7 @@
 <script setup>
+import { ref, onMounted } from "vue";
 import { useRouter } from "vue-router";
-import { thingsToDoCards } from "../../data/homeData.js";
+import { getSiteContent } from "../../api.js";
 import { handleImageError } from "../../constants/placeholder.js";
 import SectionTitle from "../ui/SectionTitle.vue";
 import fadeIn from "../../directives/fadeIn.js";
@@ -8,6 +9,16 @@ import { useLocaleStore } from "../../stores/localeStore.js";
 
 const router = useRouter();
 const localeStore = useLocaleStore();
+
+const thingsToDoCards = ref([]);
+
+onMounted(async () => {
+  try {
+    thingsToDoCards.value = await getSiteContent("homeThingsToDo");
+  } catch (e) {
+    console.error("Failed to load things to do", e);
+  }
+});
 </script>
 
 <template>

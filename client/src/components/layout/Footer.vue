@@ -5,15 +5,26 @@ import FooterPayments from "../footer/FooterPayments.vue";
 import FooterSocials from "../footer/FooterSocials.vue";
 import FooterMobileApps from "../footer/FooterMobileApps.vue";
 import Container from "../ui/Container.vue";
+import { ref, onMounted } from "vue";
+import { getSiteContent } from "../../api.js";
 import { useLocaleStore } from "../../stores/localeStore.js";
 
 const localeStore = useLocaleStore();
 
-import {
-  supportLinks,
-  companyLinks,
-  workLinks,
-} from "../../data/footerData.js";
+const supportLinks = ref([]);
+const companyLinks = ref([]);
+const workLinks = ref([]);
+
+onMounted(async () => {
+  try {
+    const footerLinks = await getSiteContent("footerLinks");
+    supportLinks.value = footerLinks?.supportLinks || [];
+    companyLinks.value = footerLinks?.companyLinks || [];
+    workLinks.value = footerLinks?.workLinks || [];
+  } catch (e) {
+    console.error("Failed to load footer links", e);
+  }
+});
 </script>
 
 <template>

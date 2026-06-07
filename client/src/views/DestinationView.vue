@@ -1,17 +1,32 @@
 <script setup>
-import { computed } from "vue";
+import { computed, ref, onMounted } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import Container from "../components/ui/Container.vue";
 import Breadcrumbs from "../components/ui/Breadcrumbs.vue";
 import SearchCard from "../components/cards/SearchCard.vue";
-import { experiencesData } from "../data/experiencesData.js";
-import { navData } from "../data/megaMenuData.js";
+import { getListings, getSiteContent } from "../api.js";
 import { toSlug } from "../utils/helpers.js";
 import { useLocaleStore } from "../stores/localeStore.js";
 const localeStore = useLocaleStore();
 
 const route = useRoute();
 const router = useRouter();
+
+const experiencesData = ref([]);
+const navData = ref({});
+
+onMounted(async () => {
+  try {
+    const [listings, megaMenu] = await Promise.all([
+      getListings(),
+      getSiteContent("megaMenu")
+    ]);
+    experiencesData.value = listings;
+    navData.value = megaMenu;
+  } catch (e) {
+    console.error("Failed to load data", e);
+  }
+});
 
 const title = computed(() => {
   return (route.params.slug || "")
@@ -22,7 +37,7 @@ const title = computed(() => {
 const itemInfo = computed(() => {
   const slug = (route.params.slug || "").toLowerCase();
 
-  for (const [sectionKey, section] of Object.entries(navData)) {
+  for (const [sectionKey, section] of Object.entries(navData.value)) {
     for (const [category, items] of Object.entries(section.categories)) {
       for (const item of items) {
         if (toSlug(item.title) === slug) {
@@ -44,7 +59,7 @@ const experiences = computed(() => {
   const slug = (route.params.slug || "").toLowerCase();
   const loc = itemInfo.value?.item?.subtitle?.split(",")[0]?.trim() || "";
 
-  return experiencesData.filter(
+  return experiencesData.value.filter(
     (exp) => toSlug(exp.location) === slug || (loc && toSlug(exp.location) === toSlug(loc))
   );
 });
@@ -60,7 +75,7 @@ const breadcrumbs = computed(() => {
 });
 
 const randomExperiences = computed(() => {
-  const shuffled = [...experiencesData].sort(() => Math.random() - 0.5);
+  const shuffled = [...experiencesData.value].sort(() => Math.random() - 0.5);
   return shuffled.slice(0, 4);
 });
 </script>

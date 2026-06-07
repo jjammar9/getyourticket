@@ -1,11 +1,21 @@
 <script setup>
-import { computed } from "vue";
+import { computed, ref, onMounted } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import Container from "../components/ui/Container.vue";
 import Breadcrumbs from "../components/ui/Breadcrumbs.vue";
-import { navData } from "../data/megaMenuData.js";
+import { getSiteContent } from "../api.js";
 import { handleImageError } from "../constants/placeholder.js";
 import { toSlug } from "../utils/helpers.js";
+
+const navData = ref({});
+
+onMounted(async () => {
+  try {
+    navData.value = await getSiteContent("megaMenu");
+  } catch (e) {
+    console.error("Failed to load nav data", e);
+  }
+});
 
 const route = useRoute();
 const router = useRouter();
@@ -17,7 +27,7 @@ const title = computed(() => {
 
 const items = computed(() => {
   const slug = (route.params.slug || "").toLowerCase();
-  for (const section of Object.values(navData)) {
+  for (const section of Object.values(navData.value)) {
     for (const [catName, catItems] of Object.entries(section.categories)) {
       if (toSlug(catName) === slug) {
         return catItems;

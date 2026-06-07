@@ -30,6 +30,20 @@ const en = {
   "nav.tripInspiration": "Trip inspiration",
   "nav.explore": "Explore {{ country }}",
 
+  /* Auth */
+  "auth.login": "Log in",
+  "auth.signup": "Sign up",
+  "auth.email": "Email",
+  "auth.password": "Password",
+  "auth.name": "Full name",
+  "auth.emailPlaceholder": "Enter your email",
+  "auth.passwordPlaceholder": "Enter your password",
+  "auth.namePlaceholder": "Enter your full name",
+  "auth.loginButton": "Log in",
+  "auth.signupButton": "Sign up",
+  "auth.logout": "Log out",
+  "auth.required": "All fields are required",
+
   /* Hero */
   "hero.title": "Discover & book things to do",
 
@@ -327,6 +341,21 @@ const de = {
   "nav.thingsToDo": "Aktivit\u00E4ten",
   "nav.tripInspiration": "Reiseinspiration",
   "nav.explore": "{{ country }} entdecken",
+
+  /* Auth */
+  "auth.login": "Anmelden",
+  "auth.signup": "Registrieren",
+  "auth.email": "E-Mail",
+  "auth.password": "Passwort",
+  "auth.name": "Vollst\u00E4ndiger Name",
+  "auth.emailPlaceholder": "Geben Sie Ihre E-Mail ein",
+  "auth.passwordPlaceholder": "Geben Sie Ihr Passwort ein",
+  "auth.namePlaceholder": "Geben Sie Ihren vollst\u00E4ndigen Namen ein",
+  "auth.loginButton": "Anmelden",
+  "auth.signupButton": "Registrieren",
+  "auth.logout": "Abmelden",
+  "auth.required": "Alle Felder sind erforderlich",
+
   "hero.title": "Aktivit\u00E4ten entdecken & buchen",
   "trending.title": "Gerade beliebt",
   "trending.tours": "Touren",
@@ -443,6 +472,21 @@ const es = {
   "nav.thingsToDo": "Actividades",
   "nav.tripInspiration": "Inspiraci\u00F3n de viaje",
   "nav.explore": "Explorar {{ country }}",
+
+  /* Auth */
+  "auth.login": "Iniciar sesi\u00F3n",
+  "auth.signup": "Registrarse",
+  "auth.email": "Correo electr\u00F3nico",
+  "auth.password": "Contrase\u00F1a",
+  "auth.name": "Nombre completo",
+  "auth.emailPlaceholder": "Ingrese su correo electr\u00F3nico",
+  "auth.passwordPlaceholder": "Ingrese su contrase\u00F1a",
+  "auth.namePlaceholder": "Ingrese su nombre completo",
+  "auth.loginButton": "Iniciar sesi\u00F3n",
+  "auth.signupButton": "Registrarse",
+  "auth.logout": "Cerrar sesi\u00F3n",
+  "auth.required": "Todos los campos son obligatorios",
+
   "hero.title": "Descubre y reserva actividades",
   "trending.title": "Popular ahora",
   "trending.tours": "tours",
@@ -555,6 +599,21 @@ const fr = {
   "nav.thingsToDo": "Activit\u00E9s",
   "nav.tripInspiration": "Inspiration voyage",
   "nav.explore": "Explorer {{ country }}",
+
+  /* Auth */
+  "auth.login": "Connexion",
+  "auth.signup": "Inscription",
+  "auth.email": "E-mail",
+  "auth.password": "Mot de passe",
+  "auth.name": "Nom complet",
+  "auth.emailPlaceholder": "Entrez votre e-mail",
+  "auth.passwordPlaceholder": "Entrez votre mot de passe",
+  "auth.namePlaceholder": "Entrez votre nom complet",
+  "auth.loginButton": "Se connecter",
+  "auth.signupButton": "S\u2019inscrire",
+  "auth.logout": "Se d\u00E9connecter",
+  "auth.required": "Tous les champs sont obligatoires",
+
   "hero.title": "D\u00E9couvrez et r\u00E9servez des activit\u00E9s",
   "trending.title": "Populaire en ce moment",
   "categories.title": "Cat\u00E9gories",
@@ -766,6 +825,21 @@ const it = {
   "nav.thingsToDo": "Cose da fare",
   "nav.tripInspiration": "Ispirazione di viaggio",
   "nav.explore": "Esplora {{ country }}",
+
+  /* Auth */
+  "auth.login": "Accedi",
+  "auth.signup": "Registrati",
+  "auth.email": "Email",
+  "auth.password": "Password",
+  "auth.name": "Nome completo",
+  "auth.emailPlaceholder": "Inserisci la tua email",
+  "auth.passwordPlaceholder": "Inserisci la tua password",
+  "auth.namePlaceholder": "Inserisci il tuo nome completo",
+  "auth.loginButton": "Accedi",
+  "auth.signupButton": "Registrati",
+  "auth.logout": "Esci",
+  "auth.required": "Tutti i campi sono obbligatori",
+
   "hero.title": "Scopri e prenota attivit\u00E0",
   "trending.title": "Popolari in questo momento",
   "trending.tours": "tour",
@@ -977,6 +1051,20 @@ const nl = {
   "nav.thingsToDo": "Activiteiten",
   "nav.tripInspiration": "Reis inspiratie",
   "nav.explore": "{{ country }} verkennen",
+
+  /* Auth */
+  "auth.login": "Inloggen",
+  "auth.signup": "Registreren",
+  "auth.email": "E-mail",
+  "auth.password": "Wachtwoord",
+  "auth.name": "Volledige naam",
+  "auth.emailPlaceholder": "Voer uw e-mail in",
+  "auth.passwordPlaceholder": "Voer uw wachtwoord in",
+  "auth.namePlaceholder": "Voer uw volledige naam in",
+  "auth.loginButton": "Inloggen",
+  "auth.signupButton": "Registreren",
+  "auth.logout": "Uitloggen",
+  "auth.required": "Alle velden zijn verplicht",
 
   "hero.title": "Ontdek en boek activiteiten",
 
@@ -1213,6 +1301,20 @@ const pl = {
   "nav.thingsToDo": "Atrakcje",
   "nav.tripInspiration": "Inspiracje podr\u00F3\u017Cnicze",
   "nav.explore": "Odkryj {{ country }}",
+
+  /* Auth */
+  "auth.login": "Zaloguj si\u0119",
+  "auth.signup": "Zarejestruj si\u0119",
+  "auth.email": "E-mail",
+  "auth.password": "Has\u0142o",
+  "auth.name": "Pe\u0142ne imi\u0119 i nazwisko",
+  "auth.emailPlaceholder": "Wpisz sw\u00F3j e-mail",
+  "auth.passwordPlaceholder": "Wpisz swoje has\u0142o",
+  "auth.namePlaceholder": "Wpisz swoje pe\u0142ne imi\u0119 i nazwisko",
+  "auth.loginButton": "Zaloguj si\u0119",
+  "auth.signupButton": "Zarejestruj si\u0119",
+  "auth.logout": "Wyloguj si\u0119",
+  "auth.required": "Wszystkie pola s\u0105 wymagane",
 
   "hero.title": "Odkrywaj i rezerwuj atrakcje",
 
@@ -1461,6 +1563,20 @@ const pt = {
   "nav.thingsToDo": "Atividades",
   "nav.tripInspiration": "Inspira\u00E7\u00E3o de viagem",
   "nav.explore": "Explorar {{ country }}",
+
+  /* Auth */
+  "auth.login": "Iniciar sess\u00E3o",
+  "auth.signup": "Registar-se",
+  "auth.email": "E-mail",
+  "auth.password": "Palavra-passe",
+  "auth.name": "Nome completo",
+  "auth.emailPlaceholder": "Insira o seu e-mail",
+  "auth.passwordPlaceholder": "Insira a sua palavra-passe",
+  "auth.namePlaceholder": "Insira o seu nome completo",
+  "auth.loginButton": "Iniciar sess\u00E3o",
+  "auth.signupButton": "Registar-se",
+  "auth.logout": "Terminar sess\u00E3o",
+  "auth.required": "Todos os campos s\u00E3o obrigat\u00F3rios",
 
   "hero.title": "Descubra e reserve atividades",
 

@@ -2,8 +2,7 @@
 import { computed, ref, onMounted, onUnmounted } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { Menu } from "lucide-vue-next";
-import { getCountryBySlug } from "../../data/countryData.js";
-import { navData } from "../../data/megaMenuData.js";
+import { getCountries, getSiteContent } from "../../api.js";
 import NavbarTop from "../../components/Navbar/NavbarTop.vue";
 import NavbarLinks from "../../components/Navbar/NavbarLinks.vue";
 import MegaMenu from "../../components/Navbar/MegaMenu.vue";
@@ -13,6 +12,9 @@ import { useLocaleStore } from "../../stores/localeStore.js";
 const router = useRouter();
 const route = useRoute();
 const localeStore = useLocaleStore();
+
+const navData = ref({});
+const countries = ref([]);
 
 let hoverTimer = null;
 
@@ -37,11 +39,17 @@ const isCountryPage = computed(() => {
   return route.path.startsWith("/country/");
 });
 
+const countriesMap = computed(() => {
+  const map = {};
+  for (const c of countries.value) map[c.slug] = c;
+  return map;
+});
+
 const countryName = computed(() => {
   if (!isCountryPage.value) return "";
   const slug = route.params.slug;
   if (!slug) return "";
-  const country = getCountryBySlug(slug);
+  const country = countriesMap.value[slug];
   return country?.name || slug.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
 });
 
@@ -94,9 +102,19 @@ const handleMegaMenuLeave = () => {
   closeMegaMenu();
 };
 
-onMounted(() => {
+onMounted(async () => {
   document.addEventListener("click", handleClickOutside);
   window.addEventListener("scroll", handleScroll);
+  try {
+    const data = await Promise.all([
+      getSiteContent("megaMenu"),
+      getCountries()
+    ]);
+    navData.value = data[0];
+    countries.value = data[1];
+  } catch (e) {
+    console.error("Failed to load nav data", e);
+  }
 });
 
 onUnmounted(() => {
@@ -108,13 +126,13 @@ onUnmounted(() => {
 const currentCategories = computed(() => {
   if (!activeDropdown.value) return [];
 
-  return Object.keys(navData[activeDropdown.value]?.categories || {});
+  return Object.keys(navData.value[activeDropdown.value]?.categories || {});
 });
 
 const currentItems = computed(() => {
   if (!activeDropdown.value || !activeCategory.value) return [];
 
-  return navData[activeDropdown.value]?.categories[activeCategory.value] || [];
+  return navData.value[activeDropdown.value]?.categories[activeCategory.value] || [];
 });
 
 const toggleDropdown = (id) => {
@@ -125,7 +143,7 @@ const toggleDropdown = (id) => {
   }
 
   activeDropdown.value = id;
-  activeCategory.value = Object.keys(navData[id].categories)[0];
+  activeCategory.value = Object.keys(navData.value[id].categories)[0];
 };
 
 const toggleMobileMenu = () => {
@@ -137,7 +155,7 @@ const handleHoverStart = (id) => {
 
   hoverTimer = setTimeout(() => {
     activeDropdown.value = id;
-    activeCategory.value = Object.keys(navData[id]?.categories || {})[0] || null;
+    activeCategory.value = Object.keys(navData.value[id]?.categories || {})[0] || null;
   }, 120);
 };
 
