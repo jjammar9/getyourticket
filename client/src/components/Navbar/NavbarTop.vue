@@ -11,6 +11,7 @@ import {
   Headphones,
   Smartphone,
   Bell,
+  Calendar,
 } from "lucide-vue-next";
 import { useRouter } from "vue-router";
 import { ref, computed, watch, onMounted, onUnmounted } from "vue";
@@ -240,6 +241,17 @@ const handleSearch = () => {
       </button>
 
       <button
+        v-if="authStore.isLoggedIn"
+        class="group relative flex flex-col items-center gap-1 text-[13px] font-medium text-[#4f5a72] dark:text-gray-300 hover:text-[#ff5533] transition-colors"
+      >
+        <Calendar :size="22" :stroke-width="2.5" />
+        <span>{{ localeStore.t("nav.bookings") }}</span>
+        <span
+          class="absolute left-1/2 -bottom-2 h-[2px] w-0 bg-[#ff5533] transition-all duration-300 -translate-x-1/2 group-hover:w-full"
+        />
+      </button>
+
+      <button
         class="group relative flex flex-col items-center gap-1 text-[13px] font-medium text-[#4f5a72] dark:text-gray-300 hover:text-[#ff5533] transition-colors"
       >
         <ShoppingCart :size="22" :stroke-width="2.5" />
@@ -335,7 +347,7 @@ const handleSearch = () => {
           class="group relative flex flex-col items-center gap-1 text-[13px] font-medium text-[#4f5a72] dark:text-gray-300 hover:text-[#ff5533] transition-colors"
         >
           <User :size="22" :stroke-width="2.5" />
-          <span>{{ localeStore.t("nav.profile") }}</span>
+          <span class="font-bold capitalize">{{ authStore.isLoggedIn ? (authStore.user?.name || localeStore.t("nav.profile")) : localeStore.t("nav.profile") }}</span>
           <span
             class="absolute left-1/2 -bottom-2 h-[2px] w-0 bg-[#ff5533] transition-all duration-300 -translate-x-1/2 group-hover:w-full"
           />

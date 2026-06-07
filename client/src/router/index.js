@@ -154,6 +154,29 @@ const routes = [
     component: AffiliatePartnerView,
   },
   {
+    path: "/wishlist",
+    name: "wishlist",
+    component: () => import("../views/WishlistView.vue"),
+    meta: { requiresAuth: true },
+  },
+  {
+    path: "/cart",
+    name: "cart",
+    component: () => import("../views/CartView.vue"),
+  },
+  {
+    path: "/bookings",
+    name: "bookings",
+    component: () => import("../views/BookingsView.vue"),
+    meta: { requiresAuth: true },
+  },
+  {
+    path: "/profile",
+    name: "profile",
+    component: () => import("../views/ProfileView.vue"),
+    meta: { requiresAuth: true },
+  },
+  {
     path: "/:pathMatch(.*)*",
     name: "not-found",
     component: NotFoundView,

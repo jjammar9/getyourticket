@@ -77,3 +77,61 @@ export async function getReviews(expId) {
   const data = await fetchJSON(`${BASE}/reviews${qs}`);
   return data.reviews;
 }
+
+export async function updateProfile(data) {
+  return fetchJSON(`${BASE}/user/profile`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json", ...authHeaders() },
+    body: JSON.stringify(data),
+  });
+}
+
+export async function getWishlist() {
+  return fetchJSON(`${BASE}/user/wishlist`, {
+    headers: { ...authHeaders() },
+  });
+}
+
+export async function addToWishlist(listingId) {
+  return fetchJSON(`${BASE}/user/wishlist`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json", ...authHeaders() },
+    body: JSON.stringify({ listingId }),
+  });
+}
+
+export async function removeFromWishlist(listingId) {
+  return fetchJSON(`${BASE}/user/wishlist/${listingId}`, {
+    method: "DELETE",
+    headers: { ...authHeaders() },
+  });
+}
+
+export async function getBookings() {
+  return fetchJSON(`${BASE}/user/bookings`, {
+    headers: { ...authHeaders() },
+  });
+}
+
+export async function createBooking(data) {
+  return fetchJSON(`${BASE}/user/bookings`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json", ...authHeaders() },
+    body: JSON.stringify(data),
+  });
+}
+
+export async function cancelBooking(id) {
+  return fetchJSON(`${BASE}/user/bookings/${id}/cancel`, {
+    method: "PUT",
+    headers: { ...authHeaders() },
+  });
+}
+
+export async function createReview(data) {
+  return fetchJSON(`${BASE}/user/reviews`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json", ...authHeaders() },
+    body: JSON.stringify(data),
+  });
+}

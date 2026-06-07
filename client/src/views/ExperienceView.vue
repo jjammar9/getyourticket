@@ -17,16 +17,19 @@ import ExperienceIncluded from "../components/experience/ExperienceIncluded.vue"
 import ExperienceMeetingPoint from "../components/experience/ExperienceMeetingPoint.vue";
 import ExperienceReviews from "../components/experience/ExperienceReviews.vue";
 import SearchBar from "../components/ui/SearchBar.vue";
-import { getListingById } from "../api.js";
+import { getListingById, getReviews } from "../api.js";
 
 const route = useRoute();
 const bookingStore = useBookingStore();
 const loading = ref(true);
 const experience = ref(null);
+const reviews = ref([]);
 
 onMounted(async () => {
   try {
-    experience.value = await getListingById(Number(route.params.id));
+    const expId = Number(route.params.id);
+    experience.value = await getListingById(expId);
+    reviews.value = await getReviews(expId);
   } catch (e) {
     console.error("Failed to load experience", e);
   }
@@ -87,8 +90,10 @@ function handleBook(exp) {
         <ExperienceMeetingPoint :meetingPoint="experience.meetingPoint" />
 
         <ExperienceReviews
+          :listing-id="experience.id"
           :rating="experience.rating"
-          :reviews="experience.reviews"
+          :reviews-count="experience.reviews"
+          :review-items="reviews"
         />
       </div>
     </div>

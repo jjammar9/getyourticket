@@ -16,6 +16,7 @@ const en = {
   "nav.search.placeholder": "Find places and things to do",
   "nav.search": "Search",
   "nav.wishlist": "Wishlist",
+  "nav.bookings": "Bookings",
   "nav.cart": "Cart",
   "nav.profile": "Profile",
   "nav.login": "Log in or sign in",
@@ -132,6 +133,42 @@ const en = {
   "exp.included": "What\u2019s included",
   "exp.meetingPoint": "Meeting point",
   "exp.reviews": "Customer reviews",
+
+  /* Wishlist */
+  "wishlist.title": "My Wishlist",
+  "wishlist.empty": "Your wishlist is empty",
+  "wishlist.remove": "Remove",
+  "wishlist.login": "Please log in to view your wishlist",
+
+  /* Cart */
+  "cart.title": "Your Cart",
+  "cart.empty": "Your cart is empty",
+  "cart.browse": "Browse experiences",
+  "cart.checkout": "Checkout",
+  "cart.date": "Date",
+  "cart.guests": "Guests",
+  "cart.total": "Total",
+  "cart.confirm": "Confirm Booking",
+  "cart.name": "Full name",
+  "cart.email": "Email",
+  "cart.continue": "Continue browsing",
+
+  /* Bookings */
+  "bookings.title": "My Bookings",
+  "bookings.empty": "No bookings yet",
+  "bookings.all": "All",
+  "bookings.confirmed": "Confirmed",
+  "bookings.cancelled": "Cancelled",
+  "bookings.cancel": "Cancel booking",
+  "bookings.cancelConfirm": "Are you sure you want to cancel this booking?",
+  "bookings.login": "Please log in to view your bookings",
+
+  /* Profile */
+  "profile.title": "My Profile",
+  "profile.save": "Save changes",
+  "profile.saved": "Changes saved successfully",
+  "profile.passwordHint": "Leave blank to keep current password",
+  "profile.login": "Please log in to view your profile",
 
   /* Search */
   "search.results": "Search results",
@@ -269,6 +306,12 @@ const en = {
   /* Experience reviews */
   "expReviews.title": "Customer reviews",
   "expReviews.based": "Based on {{ n }} reviews",
+  "expReviews.write": "Write a review",
+  "expReviews.submit": "Submit review",
+  "expReviews.thanks": "Thank you! Your review has been submitted.",
+  "expReviews.login": "Log in to write a review",
+  "expReviews.textPlaceholder": "Share your experience...",
+  "expReviews.ratingTitle": "Your rating",
 
   /* Destination */
   "dest.tours": "Tours & activities",
@@ -328,6 +371,7 @@ const de = {
   "nav.search.placeholder": "Orte und Aktivit\u00E4ten finden",
   "nav.search": "Suchen",
   "nav.wishlist": "Merkliste",
+  "nav.bookings": "Buchungen",
   "nav.cart": "Warenkorb",
   "nav.profile": "Profil",
   "nav.login": "Anmelden oder registrieren",
@@ -441,6 +485,12 @@ const de = {
   "exp.meetingPoint": "Treffpunkt",
   "exp.reviews": "Kundenbewertungen",
   "exp.notFound": "Erlebnis nicht gefunden",
+  "expReviews.write": "Bewertung schreiben",
+  "expReviews.submit": "Bewertung absenden",
+  "expReviews.thanks": "Vielen Dank! Ihre Bewertung wurde eingereicht.",
+  "expReviews.login": "Melden Sie sich an, um eine Bewertung zu schreiben",
+  "expReviews.textPlaceholder": "Teilen Sie Ihre Erfahrungen...",
+  "expReviews.ratingTitle": "Ihre Bewertung",
   "filter.title": "Filter",
   "filter.startTime": "Startzeit",
   "filter.price": "Preis",
@@ -454,6 +504,42 @@ const de = {
   "date.tomorrow": "Morgen",
   "date.clear": "L\u00F6schen",
   "date.showResults": "Ergebnisse anzeigen",
+
+  /* Wishlist */
+  "wishlist.title": "Merkliste",
+  "wishlist.empty": "Ihre Merkliste ist leer",
+  "wishlist.remove": "Entfernen",
+  "wishlist.login": "Bitte melden Sie sich an, um Ihre Merkliste zu sehen",
+
+  /* Cart */
+  "cart.title": "Warenkorb",
+  "cart.empty": "Ihr Warenkorb ist leer",
+  "cart.browse": "Erlebnisse durchst\u00F6bern",
+  "cart.checkout": "Zur Kasse",
+  "cart.date": "Datum",
+  "cart.guests": "G\u00E4ste",
+  "cart.total": "Gesamt",
+  "cart.confirm": "Buchung best\u00E4tigen",
+  "cart.name": "Vollst\u00E4ndiger Name",
+  "cart.email": "E-Mail",
+  "cart.continue": "Weiter st\u00F6bern",
+
+  /* Bookings */
+  "bookings.title": "Meine Buchungen",
+  "bookings.empty": "Noch keine Buchungen",
+  "bookings.all": "Alle",
+  "bookings.confirmed": "Best\u00E4tigt",
+  "bookings.cancelled": "Storniert",
+  "bookings.cancel": "Buchung stornieren",
+  "bookings.cancelConfirm": "Sind Sie sicher, dass Sie diese Buchung stornieren m\u00F6chten?",
+  "bookings.login": "Bitte melden Sie sich an, um Ihre Buchungen zu sehen",
+
+  /* Profile */
+  "profile.title": "Mein Profil",
+  "profile.save": "\u00C4nderungen speichern",
+  "profile.saved": "\u00C4nderungen erfolgreich gespeichert",
+  "profile.passwordHint": "Leer lassen, um das aktuelle Passwort beizubehalten",
+  "profile.login": "Bitte melden Sie sich an, um Ihr Profil zu sehen",
 };
 
 const es = {
@@ -462,6 +548,7 @@ const es = {
   "nav.search.placeholder": "Buscar lugares y actividades",
   "nav.search": "Buscar",
   "nav.wishlist": "Lista de deseos",
+  "nav.bookings": "Reservas",
   "nav.cart": "Carrito",
   "nav.profile": "Perfil",
   "nav.login": "Iniciar sesi\u00F3n o registrarse",
@@ -558,6 +645,12 @@ const es = {
   "exp.instantConfirm": "\u2713 Confirmaci\u00F3n instant\u00E1nea",
   "exp.about": "Acerca de esta experiencia",
   "exp.highlights": "Lo m\u00E1s destacado",
+  "expReviews.write": "Escribir una rese\u00F1a",
+  "expReviews.submit": "Enviar rese\u00F1a",
+  "expReviews.thanks": "\u00A1Gracias! Tu rese\u00F1a ha sido enviada.",
+  "expReviews.login": "Inicia sesi\u00F3n para escribir una rese\u00F1a",
+  "expReviews.textPlaceholder": "Comparte tu experiencia...",
+  "expReviews.ratingTitle": "Tu puntuaci\u00F3n",
   "filter.title": "Filtros",
   "filter.startTime": "Hora de inicio",
   "filter.price": "Precio",
@@ -578,6 +671,42 @@ const es = {
   "search.type.activity": "actividad",
   "search.type.category": "categor\u00EDa",
   "search.type.country": "pa\u00EDs",
+
+  /* Wishlist */
+  "wishlist.title": "Mi lista de deseos",
+  "wishlist.empty": "Tu lista de deseos est\u00E1 vac\u00EDa",
+  "wishlist.remove": "Eliminar",
+  "wishlist.login": "Inicia sesi\u00F3n para ver tu lista de deseos",
+
+  /* Cart */
+  "cart.title": "Tu carrito",
+  "cart.empty": "Tu carrito est\u00E1 vac\u00EDo",
+  "cart.browse": "Explorar experiencias",
+  "cart.checkout": "Pagar",
+  "cart.date": "Fecha",
+  "cart.guests": "Hu\u00E9spedes",
+  "cart.total": "Total",
+  "cart.confirm": "Confirmar reserva",
+  "cart.name": "Nombre completo",
+  "cart.email": "Correo electr\u00F3nico",
+  "cart.continue": "Seguir explorando",
+
+  /* Bookings */
+  "bookings.title": "Mis reservas",
+  "bookings.empty": "A\u00FAn no hay reservas",
+  "bookings.all": "Todas",
+  "bookings.confirmed": "Confirmadas",
+  "bookings.cancelled": "Canceladas",
+  "bookings.cancel": "Cancelar reserva",
+  "bookings.cancelConfirm": "\u00BFEst\u00E1s seguro de que quieres cancelar esta reserva?",
+  "bookings.login": "Inicia sesi\u00F3n para ver tus reservas",
+
+  /* Profile */
+  "profile.title": "Mi perfil",
+  "profile.save": "Guardar cambios",
+  "profile.saved": "Cambios guardados exitosamente",
+  "profile.passwordHint": "D\u00E9jalo en blanco para mantener la contrase\u00F1a actual",
+  "profile.login": "Inicia sesi\u00F3n para ver tu perfil",
 };
 
 const fr = {
@@ -586,6 +715,7 @@ const fr = {
   "nav.search.placeholder": "Trouvez des lieux et des activit\u00E9s \u00E0 faire",
   "nav.search": "Rechercher",
   "nav.wishlist": "Favoris",
+  "nav.bookings": "R\u00E9servations",
   "nav.cart": "Panier",
   "nav.profile": "Profil",
   "nav.login": "Connexion ou inscription",
@@ -788,6 +918,12 @@ const fr = {
   "expTrust.liveGuide": "\u2713 Guide en direct",
   "expReviews.title": "Avis clients",
   "expReviews.based": "Bas\u00E9 sur {{ n }} avis",
+  "expReviews.write": "\u00C9crire un avis",
+  "expReviews.submit": "Soumettre l\u2019avis",
+  "expReviews.thanks": "Merci\u00A0! Votre avis a \u00E9t\u00E9 soumis.",
+  "expReviews.login": "Connectez-vous pour \u00E9crire un avis",
+  "expReviews.textPlaceholder": "Partagez votre exp\u00E9rience...",
+  "expReviews.ratingTitle": "Votre note",
   "dest.tours": "Visites et activit\u00E9s",
   "dest.explore": "Explorer {{ name }}",
   "dest.discover": "D\u00E9couvrez les visites, activit\u00E9s et attractions pour cette destination.",
@@ -804,6 +940,42 @@ const fr = {
   "searchView.typeAbove": "Tapez ci-dessus pour trouver les visites les mieux not\u00E9es dans le monde.",
   "searchView.searchDestinations": "Rechercher des destinations, visites...",
   "searchView.thingsToDo": "Activit\u00E9s \u00E0 faire",
+
+  /* Wishlist */
+  "wishlist.title": "Mes favoris",
+  "wishlist.empty": "Votre liste de favoris est vide",
+  "wishlist.remove": "Supprimer",
+  "wishlist.login": "Connectez-vous pour voir vos favoris",
+
+  /* Cart */
+  "cart.title": "Votre panier",
+  "cart.empty": "Votre panier est vide",
+  "cart.browse": "Parcourir les exp\u00E9riences",
+  "cart.checkout": "Commander",
+  "cart.date": "Date",
+  "cart.guests": "Voyageurs",
+  "cart.total": "Total",
+  "cart.confirm": "Confirmer la r\u00E9servation",
+  "cart.name": "Nom complet",
+  "cart.email": "E-mail",
+  "cart.continue": "Continuer vos achats",
+
+  /* Bookings */
+  "bookings.title": "Mes r\u00E9servations",
+  "bookings.empty": "Aucune r\u00E9servation pour le moment",
+  "bookings.all": "Toutes",
+  "bookings.confirmed": "Confirm\u00E9es",
+  "bookings.cancelled": "Annul\u00E9es",
+  "bookings.cancel": "Annuler la r\u00E9servation",
+  "bookings.cancelConfirm": "\u00CAtes-vous s\u00FBr de vouloir annuler cette r\u00E9servation\u00A0?",
+  "bookings.login": "Connectez-vous pour voir vos r\u00E9servations",
+
+  /* Profile */
+  "profile.title": "Mon profil",
+  "profile.save": "Enregistrer les modifications",
+  "profile.saved": "Modifications enregistr\u00E9es avec succ\u00E8s",
+  "profile.passwordHint": "Laissez vide pour conserver le mot de passe actuel",
+  "profile.login": "Connectez-vous pour voir votre profil",
 };
 
 const it = {
@@ -812,6 +984,7 @@ const it = {
   "nav.search.placeholder": "Trova luoghi e cose da fare",
   "nav.search": "Cerca",
   "nav.wishlist": "Preferiti",
+  "nav.bookings": "Prenotazioni",
   "nav.cart": "Carrello",
   "nav.profile": "Profilo",
   "nav.login": "Accedi o registrati",
@@ -1014,6 +1187,12 @@ const it = {
   "expTrust.liveGuide": "\u2713 Guida dal vivo",
   "expReviews.title": "Recensioni dei clienti",
   "expReviews.based": "Basato su {{ n }} recensioni",
+  "expReviews.write": "Scrivi una recensione",
+  "expReviews.submit": "Invia recensione",
+  "expReviews.thanks": "Grazie! La tua recensione \u00E8 stata inviata.",
+  "expReviews.login": "Accedi per scrivere una recensione",
+  "expReviews.textPlaceholder": "Condividi la tua esperienza...",
+  "expReviews.ratingTitle": "La tua valutazione",
   "dest.tours": "Tour e attivit\u00E0",
   "dest.explore": "Esplora {{ name }}",
   "dest.discover": "Scopri tour, attivit\u00E0 e attrazioni per questa destinazione.",
@@ -1030,6 +1209,42 @@ const it = {
   "searchView.typeAbove": "Digita sopra per trovare i tour pi\u00F9 votati in tutto il mondo.",
   "searchView.searchDestinations": "Cerca destinazioni, tour...",
   "searchView.thingsToDo": "Cose da fare",
+
+  /* Wishlist */
+  "wishlist.title": "I miei preferiti",
+  "wishlist.empty": "La tua lista dei desideri \u00E8 vuota",
+  "wishlist.remove": "Rimuovi",
+  "wishlist.login": "Accedi per vedere la tua lista dei desideri",
+
+  /* Cart */
+  "cart.title": "Il tuo carrello",
+  "cart.empty": "Il tuo carrello \u00E8 vuoto",
+  "cart.browse": "Sfoglia esperienze",
+  "cart.checkout": "Checkout",
+  "cart.date": "Data",
+  "cart.guests": "Ospiti",
+  "cart.total": "Totale",
+  "cart.confirm": "Conferma prenotazione",
+  "cart.name": "Nome completo",
+  "cart.email": "Email",
+  "cart.continue": "Continua a navigare",
+
+  /* Bookings */
+  "bookings.title": "Le mie prenotazioni",
+  "bookings.empty": "Nessuna prenotazione ancora",
+  "bookings.all": "Tutte",
+  "bookings.confirmed": "Confermate",
+  "bookings.cancelled": "Annullate",
+  "bookings.cancel": "Annulla prenotazione",
+  "bookings.cancelConfirm": "Sei sicuro di voler annullare questa prenotazione?",
+  "bookings.login": "Accedi per vedere le tue prenotazioni",
+
+  /* Profile */
+  "profile.title": "Il mio profilo",
+  "profile.save": "Salva modifiche",
+  "profile.saved": "Modifiche salvate con successo",
+  "profile.passwordHint": "Lascia vuoto per mantenere la password attuale",
+  "profile.login": "Accedi per vedere il tuo profilo",
 };
 
 const nl = {
@@ -1038,6 +1253,7 @@ const nl = {
   "nav.search.placeholder": "Vind plaatsen en dingen om te doen",
   "nav.search": "Zoeken",
   "nav.wishlist": "Verlanglijstje",
+  "nav.bookings": "Boekingen",
   "nav.cart": "Winkelwagen",
   "nav.profile": "Profiel",
   "nav.login": "Inloggen of registreren",
@@ -1261,6 +1477,12 @@ const nl = {
 
   "expReviews.title": "Klantbeoordelingen",
   "expReviews.based": "Gebaseerd op {{ n }} beoordelingen",
+  "expReviews.write": "Schrijf een beoordeling",
+  "expReviews.submit": "Beoordeling indienen",
+  "expReviews.thanks": "Bedankt! Je beoordeling is ingediend.",
+  "expReviews.login": "Log in om een beoordeling te schrijven",
+  "expReviews.textPlaceholder": "Deel je ervaring...",
+  "expReviews.ratingTitle": "Jouw beoordeling",
 
   "dest.tours": "Rondleidingen en activiteiten",
   "dest.explore": "Ontdek {{ name }}",
@@ -1279,6 +1501,42 @@ const nl = {
   "searchView.typeAbove": "Typ hierboven om de best beoordeelde rondleidingen wereldwijd te vinden.",
   "searchView.searchDestinations": "Zoek bestemmingen, rondleidingen...",
   "searchView.thingsToDo": "Dingen om te doen",
+
+  /* Wishlist */
+  "wishlist.title": "Mijn verlanglijstje",
+  "wishlist.empty": "Je verlanglijstje is leeg",
+  "wishlist.remove": "Verwijderen",
+  "wishlist.login": "Log in om je verlanglijstje te bekijken",
+
+  /* Cart */
+  "cart.title": "Je winkelwagen",
+  "cart.empty": "Je winkelwagen is leeg",
+  "cart.browse": "Ervaringen bekijken",
+  "cart.checkout": "Afrekenen",
+  "cart.date": "Datum",
+  "cart.guests": "Gasten",
+  "cart.total": "Totaal",
+  "cart.confirm": "Boeking bevestigen",
+  "cart.name": "Volledige naam",
+  "cart.email": "E-mail",
+  "cart.continue": "Verder winkelen",
+
+  /* Bookings */
+  "bookings.title": "Mijn boekingen",
+  "bookings.empty": "Nog geen boekingen",
+  "bookings.all": "Alle",
+  "bookings.confirmed": "Bevestigd",
+  "bookings.cancelled": "Geannuleerd",
+  "bookings.cancel": "Boeking annuleren",
+  "bookings.cancelConfirm": "Weet je zeker dat je deze boeking wilt annuleren?",
+  "bookings.login": "Log in om je boekingen te bekijken",
+
+  /* Profile */
+  "profile.title": "Mijn profiel",
+  "profile.save": "Wijzigingen opslaan",
+  "profile.saved": "Wijzigingen succesvol opgeslagen",
+  "profile.passwordHint": "Laat leeg om het huidige wachtwoord te behouden",
+  "profile.login": "Log in om je profiel te bekijken",
 };
 
 const pl = {
@@ -1288,6 +1546,7 @@ const pl = {
   "nav.search.placeholder": "Znajd\u017A miejsca i atrakcje",
   "nav.search": "Szukaj",
   "nav.wishlist": "Lista \u017Cycze\u0144",
+  "nav.bookings": "Rezerwacje",
   "nav.cart": "Koszyk",
   "nav.profile": "Profil",
   "nav.login": "Zaloguj si\u0119 lub zarejestruj",
@@ -1494,6 +1753,12 @@ const pl = {
 
   "expReviews.title": "Opinie klient\u00F3w",
   "expReviews.based": "Na podstawie {{ n }} opinii",
+  "expReviews.write": "Napisz opini\u0119",
+  "expReviews.submit": "Wy\u015Blij opini\u0119",
+  "expReviews.thanks": "Dzi\u0119kujemy! Twoja opinia zosta\u0142a wys\u0142ana.",
+  "expReviews.login": "Zaloguj si\u0119, aby napisa\u0107 opini\u0119",
+  "expReviews.textPlaceholder": "Podziel si\u0119 swoim do\u015Bwiadczeniem...",
+  "expReviews.ratingTitle": "Twoja ocena",
 
   "dest.tours": "Wycieczki i atrakcje",
   "dest.explore": "Odkryj {{ name }}",
@@ -1541,6 +1806,42 @@ const pl = {
   "searchView.typeAbove": "Wpisz powy\u017Cej, aby znale\u017A\u0107 najlepiej oceniane wycieczki na \u015Bwiecie.",
   "searchView.searchDestinations": "Szukaj kierunk\u00F3w, wycieczek...",
   "searchView.thingsToDo": "Atrakcje",
+
+  /* Wishlist */
+  "wishlist.title": "Moja lista \u017Cycze\u0144",
+  "wishlist.empty": "Twoja lista \u017Cycze\u0144 jest pusta",
+  "wishlist.remove": "Usu\u0144",
+  "wishlist.login": "Zaloguj si\u0119, aby zobaczy\u0107 swoj\u0105 list\u0119 \u017Cycze\u0144",
+
+  /* Cart */
+  "cart.title": "Tw\u00F3j koszyk",
+  "cart.empty": "Tw\u00F3j koszyk jest pusty",
+  "cart.browse": "Przegl\u0105daj do\u015Bwiadczenia",
+  "cart.checkout": "Kasa",
+  "cart.date": "Data",
+  "cart.guests": "Go\u015Bcie",
+  "cart.total": "Suma",
+  "cart.confirm": "Potwierd\u017A rezerwacj\u0119",
+  "cart.name": "Imi\u0119 i nazwisko",
+  "cart.email": "E-mail",
+  "cart.continue": "Kontynuuj przegl\u0105danie",
+
+  /* Bookings */
+  "bookings.title": "Moje rezerwacje",
+  "bookings.empty": "Brak rezerwacji",
+  "bookings.all": "Wszystkie",
+  "bookings.confirmed": "Potwierdzone",
+  "bookings.cancelled": "Anulowane",
+  "bookings.cancel": "Anuluj rezerwacj\u0119",
+  "bookings.cancelConfirm": "Czy na pewno chcesz anulowa\u0107 t\u0119 rezerwacj\u0119?",
+  "bookings.login": "Zaloguj si\u0119, aby zobaczy\u0107 swoje rezerwacje",
+
+  /* Profile */
+  "profile.title": "M\u00F3j profil",
+  "profile.save": "Zapisz zmiany",
+  "profile.saved": "Zmiany zapisane pomy\u015Blnie",
+  "profile.passwordHint": "Pozostaw puste, aby zachowa\u0107 obecne has\u0142o",
+  "profile.login": "Zaloguj si\u0119, aby zobaczy\u0107 sw\u00F3j profil",
 };
 
 const pt = {
@@ -1550,6 +1851,7 @@ const pt = {
   "nav.search.placeholder": "Encontrar locais e atividades",
   "nav.search": "Pesquisar",
   "nav.wishlist": "Lista de desejos",
+  "nav.bookings": "Reservas",
   "nav.cart": "Carrinho",
   "nav.profile": "Perfil",
   "nav.login": "Iniciar sess\u00E3o ou registar-se",
@@ -1760,6 +2062,12 @@ const pt = {
 
   "expReviews.title": "Avalia\u00E7\u00F5es de clientes",
   "expReviews.based": "Com base em {{ n }} avalia\u00E7\u00F5es",
+  "expReviews.write": "Escrever uma avalia\u00E7\u00E3o",
+  "expReviews.submit": "Enviar avalia\u00E7\u00E3o",
+  "expReviews.thanks": "Obrigado! A sua avalia\u00E7\u00E3o foi enviada.",
+  "expReviews.login": "Fa\u00E7a login para escrever uma avalia\u00E7\u00E3o",
+  "expReviews.textPlaceholder": "Partilhe a sua experi\u00EAncia...",
+  "expReviews.ratingTitle": "A sua classifica\u00E7\u00E3o",
 
   "dest.tours": "Passeios e atividades",
   "dest.explore": "Explorar {{ name }}",
@@ -1807,6 +2115,42 @@ const pt = {
   "searchView.typeAbove": "Escreva acima para encontrar os passeios mais bem avaliados em todo o mundo.",
   "searchView.searchDestinations": "Pesquisar destinos, passeios...",
   "searchView.thingsToDo": "Atividades para fazer",
+
+  /* Wishlist */
+  "wishlist.title": "Minha lista de desejos",
+  "wishlist.empty": "Sua lista de desejos est\u00E1 vazia",
+  "wishlist.remove": "Remover",
+  "wishlist.login": "Fa\u00E7a login para ver sua lista de desejos",
+
+  /* Cart */
+  "cart.title": "Seu carrinho",
+  "cart.empty": "Seu carrinho est\u00E1 vazio",
+  "cart.browse": "Explorar experi\u00EAncias",
+  "cart.checkout": "Finalizar compra",
+  "cart.date": "Data",
+  "cart.guests": "H\u00F3spedes",
+  "cart.total": "Total",
+  "cart.confirm": "Confirmar reserva",
+  "cart.name": "Nome completo",
+  "cart.email": "E-mail",
+  "cart.continue": "Continuar a navegar",
+
+  /* Bookings */
+  "bookings.title": "Minhas reservas",
+  "bookings.empty": "Ainda n\u00E3o h\u00E1 reservas",
+  "bookings.all": "Todas",
+  "bookings.confirmed": "Confirmadas",
+  "bookings.cancelled": "Canceladas",
+  "bookings.cancel": "Cancelar reserva",
+  "bookings.cancelConfirm": "Tem a certeza de que deseja cancelar esta reserva?",
+  "bookings.login": "Fa\u00E7a login para ver suas reservas",
+
+  /* Profile */
+  "profile.title": "Meu perfil",
+  "profile.save": "Salvar altera\u00E7\u00F5es",
+  "profile.saved": "Altera\u00E7\u00F5es salvas com sucesso",
+  "profile.passwordHint": "Deixe em branco para manter a senha atual",
+  "profile.login": "Fa\u00E7a login para ver seu perfil",
 };
 
 export const translations = { en, de, es, fr, it, nl, pl, pt };

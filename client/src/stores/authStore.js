@@ -1,6 +1,16 @@
 import { defineStore } from "pinia";
 import { ref, computed } from "vue";
-import { loginUser, registerUser, getMe } from "../api.js";
+import {
+  loginUser, registerUser, getMe,
+  updateProfile as updateProfileApi,
+  addToWishlist as addToWishlistApi,
+  removeFromWishlist as removeFromWishlistApi,
+  getWishlist as getWishlistApi,
+  createBooking as createBookingApi,
+  getBookings as getBookingsApi,
+  cancelBooking as cancelBookingApi,
+  createReview as createReviewApi,
+} from "../api.js";
 
 export const useAuthStore = defineStore("auth", () => {
   const user = ref(null);
@@ -75,5 +85,39 @@ export const useAuthStore = defineStore("auth", () => {
     }
   }
 
-  return { user, token, loading, isLoggedIn, login, register, logout, checkAuth, init };
+  async function updateProfile(data) {
+    const res = await updateProfileApi(data);
+    user.value = res.user;
+    return res;
+  }
+
+  async function addToWishlist(listingId) {
+    await addToWishlistApi(listingId);
+  }
+
+  async function removeFromWishlist(listingId) {
+    await removeFromWishlistApi(listingId);
+  }
+
+  async function getWishlist() {
+    return getWishlistApi();
+  }
+
+  async function createBooking(data) {
+    return createBookingApi(data);
+  }
+
+  async function getBookings() {
+    return getBookingsApi();
+  }
+
+  async function cancelBooking(id) {
+    return cancelBookingApi(id);
+  }
+
+  async function createReview(data) {
+    return createReviewApi(data);
+  }
+
+  return { user, token, loading, isLoggedIn, login, register, logout, checkAuth, init, updateProfile, addToWishlist, removeFromWishlist, getWishlist, createBooking, getBookings, cancelBooking, createReview };
 });

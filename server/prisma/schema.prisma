@@ -8,25 +8,55 @@ datasource db {
 }
 
 model User {
-  id        String    @id @default(cuid())
+  id        String         @id @default(cuid())
   name      String
-  email     String    @unique
+  email     String         @unique
   password  String
   avatar    String?
-  role      String    @default("customer")
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
+  role      String         @default("customer")
+  createdAt DateTime       @default(now())
+  updatedAt DateTime       @updatedAt
+  wishlist  WishlistItem[]
+  bookings  Booking[]
+  reviews   Review[]
+}
+
+model WishlistItem {
+  id        String   @id @default(cuid())
+  userId    String
+  listingId String
+  user      User     @relation(fields: [userId], references: [id])
+  listing   Listing  @relation(fields: [listingId], references: [id])
+  createdAt DateTime @default(now())
+
+  @@unique([userId, listingId])
+}
+
+model Booking {
+  id          String   @id @default(cuid())
+  userId      String
+  listingId   String
+  date        String
+  guests      Int
+  totalPrice  Float
+  status      String   @default("confirmed")
+  user        User     @relation(fields: [userId], references: [id])
+  listing     Listing  @relation(fields: [listingId], references: [id])
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 }
 
 model Review {
   id        String   @id @default(cuid())
   listingId String
+  userId    String?
   name      String
   date      String
   rating    Int
   text      String
   image     String?
   listing   Listing  @relation(fields: [listingId], references: [id])
+  user      User?    @relation(fields: [userId], references: [id])
   createdAt DateTime @default(now())
 }
 
@@ -86,6 +116,8 @@ model Listing {
   country            Country  @relation(fields: [countryId], references: [id])
   category           Category @relation(fields: [categoryId], references: [id])
   reviews            Review[]
+  wishlistItems      WishlistItem[]
+  bookings           Booking[]
   createdAt          DateTime @default(now())
   updatedAt          DateTime @updatedAt
 }
