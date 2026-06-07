@@ -152,7 +152,7 @@ const handleSearch = () => {
       <!-- LOGO -->
       <div
         @click="router.push('/')"
-        class="select-none cursor-pointer shrink-0 flex items-center gap-2"
+        class="select-none cursor-pointer shrink-0 flex items-center gap-2 -ml-2"
       >
         <img :src="logoImage" alt="GetYourTicket" class="h-[52px] w-auto" />
       </div>

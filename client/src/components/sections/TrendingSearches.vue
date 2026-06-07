@@ -7,14 +7,14 @@ const router = useRouter();
 const localeStore = useLocaleStore();
 
 const trending = [
-  { label: "Skip the line", icon: Ticket, color: "#ff5a1f", count: "1,240", unit: "tours" },
-  { label: "Colosseum", icon: Landmark, color: "#0b2343", count: "622", unit: "activities" },
-  { label: "Boat cruise", icon: Ship, color: "#0071eb", count: "890", unit: "tours" },
-  { label: "Eiffel Tower", icon: MapPin, color: "#0b2343", count: "401", unit: "activities" },
-  { label: "Free walking tour", icon: Star, color: "#e53935", count: "2,150", unit: "tours" },
-  { label: "Day trip", icon: Mountain, color: "#ff5a1f", count: "1,560", unit: "activities" },
-  { label: "London Eye", icon: MapPin, color: "#0b2343", count: "296", unit: "activities" },
-  { label: "Sagrada Familia", icon: Landmark, color: "#0071eb", count: "401", unit: "activities" },
+  { label: "Skip the line", key: "trending.skipTheLine", icon: Ticket, color: "#ff5a1f", count: "1,240", unit: "tours" },
+  { label: "Colosseum", key: "trending.colosseum", icon: Landmark, color: "#0b2343", count: "622", unit: "activities" },
+  { label: "Boat cruise", key: "trending.boatCruise", icon: Ship, color: "#0071eb", count: "890", unit: "tours" },
+  { label: "Eiffel Tower", key: "trending.eiffelTower", icon: MapPin, color: "#0b2343", count: "401", unit: "activities" },
+  { label: "Free walking tour", key: "trending.freeWalkingTour", icon: Star, color: "#e53935", count: "2,150", unit: "tours" },
+  { label: "Day trip", key: "trending.dayTrip", icon: Mountain, color: "#ff5a1f", count: "1,560", unit: "activities" },
+  { label: "London Eye", key: "trending.londonEye", icon: MapPin, color: "#0b2343", count: "296", unit: "activities" },
+  { label: "Sagrada Familia", key: "trending.sagradaFamilia", icon: Landmark, color: "#0071eb", count: "401", unit: "activities" },
 ];
 </script>
 
@@ -41,7 +41,7 @@ const trending = [
 
         <div class="min-w-0">
           <p class="text-[14px] font-bold text-[#0b2343] dark:text-white truncate group-hover:text-[#ff5a1f] transition-colors">
-            {{ item.label }}
+            {{ localeStore.t(item.key) }}
           </p>
           <p class="text-[11px] font-medium text-[#8a94a6] dark:text-gray-400">
             {{ item.count }} {{ localeStore.t("trending." + item.unit) }}
