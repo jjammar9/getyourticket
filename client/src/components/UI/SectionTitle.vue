@@ -1,7 +1,9 @@
 <script setup>
 import { useRouter } from "vue-router";
+import { useLocaleStore } from "../../stores/localeStore.js";
 
 const router = useRouter();
+const localeStore = useLocaleStore();
 
 defineProps({
   title: {
@@ -54,7 +56,7 @@ defineProps({
       @click.prevent="router.push(viewAllTo)"
       class="text-[15px] font-bold text-[#0071eb] dark:text-blue-400 hover:text-[#0050a0] cursor-pointer whitespace-nowrap ml-6 transition-colors"
     >
-      View all &rarr;
+      {{ localeStore.t("section.viewAll") }} &rarr;
     </a>
   </div>
 </template>

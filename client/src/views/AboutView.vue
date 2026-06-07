@@ -1,5 +1,7 @@
 <script setup>
 import Container from "../components/ui/Container.vue";
+import { useLocaleStore } from "../stores/localeStore.js";
+const localeStore = useLocaleStore();
 </script>
 
 <template>
@@ -25,13 +27,13 @@ import Container from "../components/ui/Container.vue";
           </router-link>
 
           <div class="flex items-center gap-8">
-            <router-link to="/about" class="text-[14px] font-medium text-[#0a6cff] transition-colors">About Us</router-link>
-            <a href="/news" class="text-[14px] font-medium text-gray-700 dark:text-gray-200 hover:text-[#0a6cff] transition-colors">News</a>
-            <a href="/media" class="text-[14px] font-medium text-gray-700 dark:text-gray-200 hover:text-[#0a6cff] transition-colors">Media</a>
-            <a href="/download-center" class="text-[14px] font-medium text-gray-700 dark:text-gray-200 hover:text-[#0a6cff] transition-colors">Download Center</a>
+            <router-link to="/about" class="text-[14px] font-medium text-[#0a6cff] transition-colors">{{ localeStore.t("about.title") }}</router-link>
+            <a href="/news" class="text-[14px] font-medium text-gray-700 dark:text-gray-200 hover:text-[#0a6cff] transition-colors">{{ localeStore.t("about.news") }}</a>
+            <a href="/media" class="text-[14px] font-medium text-gray-700 dark:text-gray-200 hover:text-[#0a6cff] transition-colors">{{ localeStore.t("about.media") }}</a>
+            <a href="/download-center" class="text-[14px] font-medium text-gray-700 dark:text-gray-200 hover:text-[#0a6cff] transition-colors">{{ localeStore.t("about.download") }}</a>
           </div>
 
-          <a href="#" class="bg-[#0a6cff] hover:bg-[#0057d8] text-white text-[13px] font-semibold px-6 py-2.5 rounded-full transition-colors">Contact</a>
+          <a href="#" class="bg-[#0a6cff] hover:bg-[#0057d8] text-white text-[13px] font-semibold px-6 py-2.5 rounded-full transition-colors">{{ localeStore.t("about.contact") }}</a>
         </div>
       </Container>
     </nav>
@@ -45,7 +47,7 @@ import Container from "../components/ui/Container.vue";
 
       <div class="relative z-10 text-center text-white px-4">
         <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-[64px] font-bold tracking-[-1.5px] leading-tight">
-          Make memories
+          {{ localeStore.t("about.hero") }}
         </h1>
       </div>
     </section>
@@ -53,7 +55,7 @@ import Container from "../components/ui/Container.vue";
     <section class="py-16 bg-white dark:bg-gray-900">
       <Container>
         <div class="w-[60%] mx-auto">
-          <h3 class="text-[18px] font-semibold text-[#0b2343] dark:text-white font-[family-name:var(--font-display)]">Unforgettable travel experiences</h3>
+          <h3 class="text-[18px] font-semibold text-[#0b2343] dark:text-white font-[family-name:var(--font-display)]">{{ localeStore.t("about.subtitle") }}</h3>
           <p class="mt-2 text-[15px] leading-relaxed text-gray-900 dark:text-gray-200 font-[family-name:var(--font-body)] font-medium">
             No matter where your travels take you, GetYourGuide offers the best way to connect with your destination. Make memories all over the globe with our locally-vetted, expertly-curated experiences. From must-see iconic attractions to unexpected under-the-radar gems, we have something for everyone.
           </p>
@@ -125,7 +127,7 @@ import Container from "../components/ui/Container.vue";
             class="mt-10 w-full h-auto"
           />
 
-          <h3 class="mt-12 text-[20px] font-bold text-[#0b2343] dark:text-white font-[family-name:var(--font-display)]">Originals by GetYourGuide</h3>
+          <h3 class="mt-12 text-[20px] font-bold text-[#0b2343] dark:text-white font-[family-name:var(--font-display)]">{{ localeStore.t("about.originals") }}</h3>
           <p class="mt-1 text-[15px] leading-relaxed text-gray-900 dark:text-gray-200 font-[family-name:var(--font-body)] font-medium">
             Experience the world more deeply with Originals by GetYourGuide, a collection of our most immersive and unforgettable experiences yet. Unlock the door to the Sistine Chapel before anyone else is allowed inside, dig into hidden restaurants on a tour led by your favorite Instagram foodie, or step onto the playing field and behind the scenes with sports legends.
           </p>
@@ -141,7 +143,7 @@ import Container from "../components/ui/Container.vue";
               target="_blank"
               class="inline-block px-8 py-3 bg-[#0a6cff] text-white text-[15px] font-semibold rounded-full font-[family-name:var(--font-body)] hover:bg-[#0057d8] transition-colors"
             >
-              Join our team
+              {{ localeStore.t("about.joinTeam") }}
             </a>
           </div>
         </div>

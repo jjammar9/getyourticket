@@ -7,6 +7,8 @@ import SearchCard from "../components/cards/SearchCard.vue";
 import { experiencesData } from "../data/experiencesData.js";
 import { navData } from "../data/megaMenuData.js";
 import { toSlug } from "../utils/helpers.js";
+import { useLocaleStore } from "../stores/localeStore.js";
+const localeStore = useLocaleStore();
 
 const route = useRoute();
 const router = useRouter();
@@ -92,27 +94,27 @@ const randomExperiences = computed(() => {
       </h1>
 
       <div v-if="experiences.length" class="mb-6">
-        <h2 class="text-[22px] font-bold text-[#0b2343] mb-6">Tours & activities</h2>
+        <h2 class="text-[22px] font-bold text-[#0b2343] mb-6">{{ localeStore.t("dest.tours") }}</h2>
         <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-8">
           <SearchCard v-for="item in experiences" :key="item.id" :item="item" />
         </div>
       </div>
 
       <div v-else class="py-16 text-center border-t border-gray-100">
-        <h2 class="text-3xl font-bold text-[#0b2343]">Explore {{ title }}</h2>
+        <h2 class="text-3xl font-bold text-[#0b2343]">{{ localeStore.t("dest.explore", { name: title }) }}</h2>
         <p class="mt-2 text-gray-500 max-w-md mx-auto">
-          Discover tours, activities, and attractions for this destination.
+          {{ localeStore.t("dest.discover") }}
         </p>
         <button
           @click="router.push('/attractions')"
           class="mt-6 inline-block bg-[#0a6cff] hover:bg-[#0057d8] text-white font-semibold px-8 py-3 rounded-full transition"
         >
-          Browse all attractions
+          {{ localeStore.t("dest.browse") }}
         </button>
       </div>
 
       <div v-if="!experiences.length" class="mt-16">
-        <h2 class="text-[22px] font-bold text-[#0b2343] mb-6">Popular experiences</h2>
+        <h2 class="text-[22px] font-bold text-[#0b2343] mb-6">{{ localeStore.t("dest.popular") }}</h2>
         <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-8">
           <SearchCard v-for="item in randomExperiences" :key="item.id" :item="item" />
         </div>

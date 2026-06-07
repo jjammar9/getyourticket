@@ -13,13 +13,14 @@ import {
   Bell,
 } from "lucide-vue-next";
 import { useRouter } from "vue-router";
-import { ref, computed, watch } from "vue";
+import { ref, computed, watch, onMounted, onUnmounted } from "vue";
 import { useSearchSuggestions } from "../../composables/useSearchSuggestions.js";
 import { countries } from "../../data/countryData.js";
 import { useNavSearch } from "../../composables/useNavSearch.js";
 import { useThemeStore } from "../../stores/themeStore.js";
 import { useLocaleStore } from "../../stores/localeStore.js";
 import { useCurrencyStore } from "../../stores/currencyStore.js";
+import { locales } from "../../i18n/translations.js";
 import logoImage from "../../assets/0e31b4a5-ec0a-496e-81a1-cc44c5729c06.png";
 
 const props = defineProps({
@@ -52,6 +53,36 @@ const showSearch = computed(() => {
 const themeStore = useThemeStore();
 const showProfileMenu = ref(false);
 let closeTimer = null;
+
+const showLocaleMenu = ref(false);
+const langDrop = ref(false);
+const currDrop = ref(false);
+
+const currencyOptions = [
+  { code: "EUR", label: "Euro (\u20AC)" },
+  { code: "USD", label: "US Dollar ($)" },
+  { code: "GBP", label: "British Pound (\u00A3)" },
+  { code: "CHF", label: "Swiss Franc (CHF)" },
+  { code: "JPY", label: "Japanese Yen (\u00A5)" },
+  { code: "AUD", label: "Australian Dollar (A$)" },
+  { code: "CAD", label: "Canadian Dollar (CA$)" },
+];
+
+const typeLabels = {
+  location: () => localeStore.t("search.type.location"),
+  activity: () => localeStore.t("search.type.activity"),
+  category: () => localeStore.t("search.type.category"),
+  country: () => localeStore.t("search.type.country"),
+};
+
+function onDocumentClick(e) {
+  showLocaleMenu.value = false;
+  langDrop.value = false;
+  currDrop.value = false;
+}
+
+onMounted(() => document.addEventListener("click", onDocumentClick));
+onUnmounted(() => document.removeEventListener("click", onDocumentClick));
 
 const onProfileEnter = () => {
   clearTimeout(closeTimer);
@@ -175,7 +206,7 @@ const handleSearch = () => {
             </svg>
             <div>
               <span class="text-[13px] text-gray-700 dark:text-gray-200">{{ s.text }}</span>
-              <span class="text-[11px] text-gray-400 ml-2">— {{ s.type }}</span>
+              <span class="text-[11px] text-gray-400 ml-2">&mdash; {{ (typeLabels[s.type] || (() => s.type))() }}</span>
             </div>
           </div>
         </div>
@@ -204,15 +235,83 @@ const handleSearch = () => {
         />
       </button>
 
-      <button
-        class="group relative flex flex-col items-center gap-1 text-[13px] font-medium text-[#4f5a72] dark:text-gray-300 hover:text-[#ff5533] transition-colors"
-      >
-        <Globe :size="22" :stroke-width="2.5" />
-        <span>{{ localeStore.selectedLocale.toUpperCase() }}/{{ currencyStore.symbol }}</span>
-        <span
-          class="absolute left-1/2 -bottom-2 h-[2px] w-0 bg-[#ff5533] transition-all duration-300 -translate-x-1/2 group-hover:w-full"
-        />
-      </button>
+      <!-- Globe / Language-Currency -->
+      <div class="relative">
+        <button
+          @click.stop="showLocaleMenu = !showLocaleMenu"
+          class="group relative flex flex-col items-center gap-1 text-[13px] font-medium text-[#4f5a72] dark:text-gray-300 hover:text-[#ff5533] transition-colors"
+        >
+          <Globe :size="22" :stroke-width="2.5" />
+          <span>{{ localeStore.selectedLocale.toUpperCase() }}/{{ currencyStore.symbol }}</span>
+          <span
+            class="absolute left-1/2 -bottom-2 h-[2px] w-0 bg-[#ff5533] transition-all duration-300 -translate-x-1/2 group-hover:w-full"
+          />
+        </button>
+
+        <Transition
+          enter-active-class="transition-all duration-200 ease-out"
+          enter-from-class="opacity-0 -translate-y-1"
+          enter-to-class="opacity-100 translate-y-0"
+          leave-active-class="transition-all duration-150 ease-in"
+          leave-from-class="opacity-100 translate-y-0"
+          leave-to-class="opacity-0 -translate-y-1"
+        >
+          <div
+            v-if="showLocaleMenu"
+            class="absolute right-0 top-full mt-2 w-[300px] bg-white dark:bg-gray-800 rounded-2xl shadow-[0_4px_24px_rgba(0,0,0,0.12)] border border-gray-100 dark:border-gray-700 p-5 z-[200]"
+          >
+            <p class="text-[13px] font-bold mb-2 text-gray-500 dark:text-gray-400 uppercase tracking-wider">{{ localeStore.t("footer.language") }}</p>
+            <div class="relative mb-5">
+              <button
+                @click.stop="langDrop = !langDrop; currDrop = false"
+                class="w-full flex items-center justify-between px-4 py-2.5 rounded-lg border border-gray-200 dark:border-gray-600 text-[14px] font-medium text-gray-800 dark:text-gray-200 bg-white dark:bg-gray-700"
+              >
+                <span>{{ localeStore.localeLabel }}</span>
+                <svg :class="langDrop ? 'rotate-180' : 'rotate-0'" class="transition-transform duration-200 shrink-0" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9" /></svg>
+              </button>
+              <div
+                v-if="langDrop"
+                class="absolute top-full left-0 right-0 mt-1 bg-white dark:bg-gray-700 rounded-lg z-50 shadow-lg border border-gray-100 dark:border-gray-600 max-h-[220px] overflow-y-auto"
+              >
+                <button
+                  v-for="loc in locales"
+                  :key="loc.code"
+                  @click="localeStore.setLocale(loc.code); langDrop = false"
+                  class="block w-full text-left px-4 py-2.5 text-[14px] font-medium hover:bg-gray-50 dark:hover:bg-gray-600 transition-colors"
+                  :class="localeStore.selectedLocale === loc.code ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-300' : 'text-gray-700 dark:text-gray-300'"
+                >
+                  {{ loc.label }}
+                </button>
+              </div>
+            </div>
+
+            <p class="text-[13px] font-bold mb-2 text-gray-500 dark:text-gray-400 uppercase tracking-wider">{{ localeStore.t("footer.currency") }}</p>
+            <div class="relative">
+              <button
+                @click.stop="currDrop = !currDrop; langDrop = false"
+                class="w-full flex items-center justify-between px-4 py-2.5 rounded-lg border border-gray-200 dark:border-gray-600 text-[14px] font-medium text-gray-800 dark:text-gray-200 bg-white dark:bg-gray-700"
+              >
+                <span>{{ currencyStore.label }}</span>
+                <svg :class="currDrop ? 'rotate-180' : 'rotate-0'" class="transition-transform duration-200 shrink-0" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9" /></svg>
+              </button>
+              <div
+                v-if="currDrop"
+                class="absolute top-full left-0 right-0 mt-1 bg-white dark:bg-gray-700 rounded-lg z-50 shadow-lg border border-gray-100 dark:border-gray-600 max-h-[220px] overflow-y-auto"
+              >
+                <button
+                  v-for="opt in currencyOptions"
+                  :key="opt.code"
+                  @click="currencyStore.setCurrency(opt.code); currDrop = false"
+                  class="block w-full text-left px-4 py-2.5 text-[14px] font-medium hover:bg-gray-50 dark:hover:bg-gray-600 transition-colors"
+                  :class="currencyStore.selectedCurrency === opt.code ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-300' : 'text-gray-700 dark:text-gray-300'"
+                >
+                  {{ opt.label }}
+                </button>
+              </div>
+            </div>
+          </div>
+        </Transition>
+      </div>
 
       <div
         @mouseenter="onProfileEnter"

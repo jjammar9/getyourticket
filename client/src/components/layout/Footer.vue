@@ -5,12 +5,14 @@ import FooterPayments from "../footer/FooterPayments.vue";
 import FooterSocials from "../footer/FooterSocials.vue";
 import FooterMobileApps from "../footer/FooterMobileApps.vue";
 import Container from "../ui/Container.vue";
+import { useLocaleStore } from "../../stores/localeStore.js";
+
+const localeStore = useLocaleStore();
 
 import {
   supportLinks,
   companyLinks,
   workLinks,
-  footerCopyright,
 } from "../../data/footerData.js";
 </script>
 
@@ -26,18 +28,18 @@ import {
               <FooterSelect />
 
               <p class="text-[13px] font-medium text-white mt-6">
-                {{ footerCopyright }}
+                {{ localeStore.t("footer.copyright") }}
               </p>
             </div>
 
             <FooterMobileApps />
 
-            <FooterColumn title="Support" :links="supportLinks" />
+            <FooterColumn :title="localeStore.t('footer.columnSupport')" :links="supportLinks" />
 
-            <FooterColumn title="Company" :links="companyLinks" />
+            <FooterColumn :title="localeStore.t('footer.columnCompany')" :links="companyLinks" />
 
             <div>
-              <FooterColumn title="Work With Us" :links="workLinks" />
+              <FooterColumn :title="localeStore.t('footer.columnWorkWithUs')" :links="workLinks" />
 
               <div class="mt-8">
                 <FooterPayments />

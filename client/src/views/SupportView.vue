@@ -3,6 +3,9 @@ import { ref, computed } from "vue";
 import { useRouter } from "vue-router";
 import Container from "../components/ui/Container.vue";
 import { ChevronDown, Search, MessageCircle, Mail, Phone, ExternalLink } from "lucide-vue-next";
+import { useLocaleStore } from "../stores/localeStore.js";
+
+const localeStore = useLocaleStore();
 
 
 const faqs = ref([
@@ -119,12 +122,12 @@ function toggleFaq(idx) {
       <Container>
         <div class="max-w-2xl mx-auto">
           <nav class="flex items-center gap-2 text-[13px] text-blue-300 mb-2 flex-wrap">
-            <router-link to="/" class="hover:text-white transition-colors">Home</router-link>
+            <router-link to="/" class="hover:text-white transition-colors">{{ localeStore.t("breadcrumb.home") }}</router-link>
             <span class="text-blue-400/50">›</span>
-            <span class="text-white font-semibold">Support</span>
+            <span class="text-white font-semibold">{{ localeStore.t("support.title") }}</span>
           </nav>
-          <h1 class="text-[36px] font-bold tracking-[-0.5px]">How can we help?</h1>
-          <p class="text-blue-200 mt-2 text-[16px]">Search our help centre or browse the FAQs below.</p>
+          <h1 class="text-[36px] font-bold tracking-[-0.5px]">{{ localeStore.t("support.title") }}</h1>
+          <p class="text-blue-200 mt-2 text-[16px]">{{ localeStore.t("support.subtitle") }}</p>
 
           <div class="mt-8 relative">
             <div class="flex items-center bg-white rounded-full overflow-hidden">
@@ -137,7 +140,7 @@ function toggleFaq(idx) {
                 @blur="setTimeout(() => showHelpSuggestions = false, 200)"
                 @input="showHelpSuggestions = true"
                 type="text"
-                placeholder="Search help articles..."
+                :placeholder="localeStore.t('support.searchPlaceholder')"
                 class="flex-1 px-3 py-3.5 outline-none text-[14px] text-gray-800 placeholder:text-gray-400"
               />
             </div>
@@ -173,10 +176,10 @@ function toggleFaq(idx) {
           <div class="w-12 h-12 rounded-xl bg-blue-100 dark:bg-blue-900/40 flex items-center justify-center mx-auto">
             <MessageCircle :size="24" class="text-[#0a6cff]" />
           </div>
-          <h3 class="mt-4 text-[16px] font-bold text-[#0b2343] dark:text-white">Live chat</h3>
-          <p class="mt-1 text-[13px] text-gray-500 dark:text-gray-400">Chat with our support team in real time.</p>
+          <h3 class="mt-4 text-[16px] font-bold text-[#0b2343] dark:text-white">{{ localeStore.t("support.liveChat") }}</h3>
+          <p class="mt-1 text-[13px] text-gray-500 dark:text-gray-400">{{ localeStore.t("support.liveChatDesc") }}</p>
           <button class="mt-4 w-full bg-[#0a6cff] hover:bg-[#0057d8] text-white text-[14px] font-semibold py-2.5 rounded-xl transition">
-            Start chat
+            {{ localeStore.t("support.startChat") }}
           </button>
         </div>
 
@@ -184,10 +187,10 @@ function toggleFaq(idx) {
           <div class="w-12 h-12 rounded-xl bg-blue-100 dark:bg-blue-900/40 flex items-center justify-center mx-auto">
             <Mail :size="24" class="text-[#0a6cff]" />
           </div>
-          <h3 class="mt-4 text-[16px] font-bold text-[#0b2343] dark:text-white">Email us</h3>
-          <p class="mt-1 text-[13px] text-gray-500 dark:text-gray-400">We'll get back to you within 24 hours.</p>
+          <h3 class="mt-4 text-[16px] font-bold text-[#0b2343] dark:text-white">{{ localeStore.t("support.emailUs") }}</h3>
+          <p class="mt-1 text-[13px] text-gray-500 dark:text-gray-400">{{ localeStore.t("support.emailDesc") }}</p>
           <button class="mt-4 w-full bg-white dark:bg-gray-700 border-2 border-[#0a6cff] dark:border-blue-500 text-[#0a6cff] dark:text-blue-400 text-[14px] font-semibold py-2.5 rounded-xl transition hover:bg-blue-50 dark:hover:bg-gray-600">
-            Send email
+            {{ localeStore.t("support.sendEmail") }}
           </button>
         </div>
 
@@ -195,22 +198,22 @@ function toggleFaq(idx) {
           <div class="w-12 h-12 rounded-xl bg-blue-100 dark:bg-blue-900/40 flex items-center justify-center mx-auto">
             <Phone :size="24" class="text-[#0a6cff]" />
           </div>
-          <h3 class="mt-4 text-[16px] font-bold text-[#0b2343] dark:text-white">Phone support</h3>
-          <p class="mt-1 text-[13px] text-gray-500 dark:text-gray-400">Available Mon\u2013Fri, 9 AM \u2013 6 PM.</p>
+          <h3 class="mt-4 text-[16px] font-bold text-[#0b2343] dark:text-white">{{ localeStore.t("support.phone") }}</h3>
+          <p class="mt-1 text-[13px] text-gray-500 dark:text-gray-400">{{ localeStore.t("support.phoneDesc") }}</p>
           <button class="mt-4 w-full bg-white dark:bg-gray-700 border-2 border-[#0a6cff] dark:border-blue-500 text-[#0a6cff] dark:text-blue-400 text-[14px] font-semibold py-2.5 rounded-xl transition hover:bg-blue-50 dark:hover:bg-gray-600">
-            Call now
+            {{ localeStore.t("support.callNow") }}
           </button>
         </div>
       </div>
 
       <!-- FAQ -->
       <div class="max-w-3xl mx-auto">
-        <h2 class="text-[24px] font-bold text-[#0b2343] dark:text-white mb-6">Frequently asked questions</h2>
+        <h2 class="text-[24px] font-bold text-[#0b2343] dark:text-white mb-6">{{ localeStore.t("support.faq") }}</h2>
 
         <div v-if="filteredFaqs.length === 0" class="text-center py-12 text-gray-500 dark:text-gray-400">
-          <p class="text-[16px] font-medium">No results found for "{{ searchQuery }}"</p>
+          <p class="text-[16px] font-medium">{{ localeStore.t("support.noResults", { q: searchQuery }) }}</p>
           <button @click="searchQuery = ''" class="mt-3 text-[#0a6cff] text-[14px] font-semibold hover:underline">
-            Clear search
+            {{ localeStore.t("support.clearSearch") }}
           </button>
         </div>
 
@@ -235,10 +238,10 @@ function toggleFaq(idx) {
         </div>
 
         <div class="mt-10 p-6 bg-gray-50 dark:bg-gray-800/50 rounded-2xl text-center">
-          <p class="text-[15px] font-semibold text-[#0b2343] dark:text-white">Still need help?</p>
-          <p class="text-[13px] text-gray-500 dark:text-gray-400 mt-1">Visit our help centre for detailed guides and troubleshooting.</p>
+          <p class="text-[15px] font-semibold text-[#0b2343] dark:text-white">{{ localeStore.t("support.stillNeedHelp") }}</p>
+          <p class="text-[13px] text-gray-500 dark:text-gray-400 mt-1">{{ localeStore.t("support.helpDesc") }}</p>
           <button class="mt-4 inline-flex items-center gap-2 text-[14px] font-semibold text-[#0a6cff] hover:underline">
-            Go to help centre <ExternalLink :size="14" />
+            {{ localeStore.t("support.helpCentre") }} <ExternalLink :size="14" />
           </button>
         </div>
       </div>

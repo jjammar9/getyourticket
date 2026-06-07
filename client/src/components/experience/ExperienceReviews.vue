@@ -1,5 +1,8 @@
 <script setup>
 import { Star } from "lucide-vue-next";
+import { useLocaleStore } from "../../stores/localeStore.js";
+
+const localeStore = useLocaleStore();
 
 defineProps({
   rating: Number,
@@ -16,7 +19,7 @@ const reviewItems = [
 <template>
   <div class="mt-16">
     <h2 class="text-[24px] font-bold tracking-[-0.3px] text-[#0b2343]">
-      Customer reviews
+      {{ localeStore.t("expReviews.title") }}
     </h2>
 
     <div class="mt-6 p-6 border border-gray-200 rounded-3xl">
@@ -26,7 +29,7 @@ const reviewItems = [
           <Star v-for="i in 5" :key="i" :size="22" class="text-yellow-500 fill-yellow-500" :class="i > Math.round(rating) ? 'opacity-30' : ''" />
         </div>
       </div>
-      <p class="mt-2 text-gray-500">Based on {{ reviews }} reviews</p>
+      <p class="mt-2 text-gray-500 dark:text-gray-400">{{ localeStore.t("expReviews.based", { n: reviews }) }}</p>
     </div>
 
     <div class="mt-6 space-y-4">

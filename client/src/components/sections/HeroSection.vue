@@ -1,6 +1,9 @@
 <script setup>
 import Container from "../ui/Container.vue";
 import SearchBar from "../ui/SearchBar.vue";
+import { useLocaleStore } from "../../stores/localeStore.js";
+
+const localeStore = useLocaleStore();
 </script>
 
 <template>
@@ -19,7 +22,7 @@ import SearchBar from "../ui/SearchBar.vue";
         <h1
           class="text-white text-3xl sm:text-4xl md:text-5xl lg:text-[57px] font-bold leading-tight lg:leading-[54px] tracking-[-1.5px]"
         >
-          Discover &amp; book things to do
+          {{ localeStore.t("hero.title") }}
         </h1>
 
         <div class="mt-9 w-full max-w-[540px]">

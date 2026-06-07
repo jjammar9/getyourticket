@@ -8,8 +8,10 @@ import { experiencesData } from "../data/experiencesData.js";
 import { navData } from "../data/megaMenuData.js";
 import { toSlug } from "../utils/helpers.js";
 import { useSearchSuggestions } from "../composables/useSearchSuggestions.js";
+import { useLocaleStore } from "../stores/localeStore.js";
 
 const route = useRoute();
+const localeStore = useLocaleStore();
 const router = useRouter();
 
 const searchInput = ref("");
@@ -54,14 +56,14 @@ const suggestions = computed(() => {
 <template>
   <Container>
     <div class="pt-32 pb-12">
-      <Breadcrumbs :pages="query ? [{ label: 'Search' }] : []" />
+      <Breadcrumbs :pages="query ? [{ label: localeStore.t('searchbar.search') }] : []" />
 
       <div v-if="query">
-        <h1 class="text-[32px] font-bold tracking-[-0.5px] text-[#0b2343] mb-2">
-          Search results
-        </h1>
+          <h1 class="text-[32px] font-bold tracking-[-0.5px] text-[#0b2343] mb-2">
+            {{ localeStore.t("searchView.results") }}
+          </h1>
         <p class="text-[16px] font-medium text-gray-500 mb-8">
-          {{ results.length }} result{{ results.length === 1 ? "" : "s" }} for "{{ query }}"
+          {{ localeStore.t("searchView.count", { n: results.length, s: results.length !== 1 ? 's' : '', q: query }) }}
         </p>
 
         <div v-if="results.length" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-8">
@@ -69,8 +71,8 @@ const suggestions = computed(() => {
         </div>
 
         <div v-else-if="suggestions.length" class="py-12">
-          <h2 class="text-2xl font-bold text-[#0b2343] mb-2">No tours found</h2>
-          <p class="text-gray-500 mb-6">Try browsing these destinations instead:</p>
+          <h2 class="text-2xl font-bold text-[#0b2343] mb-2">{{ localeStore.t("searchView.noTours") }}</h2>
+          <p class="text-gray-500 mb-6">{{ localeStore.t("searchView.tryBrowsing") }}</p>
           <div class="flex flex-wrap gap-3">
             <button
               v-for="s in suggestions"
@@ -84,20 +86,20 @@ const suggestions = computed(() => {
         </div>
 
         <div v-else class="py-20 text-center">
-          <h2 class="text-3xl font-bold text-[#0b2343]">No results found</h2>
-          <p class="mt-2 text-gray-500">Try a different search term</p>
+          <h2 class="text-3xl font-bold text-[#0b2343]">{{ localeStore.t("searchView.noResults") }}</h2>
+          <p class="mt-2 text-gray-500">{{ localeStore.t("searchView.tryDifferent") }}</p>
           <button
             @click="router.push('/attractions')"
             class="mt-6 bg-[#0a6cff] hover:bg-[#0057d8] text-white font-semibold px-8 py-3 rounded-full transition"
           >
-            Browse attractions
+            {{ localeStore.t("searchView.browse") }}
           </button>
         </div>
       </div>
 
       <div v-else class="py-20 text-center">
-        <h2 class="text-3xl font-bold text-[#0b2343]">Search experiences & attractions</h2>
-        <p class="mt-2 text-gray-500">Type above to find top-rated tours worldwide.</p>
+        <h2 class="text-3xl font-bold text-[#0b2343]">{{ localeStore.t("searchView.searchExperiences") }}</h2>
+        <p class="mt-2 text-gray-500">{{ localeStore.t("searchView.typeAbove") }}</p>
           <div class="mt-8 max-w-md mx-auto relative">
             <div class="flex items-center bg-white rounded-full border border-gray-300 p-1">
               <input
@@ -107,14 +109,14 @@ const suggestions = computed(() => {
                 @blur="setTimeout(() => showSuggestions = false, 200)"
                 @input="showSuggestions = true"
                 type="text"
-                placeholder="Search destinations, tours..."
+                :placeholder="localeStore.t('searchView.searchDestinations')"
                 class="flex-1 px-5 py-2.5 outline-none rounded-full text-[14px] text-gray-700 placeholder:text-gray-400"
               />
               <button
                 @click="searchInput && router.push(`/search?q=${encodeURIComponent(searchInput)}`)"
                 class="bg-[#0a6cff] hover:bg-[#0057d8] text-white text-[14px] font-semibold px-7 py-2.5 rounded-full transition"
               >
-                Search
+                {{ localeStore.t("searchbar.search") }}
               </button>
             </div>
             <div
@@ -143,13 +145,13 @@ const suggestions = computed(() => {
             @click="router.push('/attractions')"
             class="bg-[#0a6cff] hover:bg-[#0057d8] text-white font-semibold px-8 py-3 rounded-full transition"
           >
-            Browse attractions
+            {{ localeStore.t("searchView.browse") }}
           </button>
           <button
             @click="router.push('/things-to-do')"
             class="bg-white border-2 border-[#0a6cff] text-[#0a6cff] hover:bg-blue-50 font-semibold px-8 py-3 rounded-full transition"
           >
-            Things to do
+            {{ localeStore.t("searchView.thingsToDo") }}
           </button>
         </div>
       </div>

@@ -12,6 +12,9 @@ import FilterModal from "../components/ui/FilterModal.vue";
 import DatePickerModal from "../components/ui/DatePickerModal.vue";
 import { SlidersHorizontal, ChevronLeft, ChevronRight, Calendar, UtensilsCrossed, Camera, Trophy, Bus, TreePine, Landmark, Music, Wine, Snowflake, Bike, Mountain, Compass, Info } from "lucide-vue-next";
 import { h } from "vue";
+import { useLocaleStore } from "../stores/localeStore.js";
+
+const localeStore = useLocaleStore();
 
 const HorseIcon = {
   render() {
@@ -230,7 +233,7 @@ watch(countryName, (val) => {
               class="flex items-center gap-2 bg-gray-100 text-[#0b2343] font-medium rounded-full px-5 py-3 text-[15px] whitespace-nowrap hover:bg-gray-200 transition-colors shrink-0 cursor-pointer"
             >
               <SlidersHorizontal class="w-4 h-4" />
-              Filters
+              {{ localeStore.t("country.filters") }}
             </button>
             <button
               v-for="tag in tags"
@@ -253,7 +256,7 @@ watch(countryName, (val) => {
           </button>
         </div>
         <p class="text-gray-400 text-[13px] font-medium mt-4 flex items-center gap-1.5">
-          {{ filteredExperiences.length }}+ results: {{ countryName }}
+          {{ localeStore.t("country.results", { n: filteredExperiences.length, name: countryName }) }}
           <span v-if="activeTag" class="inline-flex items-center gap-1 ml-1 bg-[#0b2343] text-white text-[11px] px-2.5 py-0.5 rounded-full font-semibold">
             {{ activeTag }}
             <button @click="activeTag = null" class="cursor-pointer hover:text-gray-300 leading-none">&times;</button>
@@ -273,7 +276,7 @@ watch(countryName, (val) => {
             @click="showAll = !showAll"
             class="bg-[#0a6cff] text-white font-semibold text-[15px] px-8 py-3 rounded-full hover:bg-[#0057d8] transition-colors"
           >
-            {{ showAll ? 'Show less' : 'Show more (' + (filteredExperiences.length - CARD_LIMIT) + ')' }}
+            {{ showAll ? localeStore.t("country.showLess") : localeStore.t("country.showMore", { n: filteredExperiences.length - CARD_LIMIT }) }}
           </button>
         </div>
       </div>
@@ -281,7 +284,7 @@ watch(countryName, (val) => {
 
     <div v-if="citiesList.length > 0" class="bg-white">
       <div class="max-w-[1280px] mx-auto px-4 md:px-6 lg:px-8 py-6">
-        <h2 class="text-[22px] font-bold text-[#0b2343] mb-6">Cities in {{ countryName }}</h2>
+        <h2 class="text-[22px] font-bold text-[#0b2343] mb-6">{{ localeStore.t("country.cities", { name: countryName }) }}</h2>
         <div class="flex gap-5 overflow-x-auto scrollbar-hide pb-2" style="scrollbar-width: none; -ms-overflow-style: none;">
           <div
             v-for="city in citiesList"
@@ -308,12 +311,12 @@ watch(countryName, (val) => {
     <div v-if="guides.length > 0" class="bg-white">
       <div class="max-w-[1280px] mx-auto px-4 md:px-6 lg:px-8 py-12">
         <div class="flex items-center justify-between mb-8">
-          <h2 class="text-[22px] font-bold text-[#0b2343]">Essential {{ countryName }} travel guides</h2>
+          <h2 class="text-[22px] font-bold text-[#0b2343]">{{ localeStore.t("country.guides", { name: countryName }) }}</h2>
           <a
             :href="'https://www.getyourguide.com/explorer/' + slug + '-ttd-l168990/'"
             target="_blank"
             class="text-[#0a6cff] font-semibold text-[15px] hover:underline"
-          >Explore All &rarr;</a>
+          >{{ localeStore.t("country.exploreAll") }}</a>
         </div>
 
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -364,7 +367,7 @@ watch(countryName, (val) => {
 
     <div v-if="recommended.length > 0" class="bg-white">
       <div class="max-w-[1280px] mx-auto px-4 md:px-6 lg:px-8 py-12">
-        <h2 class="text-[22px] font-bold text-[#0b2343] mb-8">Our most recommended things to do in {{ countryName }}</h2>
+        <h2 class="text-[22px] font-bold text-[#0b2343] mb-8">{{ localeStore.t("country.recommended", { name: countryName }) }}</h2>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div
             v-for="exp in recommended"
@@ -383,9 +386,9 @@ watch(countryName, (val) => {
             <div class="min-w-0 flex flex-col justify-between">
               <div>
                 <h3 class="text-[16px] font-bold text-[#0b2343] group-hover:text-[#0a6cff] transition-colors leading-snug line-clamp-2">{{ exp.title }}</h3>
-                <p class="text-gray-500 text-[13px] mt-1.5 leading-relaxed line-clamp-2">{{ exp.description || 'Explore ' + exp.title + ' in ' + exp.location + ' — book your spot today and experience the best this destination has to offer.' }}</p>
+                <p class="text-gray-500 text-[13px] mt-1.5 leading-relaxed line-clamp-2">{{ exp.description || localeStore.t("country.fallbackDesc", { title: exp.title, location: exp.location }) }}</p>
               </div>
-              <span class="text-[#0a6cff] font-semibold text-[14px] mt-2">See more &rarr;</span>
+              <span class="text-[#0a6cff] font-semibold text-[14px] mt-2">{{ localeStore.t("country.seeMore") }}</span>
             </div>
           </div>
         </div>
@@ -394,9 +397,9 @@ watch(countryName, (val) => {
 
     <div v-if="countryReviews.length > 0" class="bg-white">
       <div class="max-w-[1280px] mx-auto px-4 md:px-6 lg:px-8 py-12">
-        <h2 class="text-[22px] font-bold text-[#0b2343] mb-8">What people are saying about {{ countryName }}</h2>
+        <h2 class="text-[22px] font-bold text-[#0b2343] mb-8">{{ localeStore.t("country.reviews", { name: countryName }) }}</h2>
 
-        <p class="text-[15px] text-gray-500 font-medium mb-3">Overall rating</p>
+        <p class="text-[15px] text-gray-500 font-medium mb-3">{{ localeStore.t("country.overall") }}</p>
         <div class="flex flex-col items-start mb-8">
           <span class="text-[28px] font-bold text-[#0b2343]">{{ overallRating }} / 5</span>
           <div class="flex items-center gap-0.5 mt-1">
@@ -404,7 +407,7 @@ watch(countryName, (val) => {
               <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
             </svg>
           </div>
-          <span class="text-gray-400 text-[14px] mt-1">Based on {{ countryReviews.length }} reviews</span>
+          <span class="text-gray-400 text-[14px] mt-1">{{ localeStore.t("country.based", { n: countryReviews.length }) }}</span>
         </div>
 
         <div :class="countryReviews.length > 3 ? 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6' : 'flex gap-6 flex-wrap'">
@@ -434,7 +437,7 @@ watch(countryName, (val) => {
               </div>
             </div>
             <p class="text-[13px] text-black font-bold leading-relaxed" :class="expandedReviews.has(idx) ? '' : 'line-clamp-2'">{{ review.text }}</p>
-            <button v-if="review.text.length > 80" @click="toggleReview(idx)" class="text-[13px] text-black underline mt-1 cursor-pointer hover:text-gray-700">{{ expandedReviews.has(idx) ? 'See less' : 'See more' }}</button>
+            <button v-if="review.text.length > 80" @click="toggleReview(idx)" class="text-[13px] text-black underline mt-1 cursor-pointer hover:text-gray-700">{{ expandedReviews.has(idx) ? localeStore.t("country.seeLess") : localeStore.t("country.seeMoreShort") }}</button>
             <div class="mt-3 rounded-[10px] overflow-hidden h-[80px] w-1/2">
               <img
                 :src="review.image"
@@ -450,7 +453,7 @@ watch(countryName, (val) => {
 
     <div v-if="attractions.length > 0" class="bg-white">
       <div class="max-w-[1280px] mx-auto px-4 md:px-6 lg:px-8 py-12">
-        <h2 class="text-[22px] font-bold text-[#0b2343] mb-8">Top Attractions in {{ countryName }}</h2>
+        <h2 class="text-[22px] font-bold text-[#0b2343] mb-8">{{ localeStore.t("country.attractions", { name: countryName }) }}</h2>
         <div class="flex flex-wrap gap-1.5">
           <a
             v-for="(attraction, idx) in attractions"

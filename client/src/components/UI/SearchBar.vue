@@ -4,8 +4,17 @@ import { useRouter } from "vue-router";
 import Input from "./Input.vue";
 import Button from "./Button.vue";
 import { useSearchSuggestions } from "../../composables/useSearchSuggestions.js";
+import { useLocaleStore } from "../../stores/localeStore.js";
 
 const router = useRouter();
+const localeStore = useLocaleStore();
+
+const typeLabels = {
+  location: () => localeStore.t("search.type.location"),
+  activity: () => localeStore.t("search.type.activity"),
+  category: () => localeStore.t("search.type.category"),
+  country: () => localeStore.t("search.type.country"),
+};
 const search = ref("");
 const showSuggestions = ref(false);
 const { suggestions } = useSearchSuggestions(search);
@@ -39,9 +48,9 @@ const handleSearch = () => {
           <line x1="21" y1="21" x2="16.65" y2="16.65" />
         </svg>
       </div>
-      <Input v-model="search" placeholder="Find places and things to do" @focus="showSuggestions = true" @blur="onBlur" @input="showSuggestions = true" @keyup.enter="handleSearch" />
+      <Input v-model="search" :placeholder="localeStore.t('searchbar.placeholder')" @focus="showSuggestions = true" @blur="onBlur" @input="showSuggestions = true" @keyup.enter="handleSearch" />
       <div class="pr-1.5">
-        <Button @click="handleSearch" class="px-8 py-3.5 text-[17px]"> Search </Button>
+        <Button @click="handleSearch" class="px-8 py-3.5 text-[17px]"> {{ localeStore.t("searchbar.search") }} </Button>
       </div>
     </div>
 
@@ -62,7 +71,7 @@ const handleSearch = () => {
         </svg>
         <div>
           <span class="text-[14px] text-gray-700 dark:text-gray-200">{{ s.text }}</span>
-          <span class="text-[11px] text-gray-400 ml-2">— {{ s.type }}</span>
+          <span class="text-[11px] text-gray-400 ml-2">&mdash; {{ (typeLabels[s.type] || (() => s.type))() }}</span>
         </div>
       </div>
     </div>

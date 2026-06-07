@@ -1,9 +1,17 @@
 <script setup>
 import { ChevronDown } from "lucide-vue-next";
 import { useRouter, useRoute } from "vue-router";
+import { useLocaleStore } from "../../stores/localeStore.js";
 
 const router = useRouter();
 const route = useRoute();
+const localeStore = useLocaleStore();
+
+const labelKeys = {
+  places: "nav.placesToSee",
+  things: "nav.thingsToDo",
+  inspiration: "nav.tripInspiration",
+};
 
 defineProps({
   navData: Object,
@@ -31,7 +39,7 @@ function handleClick(key) {
       :to="route.path"
       class="group relative flex items-center gap-1.5 text-[15px] font-semibold text-gray-400 dark:text-gray-500 hover:text-[#ff5533] transition-colors"
     >
-      Explore {{ countryName }}
+      {{ localeStore.t("nav.explore", { country: countryName }) }}
       <span
         class="absolute left-1/2 -bottom-2 h-[2px] w-0 bg-[#ff5533] transition-all duration-300 -translate-x-1/2 group-hover:w-full"
       ></span>
@@ -48,7 +56,7 @@ function handleClick(key) {
       @mouseleave="handleHoverEnd"
       class="group relative flex items-center gap-1.5 text-[15px] font-medium text-[#061d44] dark:text-gray-200 hover:text-[#ff5533] transition-colors"
     >
-      {{ item.label }}
+      {{ localeStore.t(labelKeys[key] || item.label) }}
 
       <ChevronDown
         :size="12"

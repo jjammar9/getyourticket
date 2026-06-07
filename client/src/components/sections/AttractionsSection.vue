@@ -5,6 +5,7 @@ import { attractionsCards } from "../../data/homeData.js";
 import { handleImageError } from "../../constants/placeholder.js";
 import { Star } from "lucide-vue-next";
 import { useCurrencyStore } from "../../stores/currencyStore.js";
+import { useLocaleStore } from "../../stores/localeStore.js";
 
 import SectionTitle from "../ui/SectionTitle.vue";
 import Card from "../ui/Card.vue";
@@ -12,6 +13,7 @@ import fadeIn from "../../directives/fadeIn.js";
 
 const router = useRouter();
 const currencyStore = useCurrencyStore();
+const localeStore = useLocaleStore();
 
 const currentPage = ref(0);
 const itemsPerPage = 4;
@@ -36,7 +38,7 @@ const prevPage = () => {
 
 <template>
   <section v-fade-in class="py-10">
-    <SectionTitle title="Attractions you can't miss" viewAllTo="/attractions" />
+    <SectionTitle :title="localeStore.t('attractions.title')" viewAllTo="/attractions" />
 
     <div class="relative">
       <button
@@ -105,7 +107,7 @@ const prevPage = () => {
 
                 <div class="text-right leading-none">
                   <p v-if="card.oldPrice" class="text-[12px] text-[#8a94a6] dark:text-gray-500 line-through font-medium">
-                    From {{ currencyStore.formatPrice(card.oldPrice) }}
+                    {{ localeStore.t("common.from") }} {{ currencyStore.formatPrice(card.oldPrice) }}
                   </p>
                   <p class="text-[18px] font-extrabold text-[#e53935] mt-0.5">
                     {{ currencyStore.formatPrice(card.price) }}

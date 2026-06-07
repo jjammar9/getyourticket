@@ -10,8 +10,11 @@ import ExperiencesSection from "../components/sections/ExperiencesSection.vue";
 import WhyBookSection from "../components/sections/WhyBookSection.vue";
 import NewsletterSection from "../components/sections/NewsletterSection.vue";
 import { onMounted } from "vue";
+import { useLocaleStore } from "../stores/localeStore.js";
 
-onMounted(() => { document.title = "GetYourTicket - Book Tickets & Experiences"; });
+const localeStore = useLocaleStore();
+
+onMounted(() => { document.title = localeStore.t("home.title"); });
 </script>
 
 <template>

@@ -1,6 +1,9 @@
 <script setup>
 import { ref, computed } from "vue";
 import { ChevronLeft, ChevronRight } from "lucide-vue-next";
+import { useLocaleStore } from "../../stores/localeStore.js";
+
+const localeStore = useLocaleStore();
 
 const emit = defineEmits(["close", "apply"]);
 
@@ -104,8 +107,8 @@ function applyDate() {
       <div class="fixed inset-0 flex items-center justify-center pointer-events-none">
         <div class="relative bg-white w-full max-w-[420px] rounded-[16px] shadow-2xl overflow-hidden pointer-events-auto" @click.stop>
           <div class="px-6 pt-6 pb-4 flex gap-3">
-            <button @click="selectToday" class="flex-1 text-[14px] font-semibold py-2.5 rounded-full border transition-colors cursor-pointer" :class="selectedDate === todayStr ? 'bg-[#0b2343] text-white border-[#0b2343]' : 'border-gray-300 text-gray-700 hover:border-gray-400'">Today</button>
-            <button @click="selectTomorrow" class="flex-1 text-[14px] font-semibold py-2.5 rounded-full border transition-colors cursor-pointer" :class="selectedDate === tomorrowStr ? 'bg-[#0b2343] text-white border-[#0b2343]' : 'border-gray-300 text-gray-700 hover:border-gray-400'">Tomorrow</button>
+            <button @click="selectToday" class="flex-1 text-[14px] font-semibold py-2.5 rounded-full border transition-colors cursor-pointer" :class="selectedDate === todayStr ? 'bg-[#0b2343] text-white border-[#0b2343]' : 'border-gray-300 text-gray-700 hover:border-gray-400'">{{ localeStore.t("date.today") }}</button>
+            <button @click="selectTomorrow" class="flex-1 text-[14px] font-semibold py-2.5 rounded-full border transition-colors cursor-pointer" :class="selectedDate === tomorrowStr ? 'bg-[#0b2343] text-white border-[#0b2343]' : 'border-gray-300 text-gray-700 hover:border-gray-400'">{{ localeStore.t("date.tomorrow") }}</button>
           </div>
           <div class="px-6 pb-2">
             <div class="flex items-center justify-between mb-4">
@@ -125,8 +128,8 @@ function applyDate() {
           </div>
           <div class="border-t border-gray-200 px-6 py-4 mt-3">
             <div class="flex items-center justify-end gap-4">
-              <button @click="clearDate" class="text-[14px] text-gray-500 underline hover:text-gray-700 transition-colors cursor-pointer">Clear</button>
-              <button @click="applyDate" class="bg-[#0a6cff] text-white font-semibold text-[14px] px-6 py-2.5 rounded-full hover:bg-[#0057d8] transition-colors cursor-pointer">Show results</button>
+              <button @click="clearDate" class="text-[14px] text-gray-500 underline hover:text-gray-700 transition-colors cursor-pointer">{{ localeStore.t("date.clear") }}</button>
+              <button @click="applyDate" class="bg-[#0a6cff] text-white font-semibold text-[14px] px-6 py-2.5 rounded-full hover:bg-[#0057d8] transition-colors cursor-pointer">{{ localeStore.t("date.showResults") }}</button>
             </div>
           </div>
         </div>

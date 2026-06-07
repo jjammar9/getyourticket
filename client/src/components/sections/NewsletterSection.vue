@@ -1,7 +1,9 @@
 <script setup>
 import { ref } from "vue";
 import { Mail } from "lucide-vue-next";
+import { useLocaleStore } from "../../stores/localeStore.js";
 
+const localeStore = useLocaleStore();
 const email = ref("");
 const submitted = ref(false);
 const error = ref("");
@@ -9,11 +11,11 @@ const error = ref("");
 const submit = () => {
   error.value = "";
   if (!email.value) {
-    error.value = "Please enter your email address.";
+    error.value = localeStore.t("newsletter.errorEmpty");
     return;
   }
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value)) {
-    error.value = "Please enter a valid email address.";
+    error.value = localeStore.t("newsletter.errorInvalid");
     return;
   }
   submitted.value = true;
@@ -31,10 +33,10 @@ const submit = () => {
 
       <div class="lg:w-1/2 bg-[#81beff] px-8 lg:px-14 py-8 flex flex-col justify-center">
         <h3 class="text-[2.25rem] font-bold text-[#1a2b49] tracking-[-0.5px] leading-[2.75rem]">
-          Discover the wonder of travel every week
+          {{ localeStore.t("newsletter.title") }}
         </h3>
         <p class="text-[#1a2b49]/70 font-medium leading-5 text-[16px] max-w-[440px] mb-4">
-          Get personalized travel inspiration, the latest travel hacks, and exclusive deals straight to your inbox.
+          {{ localeStore.t("newsletter.subtitle") }}
         </p>
 
         <form v-if="!submitted" @submit.prevent="submit" class="w-full">
@@ -43,7 +45,7 @@ const submit = () => {
               <input
                 v-model="email"
                 type="email"
-                placeholder="Email"
+                :placeholder="localeStore.t('newsletter.email')"
                 class="w-full h-12 bg-white border-2 border-black rounded-xl outline-none px-4 pr-10 text-[#1a2b49] font-medium transition placeholder:text-gray-400"
               />
               <div class="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-gray-400">
@@ -54,20 +56,20 @@ const submit = () => {
               type="submit"
               class="h-12 bg-[#0071eb] hover:bg-[#005fd1] text-white font-bold rounded-xl px-6 text-[14px] transition whitespace-nowrap"
             >
-              Sign up
+              {{ localeStore.t("newsletter.signup") }}
             </button>
           </div>
           <p v-if="error" class="mt-2 text-[13px] font-semibold text-red-700">{{ error }}</p>
         </form>
 
         <p v-else class="text-[15px] font-semibold text-white">
-          You're signed up! Check your inbox for exclusive deals.
+          {{ localeStore.t("newsletter.success") }}
         </p>
       </div>
     </div>
 
     <p class="text-[#1a2b49] dark:text-gray-300 mt-2 text-[14px] leading-5 max-w-[1200px] mx-auto pr-6">
-      By signing up, you agree to receive promotional emails on activities and insider tips. You can unsubscribe or withdraw your consent at any time with future effect. For more information, read our <strong class="underline">Privacy statement</strong>.
+      {{ localeStore.t("newsletter.privacy") }} <strong class="underline">{{ localeStore.t("newsletter.privacyLink") }}</strong>.
     </p>
   </section>
 </template>

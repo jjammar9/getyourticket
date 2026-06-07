@@ -1,8 +1,16 @@
 <script setup>
 import { Menu, X } from "lucide-vue-next";
 import { useRouter } from "vue-router";
+import { useLocaleStore } from "../../stores/localeStore.js";
 
 const router = useRouter();
+const localeStore = useLocaleStore();
+
+const labelKeys = {
+  places: "nav.placesToSee",
+  things: "nav.thingsToDo",
+  inspiration: "nav.tripInspiration",
+};
 
 defineProps({
   mobileMenuOpen: Boolean,
@@ -50,7 +58,7 @@ function goTo(key) {
           @click="goTo(key)"
           class="text-left font-semibold text-gray-700 dark:text-gray-200"
         >
-          {{ item.label }}
+          {{ localeStore.t(labelKeys[key] || item.label) }}
         </button>
       </div>
     </div>

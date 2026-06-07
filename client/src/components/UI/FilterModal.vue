@@ -1,6 +1,9 @@
 <script setup>
 import { ref, computed } from "vue";
 import { X } from "lucide-vue-next";
+import { useLocaleStore } from "../../stores/localeStore.js";
+
+const localeStore = useLocaleStore();
 
 const props = defineProps({
   visible: Boolean,
@@ -104,7 +107,7 @@ function applyFilters() {
           @click.stop
       >
         <div class="flex items-center justify-between px-6 py-4 border-b border-gray-200 shrink-0">
-          <h2 class="text-[20px] font-bold text-[#0b2343]">Filters</h2>
+          <h2 class="text-[20px] font-bold text-[#0b2343] dark:text-white">{{ localeStore.t("filter.title") }}</h2>
           <button
             @click="emit('close')"
             class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100 transition-colors cursor-pointer"
@@ -116,7 +119,7 @@ function applyFilters() {
         <div class="flex-1 overflow-y-auto px-6 py-6">
           <div class="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-8">
             <div>
-              <h3 class="text-[15px] font-bold text-[#0b2343] mb-3">Start time</h3>
+              <h3 class="text-[15px] font-bold text-[#0b2343] dark:text-white mb-3">{{ localeStore.t("filter.startTime") }}</h3>
               <div class="flex flex-wrap gap-2">
                 <button
                   v-for="t in startTimes"
@@ -129,7 +132,7 @@ function applyFilters() {
             </div>
 
             <div v-if="places.length > 0">
-              <h3 class="text-[15px] font-bold text-[#0b2343] mb-3">Places</h3>
+              <h3 class="text-[15px] font-bold text-[#0b2343] dark:text-white mb-3">{{ localeStore.t("filter.places") }}</h3>
               <div class="flex flex-wrap gap-2">
                 <button
                   v-for="p in places"
@@ -142,7 +145,7 @@ function applyFilters() {
             </div>
 
             <div>
-              <h3 class="text-[15px] font-bold text-[#0b2343] mb-3">Interests</h3>
+              <h3 class="text-[15px] font-bold text-[#0b2343] dark:text-white mb-3">{{ localeStore.t("filter.interests") }}</h3>
               <div class="flex flex-wrap gap-2">
                 <button
                   v-for="item in interests"
@@ -155,7 +158,7 @@ function applyFilters() {
             </div>
 
             <div>
-              <h3 class="text-[15px] font-bold text-[#0b2343] mb-3">Categories</h3>
+              <h3 class="text-[15px] font-bold text-[#0b2343] dark:text-white mb-3">{{ localeStore.t("filter.categories") }}</h3>
               <div class="flex flex-wrap gap-2">
                 <button
                   v-for="item in categories"
@@ -168,9 +171,9 @@ function applyFilters() {
             </div>
 
             <div>
-              <h3 class="text-[15px] font-bold text-[#0b2343] mb-3">Price</h3>
+              <h3 class="text-[15px] font-bold text-[#0b2343] dark:text-white mb-3">{{ localeStore.t("filter.price") }}</h3>
               <div class="flex items-center gap-2 mb-2">
-                <span class="text-gray-500 text-[13px]">Min. price</span>
+                <span class="text-gray-500 text-[13px] dark:text-gray-400">{{ localeStore.t("filter.minPrice") }}</span>
                 <div class="relative flex-1">
                   <span class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-[13px]">&euro;</span>
                   <input
@@ -183,7 +186,7 @@ function applyFilters() {
                 </div>
               </div>
               <div class="flex items-center gap-2 mb-2">
-                <span class="text-gray-500 text-[13px]">Max. price</span>
+                <span class="text-gray-500 text-[13px] dark:text-gray-400">{{ localeStore.t("filter.maxPrice") }}</span>
                 <div class="relative flex-1">
                   <span class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-[13px]">&euro;</span>
                   <input
@@ -195,7 +198,7 @@ function applyFilters() {
                   />
                 </div>
               </div>
-              <p class="text-gray-400 text-[12px] mt-1">Displayed in</p>
+              <p class="text-gray-400 text-[12px] mt-1 dark:text-gray-500">{{ localeStore.t("filter.displayedIn") }}</p>
               <select
                 v-model="currency"
                 class="mt-1 border border-gray-300 rounded-full px-3.5 py-2 text-[13px] outline-none focus:border-[#0b2343] bg-white w-full"
@@ -209,7 +212,7 @@ function applyFilters() {
             </div>
 
             <div>
-              <h3 class="text-[15px] font-bold text-[#0b2343] mb-3">Languages</h3>
+              <h3 class="text-[15px] font-bold text-[#0b2343] dark:text-white mb-3">{{ localeStore.t("filter.languages") }}</h3>
               <div class="flex flex-wrap gap-2">
                 <button
                   v-for="item in languages"
@@ -222,7 +225,7 @@ function applyFilters() {
             </div>
 
             <div>
-              <h3 class="text-[15px] font-bold text-[#0b2343] mb-3">Duration</h3>
+              <h3 class="text-[15px] font-bold text-[#0b2343] dark:text-white mb-3">{{ localeStore.t("filter.duration") }}</h3>
               <div class="flex flex-wrap gap-2">
                 <button
                   v-for="item in durations"
@@ -235,7 +238,7 @@ function applyFilters() {
             </div>
 
             <div>
-              <h3 class="text-[15px] font-bold text-[#0b2343] mb-3">Features</h3>
+              <h3 class="text-[15px] font-bold text-[#0b2343] dark:text-white mb-3">{{ localeStore.t("filter.features") }}</h3>
               <div class="flex flex-wrap gap-2">
                 <button
                   v-for="item in features"
@@ -248,7 +251,7 @@ function applyFilters() {
             </div>
 
             <div v-if="places.length > 0">
-              <h3 class="text-[15px] font-bold text-[#0b2343] mb-3">Departs from</h3>
+              <h3 class="text-[15px] font-bold text-[#0b2343] dark:text-white mb-3">{{ localeStore.t("filter.departs") }}</h3>
               <div class="flex flex-wrap gap-2">
                 <button
                   v-for="p in places"
@@ -261,7 +264,7 @@ function applyFilters() {
             </div>
 
             <div>
-              <h3 class="text-[15px] font-bold text-[#0b2343] mb-3">Star rating</h3>
+              <h3 class="text-[15px] font-bold text-[#0b2343] dark:text-white mb-3">{{ localeStore.t("filter.starRating") }}</h3>
               <div class="flex flex-wrap gap-2">
                 <button
                   v-for="item in starRatings"
@@ -280,11 +283,11 @@ function applyFilters() {
             <button
               @click="resetAll"
               class="text-[14px] text-gray-500 underline hover:text-gray-700 transition-colors cursor-pointer"
-            >Reset all</button>
+            >{{ localeStore.t("filter.resetAll") }}</button>
             <button
               @click="applyFilters"
               class="bg-[#0a6cff] text-white font-semibold text-[14px] px-6 py-2.5 rounded-full hover:bg-[#0057d8] transition-colors cursor-pointer"
-            >Show results</button>
+            >{{ localeStore.t("filter.showResults") }}</button>
           </div>
         </div>
       </div>

@@ -1,6 +1,11 @@
+<script setup>
+import { useLocaleStore } from "../../stores/localeStore.js";
+const localeStore = useLocaleStore();
+</script>
+
 <template>
   <div class="shrink-0" style="width: 140px">
-    <p class="text-[13px] font-bold mb-3">Mobile</p>
+    <p class="text-[13px] font-bold mb-3">{{ localeStore.t("footer.mobile") }}</p>
 
     <div class="flex flex-col gap-3">
       <a href="#">

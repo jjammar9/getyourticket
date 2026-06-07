@@ -13,8 +13,12 @@ export const useLocaleStore = defineStore("locale", () => {
 
   const t = (key, params = {}) => {
     const locale = selectedLocale.value;
-    const lang = locale.startsWith("de") ? "de" : locale.startsWith("es") ? "es" : "en";
-    let text = translations[lang]?.[key] || translations.en?.[key] || key;
+    const lang = locale.startsWith("de") ? "de" : locale.startsWith("fr") ? "fr" : locale.startsWith("it") ? "it" : locale.startsWith("nl") ? "nl" : locale.startsWith("pl") ? "pl" : locale.startsWith("pt") ? "pt" : locale.startsWith("es") ? "es" : "en";
+    const result = translations[lang]?.[key] || translations.en?.[key];
+    if (!result) {
+      console.warn("localeStore.t: missing key", { key, locale, lang, hasLang: !!translations[lang], hasEn: !!translations.en, translationsKeys: Object.keys(translations) });
+    }
+    let text = result || key;
     for (const [k, v] of Object.entries(params)) {
       text = text.replace(new RegExp(`\\{\\{\\s*${k}\\s*\\}\\}`, "g"), v);
     }

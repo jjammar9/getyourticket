@@ -1,7 +1,12 @@
+<script setup>
+import { useLocaleStore } from "../../stores/localeStore.js";
+const localeStore = useLocaleStore();
+</script>
+
 <template>
   <div class="mt-5">
     <p style="font-size: 15px; font-weight: 700; margin-bottom: 8px">
-      Ways You Can Pay
+      {{ localeStore.t("footer.payments") }}
     </p>
 
     <div

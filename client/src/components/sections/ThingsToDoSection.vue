@@ -4,13 +4,15 @@ import { thingsToDoCards } from "../../data/homeData.js";
 import { handleImageError } from "../../constants/placeholder.js";
 import SectionTitle from "../ui/SectionTitle.vue";
 import fadeIn from "../../directives/fadeIn.js";
+import { useLocaleStore } from "../../stores/localeStore.js";
 
 const router = useRouter();
+const localeStore = useLocaleStore();
 </script>
 
 <template>
   <section v-fade-in class="py-10">
-    <SectionTitle title="Things to do wherever you're going" viewAllTo="/things-to-do" />
+    <SectionTitle :title="localeStore.t('things.title')" viewAllTo="/things-to-do" />
 
     <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-5">
       <div

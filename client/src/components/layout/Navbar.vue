@@ -1,17 +1,18 @@
 <script setup>
-import NavbarTop from "../Navbar/NavbarTop.vue";
-import NavbarLinks from "../Navbar/NavbarLinks.vue";
-import MegaMenu from "../Navbar/MegaMenu.vue";
-import MobileNavbar from "../Navbar/MobileNavbar.vue";
-import Container from "../ui/Container.vue";
-
-import { ref, computed, onMounted, onUnmounted } from "vue";
+import { computed, ref, onMounted, onUnmounted } from "vue";
 import { useRoute, useRouter } from "vue-router";
-import { navData } from "../../data/megaMenuData.js";
+import { Menu } from "lucide-vue-next";
 import { getCountryBySlug } from "../../data/countryData.js";
+import { navData } from "../../data/megaMenuData.js";
+import NavbarTop from "../../components/Navbar/NavbarTop.vue";
+import NavbarLinks from "../../components/Navbar/NavbarLinks.vue";
+import MegaMenu from "../../components/Navbar/MegaMenu.vue";
+import Container from "../ui/Container.vue";
+import { useLocaleStore } from "../../stores/localeStore.js";
 
-const route = useRoute();
 const router = useRouter();
+const route = useRoute();
+const localeStore = useLocaleStore();
 
 let hoverTimer = null;
 
@@ -50,9 +51,9 @@ const showNavLinks = computed(() => {
 
 const partnerBreadcrumb = computed(() => {
   const map = {
-    "/supply-partner": "As a Supply Partner",
-    "/content-creator": "As a Content Creator",
-    "/affiliate-partner": "As an Affiliate Partner",
+    "/supply-partner": localeStore.t("footer.linkSupplyPartner"),
+    "/content-creator": localeStore.t("footer.linkContentCreator"),
+    "/affiliate-partner": localeStore.t("footer.linkAffiliatePartner"),
   };
   return map[route.path] || null;
 });
@@ -188,7 +189,7 @@ const handleHoverEnd = () => {
             :countryName="isCountryPage ? countryName : ''"
           />
           <div v-if="showBreadcrumbs" class="flex items-center gap-2 text-[14px] pb-2">
-            <button @click="router.push('/')" class="text-gray-400 hover:text-[#0b2343] transition-colors cursor-pointer">Home</button>
+            <button @click="router.push('/')" class="text-gray-400 hover:text-[#0b2343] transition-colors cursor-pointer">{{ localeStore.t("breadcrumb.home") }}</button>
             <span class="text-gray-300 text-[18px] font-bold leading-none">&#8250;</span>
             <span class="text-[#0b2343] font-semibold">{{ partnerBreadcrumb }}</span>
           </div>

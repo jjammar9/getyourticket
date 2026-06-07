@@ -1,18 +1,20 @@
 <script setup>
 import { useRouter } from "vue-router";
 import { TrendingUp, MapPin, Timer, Ticket, Star, Ship, Landmark, Mountain } from "lucide-vue-next";
+import { useLocaleStore } from "../../stores/localeStore.js";
 
 const router = useRouter();
+const localeStore = useLocaleStore();
 
 const trending = [
-  { label: "Skip the line", icon: Ticket, color: "#ff5a1f", count: "1,240 tours" },
-  { label: "Colosseum", icon: Landmark, color: "#0b2343", count: "622 activities" },
-  { label: "Boat cruise", icon: Ship, color: "#0071eb", count: "890 tours" },
-  { label: "Eiffel Tower", icon: MapPin, color: "#0b2343", count: "401 activities" },
-  { label: "Free walking tour", icon: Star, color: "#e53935", count: "2,150 tours" },
-  { label: "Day trip", icon: Mountain, color: "#ff5a1f", count: "1,560 activities" },
-  { label: "London Eye", icon: MapPin, color: "#0b2343", count: "296 activities" },
-  { label: "Sagrada Familia", icon: Landmark, color: "#0071eb", count: "401 activities" },
+  { label: "Skip the line", icon: Ticket, color: "#ff5a1f", count: "1,240", unit: "tours" },
+  { label: "Colosseum", icon: Landmark, color: "#0b2343", count: "622", unit: "activities" },
+  { label: "Boat cruise", icon: Ship, color: "#0071eb", count: "890", unit: "tours" },
+  { label: "Eiffel Tower", icon: MapPin, color: "#0b2343", count: "401", unit: "activities" },
+  { label: "Free walking tour", icon: Star, color: "#e53935", count: "2,150", unit: "tours" },
+  { label: "Day trip", icon: Mountain, color: "#ff5a1f", count: "1,560", unit: "activities" },
+  { label: "London Eye", icon: MapPin, color: "#0b2343", count: "296", unit: "activities" },
+  { label: "Sagrada Familia", icon: Landmark, color: "#0071eb", count: "401", unit: "activities" },
 ];
 </script>
 
@@ -20,7 +22,7 @@ const trending = [
   <section class="py-8">
     <div class="flex items-center gap-2 mb-5">
       <TrendingUp :size="20" class="text-[#ff5a1f]" />
-      <h2 class="text-[17px] font-bold text-[#0b2343] dark:text-white">Popular right now</h2>
+      <h2 class="text-[17px] font-bold text-[#0b2343] dark:text-white">{{ localeStore.t("trending.title") }}</h2>
     </div>
 
     <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
@@ -42,7 +44,7 @@ const trending = [
             {{ item.label }}
           </p>
           <p class="text-[11px] font-medium text-[#8a94a6] dark:text-gray-400">
-            {{ item.count }}
+            {{ item.count }} {{ localeStore.t("trending." + item.unit) }}
           </p>
         </div>
       </div>
