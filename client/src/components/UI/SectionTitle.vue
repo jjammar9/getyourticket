@@ -56,7 +56,7 @@ defineProps({
       @click.prevent="router.push(viewAllTo)"
       class="text-[15px] font-bold text-[#0071eb] dark:text-blue-400 hover:text-[#0050a0] cursor-pointer whitespace-nowrap ml-6 transition-colors"
     >
-      {{ localeStore.t("section.viewAll") }} &rarr;
+      {{ localeStore.t("section.viewAll") }}
     </a>
   </div>
 </template>
