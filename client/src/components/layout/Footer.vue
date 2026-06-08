@@ -18,9 +18,9 @@ const workLinks = ref([]);
 onMounted(async () => {
   try {
     const footerLinks = await getSiteContent("footerLinks");
-    supportLinks.value = footerLinks?.supportLinks || [];
-    companyLinks.value = footerLinks?.companyLinks || [];
-    workLinks.value = footerLinks?.workLinks || [];
+    supportLinks.value = footerLinks?.support || [];
+    companyLinks.value = footerLinks?.company || [];
+    workLinks.value = footerLinks?.work || [];
   } catch (e) {
     console.error("Failed to load footer links", e);
   }

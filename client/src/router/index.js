@@ -16,6 +16,7 @@ import GeneralTermsView from "../views/GeneralTermsView.vue";
 import DigitalServicesActView from "../views/DigitalServicesActView.vue";
 import SecurityView from "../views/SecurityView.vue";
 import SitemapView from "../views/SitemapView.vue";
+import WishlistListView from "../views/WishlistListView.vue";
 import CountryView from "../views/CountryView.vue";
 import CareersView from "../views/CareersView.vue";
 import BlogView from "../views/BlogView.vue";
@@ -157,6 +158,12 @@ const routes = [
     path: "/wishlist",
     name: "wishlist",
     component: () => import("../views/WishlistView.vue"),
+    meta: { requiresAuth: true },
+  },
+  {
+    path: "/wishlist/:id",
+    name: "wishlist-list",
+    component: WishlistListView,
     meta: { requiresAuth: true },
   },
   {

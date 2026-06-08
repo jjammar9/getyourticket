@@ -28,6 +28,7 @@ function goToItem(item) {
         class="flex items-center gap-2 rounded-md px-2 py-1.5 hover:bg-sky-100 dark:hover:bg-gray-700 transition text-left"
       >
         <img
+          loading="lazy"
           :src="item.image"
           :alt="item.title"
           @error="handleImageError"

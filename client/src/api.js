@@ -3,6 +3,10 @@ const BASE = "/api";
 async function fetchJSON(url, options = {}) {
   const res = await fetch(url, options);
   if (!res.ok) {
+    if (res.status === 401) {
+      localStorage.removeItem("token");
+      localStorage.removeItem("user");
+    }
     const err = await res.json().catch(() => ({ message: res.statusText }));
     throw new Error(err.message || `HTTP ${res.status}`);
   }
@@ -86,22 +90,43 @@ export async function updateProfile(data) {
   });
 }
 
-export async function getWishlist() {
-  return fetchJSON(`${BASE}/user/wishlist`, {
+export async function getWishlistLists() {
+  return fetchJSON(`${BASE}/user/wishlist-lists`, {
     headers: { ...authHeaders() },
   });
 }
 
-export async function addToWishlist(listingId) {
-  return fetchJSON(`${BASE}/user/wishlist`, {
+export async function getWishlistList(id) {
+  return fetchJSON(`${BASE}/user/wishlist-lists/${id}`, {
+    headers: { ...authHeaders() },
+  });
+}
+
+export async function createWishlistList(name) {
+  return fetchJSON(`${BASE}/user/wishlist-lists`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json", ...authHeaders() },
+    body: JSON.stringify({ name }),
+  });
+}
+
+export async function deleteWishlistList(id) {
+  return fetchJSON(`${BASE}/user/wishlist-lists/${id}`, {
+    method: "DELETE",
+    headers: { ...authHeaders() },
+  });
+}
+
+export async function addToWishlistList(listId, listingId) {
+  return fetchJSON(`${BASE}/user/wishlist-lists/${listId}/items`, {
     method: "POST",
     headers: { "Content-Type": "application/json", ...authHeaders() },
     body: JSON.stringify({ listingId }),
   });
 }
 
-export async function removeFromWishlist(listingId) {
-  return fetchJSON(`${BASE}/user/wishlist/${listingId}`, {
+export async function removeFromWishlistList(listId, listingId) {
+  return fetchJSON(`${BASE}/user/wishlist-lists/${listId}/items/${listingId}`, {
     method: "DELETE",
     headers: { ...authHeaders() },
   });

@@ -17,7 +17,7 @@ const showMainNav = computed(() => route.path !== "/media" && route.path !== "/n
     <Navbar v-if="showMainNav" />
 
     <main class="flex-1">
-      <RouterView />
+      <RouterView :key="$route.name" />
     </main>
 
     <Footer />

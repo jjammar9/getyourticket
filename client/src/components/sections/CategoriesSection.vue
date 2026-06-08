@@ -27,10 +27,10 @@ const categories = [
         @click="router.push(`/category/${cat.slug}`)"
         class="flex flex-col items-center gap-2 cursor-pointer group"
       >
-        <div class="w-16 h-16 rounded-full bg-[#f2f5f9] flex items-center justify-center group-hover:bg-[#e8edf5] transition-colors">
-          <component :is="cat.icon" :size="24" class="text-[#0b2343]" />
+        <div class="w-16 h-16 rounded-full bg-[#f2f5f9] dark:bg-gray-800 flex items-center justify-center group-hover:bg-[#e8edf5] dark:group-hover:bg-gray-700 transition-colors">
+          <component :is="cat.icon" :size="24" class="text-[#0b2343] dark:text-white" />
         </div>
-        <span class="text-[12px] font-semibold text-[#4f5b72] text-center leading-tight group-hover:text-[#0b2343] transition-colors">
+        <span class="text-[12px] font-semibold text-[#4f5b72] dark:text-gray-400 text-center leading-tight group-hover:text-[#0b2343] dark:group-hover:text-white transition-colors">
           {{ cat.label() }}
         </span>
       </div>

@@ -67,6 +67,7 @@ const localeStore = useLocaleStore();
             class="mt-8 block relative group overflow-hidden shadow-lg"
           >
             <img
+              loading="lazy"
               src="https://img.youtube.com/vi/QWrpx-lb1zw/maxresdefault.jpg"
               alt="GetYourGuide video"
               class="w-full h-auto aspect-video object-cover"
@@ -102,6 +103,7 @@ const localeStore = useLocaleStore();
           </blockquote>
 
           <img
+            loading="lazy"
             src="https://images.contentstack.io/v3/assets/blt06f605a34f1194ff/blt64519094deef848a/65118640b16d6dd590553098/about_us_market.png?fit=crop&disable=upscale&auto=webp&quality=60&crop=smart&width=1920&height=1080"
             alt="GetYourGuide market"
             class="mt-10 w-full h-auto"
@@ -122,6 +124,7 @@ const localeStore = useLocaleStore();
           </blockquote>
 
           <img
+            loading="lazy"
             src="https://images.contentstack.io/v3/assets/blt06f605a34f1194ff/bltf79a33e1ad2c39a4/6511862ea5f15db72afc62bc/about_us_museum.png?fit=crop&disable=upscale&auto=webp&quality=60&crop=smart&width=1920&height=1080"
             alt="GetYourGuide museum"
             class="mt-10 w-full h-auto"

@@ -3,9 +3,12 @@ import { protect } from "../middleware/auth.middleware.js";
 import {
   getProfile,
   updateProfile,
-  getWishlist,
-  addToWishlist,
-  removeFromWishlist,
+  getWishlistLists,
+  getWishlistList,
+  createWishlistList,
+  deleteWishlistList,
+  addToWishlistList,
+  removeFromWishlistList,
   getBookings,
   createBooking,
   cancelBooking,
@@ -18,10 +21,15 @@ const router = Router();
 router.get("/profile", protect, getProfile);
 router.put("/profile", protect, updateProfile);
 
-// Wishlist
-router.get("/wishlist", protect, getWishlist);
-router.post("/wishlist", protect, addToWishlist);
-router.delete("/wishlist/:listingId", protect, removeFromWishlist);
+// Wishlist Lists
+router.get("/wishlist-lists", protect, getWishlistLists);
+router.get("/wishlist-lists/:id", protect, getWishlistList);
+router.post("/wishlist-lists", protect, createWishlistList);
+router.delete("/wishlist-lists/:id", protect, deleteWishlistList);
+
+// Wishlist Items
+router.post("/wishlist-lists/:listId/items", protect, addToWishlistList);
+router.delete("/wishlist-lists/:listId/items/:listingId", protect, removeFromWishlistList);
 
 // Bookings
 router.get("/bookings", protect, getBookings);

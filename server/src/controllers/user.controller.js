@@ -64,33 +64,134 @@ export const updateProfile = async (req, res) => {
   }
 };
 
-// --- WISHLIST ---
+// --- WISHLIST LISTS ---
 
-export const getWishlist = async (req, res) => {
+export const getWishlistLists = async (req, res) => {
   try {
-    const items = await prisma.wishlistItem.findMany({
+    const lists = await prisma.wishlistList.findMany({
       where: { userId: req.user.id },
-      include: { listing: { include: { category: true } } },
-      orderBy: { createdAt: "desc" },
+      include: {
+        items: {
+          include: { listing: { include: { category: true } } },
+          orderBy: { createdAt: "desc" },
+        },
+      },
+      orderBy: { updatedAt: "desc" },
     });
 
     res.json({
-      wishlist: items.map((item) => ({
-        id: item.id,
-        listingId: item.listingId,
-        createdAt: item.createdAt,
-        listing: formatListing(item.listing),
+      lists: lists.map((list) => ({
+        id: list.id,
+        name: list.name,
+        createdAt: list.createdAt,
+        updatedAt: list.updatedAt,
+        itemCount: list.items.length,
+        previewImage: list.items[0]?.listing?.images?.[0] || null,
+        previewLocation: list.items[0]?.listing?.location || null,
+        items: list.items.map((item) => ({
+          id: item.id,
+          listingId: item.listingId,
+          createdAt: item.createdAt,
+          listing: formatListing(item.listing),
+        })),
       })),
     });
   } catch (error) {
-    console.error("getWishlist error:", error);
+    console.error("getWishlistLists error:", error);
     res.status(500).json({ message: "Server error" });
   }
 };
 
-export const addToWishlist = async (req, res) => {
+export const getWishlistList = async (req, res) => {
+  try {
+    const list = await prisma.wishlistList.findFirst({
+      where: { id: req.params.id, userId: req.user.id },
+      include: {
+        items: {
+          include: { listing: { include: { category: true } } },
+          orderBy: { createdAt: "desc" },
+        },
+      },
+    });
+
+    if (!list) {
+      return res.status(404).json({ message: "List not found" });
+    }
+
+    res.json({
+      list: {
+        id: list.id,
+        name: list.name,
+        createdAt: list.createdAt,
+        updatedAt: list.updatedAt,
+        itemCount: list.items.length,
+        items: list.items.map((item) => ({
+          id: item.id,
+          listingId: item.listingId,
+          createdAt: item.createdAt,
+          listing: formatListing(item.listing),
+        })),
+      },
+    });
+  } catch (error) {
+    console.error("getWishlistList error:", error);
+    res.status(500).json({ message: "Server error" });
+  }
+};
+
+export const createWishlistList = async (req, res) => {
+  try {
+    const { name } = req.body;
+
+    if (!name || !name.trim()) {
+      return res.status(400).json({ message: "List name is required" });
+    }
+
+    const list = await prisma.wishlistList.create({
+      data: { name: name.trim(), userId: req.user.id },
+    });
+
+    res.status(201).json({ list });
+  } catch (error) {
+    console.error("createWishlistList error:", error);
+    res.status(500).json({ message: "Server error" });
+  }
+};
+
+export const deleteWishlistList = async (req, res) => {
+  try {
+    const list = await prisma.wishlistList.findFirst({
+      where: { id: req.params.id, userId: req.user.id },
+    });
+
+    if (!list) {
+      return res.status(404).json({ message: "List not found" });
+    }
+
+    await prisma.wishlistItem.deleteMany({ where: { wishlistListId: list.id } });
+    await prisma.wishlistList.delete({ where: { id: list.id } });
+
+    res.json({ message: "List deleted" });
+  } catch (error) {
+    console.error("deleteWishlistList error:", error);
+    res.status(500).json({ message: "Server error" });
+  }
+};
+
+// --- WISHLIST ITEMS ---
+
+export const addToWishlistList = async (req, res) => {
   try {
     const { listingId } = req.body;
+    const { listId } = req.params;
+
+    const list = await prisma.wishlistList.findFirst({
+      where: { id: listId, userId: req.user.id },
+    });
+
+    if (!list) {
+      return res.status(404).json({ message: "List not found" });
+    }
 
     const listing = await prisma.listing.findUnique({
       where: { expId: parseInt(listingId) },
@@ -101,28 +202,38 @@ export const addToWishlist = async (req, res) => {
     }
 
     const existing = await prisma.wishlistItem.findUnique({
-      where: { userId_listingId: { userId: req.user.id, listingId: listing.id } },
+      where: { wishlistListId_listingId: { wishlistListId: listId, listingId: listing.id } },
     });
 
     if (existing) {
-      return res.status(400).json({ message: "Already in wishlist" });
+      return res.status(400).json({ message: "Already in this list" });
     }
 
     const item = await prisma.wishlistItem.create({
-      data: { userId: req.user.id, listingId: listing.id },
+      data: { wishlistListId: listId, listingId: listing.id },
     });
 
     res.status(201).json({ wishlistItem: item });
   } catch (error) {
-    console.error("addToWishlist error:", error);
+    console.error("addToWishlistList error:", error);
     res.status(500).json({ message: "Server error" });
   }
 };
 
-export const removeFromWishlist = async (req, res) => {
+export const removeFromWishlistList = async (req, res) => {
   try {
+    const { listId, listingId } = req.params;
+
+    const list = await prisma.wishlistList.findFirst({
+      where: { id: listId, userId: req.user.id },
+    });
+
+    if (!list) {
+      return res.status(404).json({ message: "List not found" });
+    }
+
     const listing = await prisma.listing.findUnique({
-      where: { expId: parseInt(req.params.listingId) },
+      where: { expId: parseInt(listingId) },
     });
 
     if (!listing) {
@@ -130,7 +241,7 @@ export const removeFromWishlist = async (req, res) => {
     }
 
     const item = await prisma.wishlistItem.findUnique({
-      where: { userId_listingId: { userId: req.user.id, listingId: listing.id } },
+      where: { wishlistListId_listingId: { wishlistListId: listId, listingId: listing.id } },
     });
 
     if (!item) {
@@ -141,7 +252,7 @@ export const removeFromWishlist = async (req, res) => {
 
     res.json({ message: "Removed from wishlist" });
   } catch (error) {
-    console.error("removeFromWishlist error:", error);
+    console.error("removeFromWishlistList error:", error);
     res.status(500).json({ message: "Server error" });
   }
 };

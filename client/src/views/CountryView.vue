@@ -5,6 +5,8 @@ import { useNavSearch } from "../composables/useNavSearch.js";
 import { getCountryBySlug, getListings, getReviews } from "../api.js";
 import CountryCard from "../components/cards/CountryCard.vue";
 import NewsletterSection from "../components/sections/NewsletterSection.vue";
+import SkeletonCard from "../components/ui/SkeletonCard.vue";
+import SkeletonBlock from "../components/ui/SkeletonBlock.vue";
 import { handleImageError } from "../constants/placeholder.js";
 import FilterModal from "../components/ui/FilterModal.vue";
 import DatePickerModal from "../components/ui/DatePickerModal.vue";
@@ -41,15 +43,20 @@ const router = useRouter();
 const { setSearchQuery } = useNavSearch();
 const slug = computed(() => route.params.slug);
 
+const loading = ref(true);
+const error = ref("");
 const country = ref(null);
 const experiencesList = ref([]);
 const countryReviews = ref([]);
 
 async function loadCountryData(slug) {
+  loading.value = true;
+  error.value = "";
   if (!slug) {
     country.value = null;
     experiencesList.value = [];
     countryReviews.value = [];
+    loading.value = false;
     return;
   }
   try {
@@ -61,6 +68,9 @@ async function loadCountryData(slug) {
     experiencesList.value = listings || [];
   } catch (e) {
     console.error("Failed to load country data", e);
+    error.value = e.message || "Failed to load country data";
+  } finally {
+    loading.value = false;
   }
 }
 
@@ -246,15 +256,15 @@ watch(countryName, (val) => {
 
 <template>
   <main>
-    <div class="bg-white">
+    <div class="bg-white dark:bg-gray-900">
       <div class="max-w-[1280px] mx-auto px-4 md:px-6 lg:px-8 pt-32 pb-4">
         <div class="flex items-center gap-2">
           <button
             v-if="canScrollLeft"
             @click="scrollLeft"
-            class="shrink-0 w-9 h-9 flex items-center justify-center rounded-full border border-gray-300 hover:bg-gray-100 transition-colors"
+            class="shrink-0 w-9 h-9 flex items-center justify-center rounded-full border border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
           >
-            <ChevronLeft class="w-4 h-4 text-gray-600" />
+            <ChevronLeft class="w-4 h-4 text-gray-600 dark:text-gray-300" />
           </button>
 
           <div
@@ -264,7 +274,7 @@ watch(countryName, (val) => {
           >
             <button
               @click="showFilterModal = true"
-              class="flex items-center gap-2 bg-gray-100 text-[#0b2343] font-medium rounded-full px-5 py-3 text-[15px] whitespace-nowrap hover:bg-gray-200 transition-colors shrink-0 cursor-pointer"
+              class="flex items-center gap-2 bg-gray-100 dark:bg-gray-800 text-[#0b2343] dark:text-gray-100 font-medium rounded-full px-5 py-3 text-[15px] whitespace-nowrap hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors shrink-0 cursor-pointer"
             >
               <SlidersHorizontal class="w-4 h-4" />
               {{ localeStore.t("country.filters") }}
@@ -273,7 +283,7 @@ watch(countryName, (val) => {
               v-for="tag in tags"
               :key="tag.label"
               class="font-medium rounded-full px-5 py-3 text-[15px] whitespace-nowrap transition-colors shrink-0 flex items-center gap-2 cursor-pointer"
-              :class="tag.label !== 'Dates' && activeTag === tag.label ? 'bg-[#0b2343] text-white' : 'bg-gray-100 text-[#0b2343] hover:bg-gray-200'"
+              :class="tag.label !== 'Dates' && activeTag === tag.label ? 'bg-[#0b2343] dark:bg-gray-800 text-white' : 'bg-gray-100 dark:bg-gray-800 text-[#0b2343] dark:text-gray-100 hover:bg-gray-200 dark:hover:bg-gray-700'"
               @click="tag.label === 'Dates' ? (showDatePicker = true) : (activeTag = activeTag === tag.label ? null : tag.label)"
             >
               <component :is="tag.icon" class="w-4 h-4 shrink-0" />
@@ -284,25 +294,29 @@ watch(countryName, (val) => {
           <button
             v-if="canScrollRight"
             @click="scrollRight"
-            class="shrink-0 w-9 h-9 flex items-center justify-center rounded-full border border-gray-300 hover:bg-gray-100 transition-colors"
+            class="shrink-0 w-9 h-9 flex items-center justify-center rounded-full border border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
           >
-            <ChevronRight class="w-4 h-4 text-gray-600" />
+            <ChevronRight class="w-4 h-4 text-gray-600 dark:text-gray-300" />
           </button>
         </div>
-        <p class="text-gray-400 text-[13px] font-medium mt-4 flex items-center gap-1.5">
+        <p class="text-gray-400 dark:text-gray-400 text-[13px] font-medium mt-4 flex items-center gap-1.5">
           {{ localeStore.t("country.results", { n: filteredExperiences.length, name: countryName }) }}
-          <span v-if="activeTag" class="inline-flex items-center gap-1 ml-1 bg-[#0b2343] text-white text-[11px] px-2.5 py-0.5 rounded-full font-semibold">
+          <span v-if="activeTag" class="inline-flex items-center gap-1 ml-1 bg-[#0b2343] dark:bg-gray-800 text-white text-[11px] px-2.5 py-0.5 rounded-full font-semibold">
             {{ activeTag }}
             <button @click="activeTag = null" class="cursor-pointer hover:text-gray-300 leading-none">&times;</button>
           </span>
-          <Info class="w-4 h-4 text-gray-400" />
+          <Info class="w-4 h-4 text-gray-400 dark:text-gray-500" />
         </p>
       </div>
     </div>
 
-    <div class="bg-white">
+    <div class="bg-white dark:bg-gray-900">
       <div class="max-w-[1280px] mx-auto px-4 md:px-6 lg:px-8 pb-4">
-        <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-5">
+        <SkeletonCard v-if="loading" count="8" />
+        <div v-if="error" class="flex justify-center items-center py-12">
+          <p class="text-red-500 text-[15px] font-medium">{{ error }}</p>
+        </div>
+        <div v-if="!loading" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-5">
           <CountryCard v-for="exp in visibleExperiences" :key="exp.id" :item="exp" />
         </div>
         <div v-if="filteredExperiences.length > CARD_LIMIT" class="flex justify-center mt-8">
@@ -316,9 +330,9 @@ watch(countryName, (val) => {
       </div>
     </div>
 
-    <div v-if="citiesList.length > 0" class="bg-white">
+    <div v-if="citiesList.length > 0" class="bg-white dark:bg-gray-900">
       <div class="max-w-[1280px] mx-auto px-4 md:px-6 lg:px-8 py-6">
-        <h2 class="text-[22px] font-bold text-[#0b2343] mb-6">{{ localeStore.t("country.cities", { name: countryName }) }}</h2>
+        <h2 class="text-[22px] font-bold text-[#0b2343] dark:text-white mb-6">{{ localeStore.t("country.cities", { name: countryName }) }}</h2>
         <div class="flex gap-5 overflow-x-auto scrollbar-hide pb-2" style="scrollbar-width: none; -ms-overflow-style: none;">
           <div
             v-for="city in citiesList"
@@ -328,13 +342,14 @@ watch(countryName, (val) => {
           >
             <div class="rounded-[14px] overflow-hidden h-[160px]">
               <img
+                loading="lazy"
                 :src="city.image"
                 :alt="city.name"
                 class="w-full h-full object-cover group-hover:scale-[1.05] transition duration-500"
                 @error="handleImageError"
               />
             </div>
-            <p class="mt-2 text-[15px] font-bold text-[#0b2343] text-center">{{ city.name }}</p>
+            <p class="mt-2 text-[15px] font-bold text-[#0b2343] dark:text-white text-center">{{ city.name }}</p>
           </div>
         </div>
       </div>
@@ -342,14 +357,14 @@ watch(countryName, (val) => {
 
     <NewsletterSection />
 
-    <div v-if="guides.length > 0" class="bg-white">
+    <div v-if="guides.length > 0" class="bg-white dark:bg-gray-900">
       <div class="max-w-[1280px] mx-auto px-4 md:px-6 lg:px-8 py-12">
         <div class="flex items-center justify-between mb-8">
-          <h2 class="text-[22px] font-bold text-[#0b2343]">{{ localeStore.t("country.guides", { name: countryName }) }}</h2>
+          <h2 class="text-[22px] font-bold text-[#0b2343] dark:text-white">{{ localeStore.t("country.guides", { name: countryName }) }}</h2>
           <a
             :href="'https://www.getyourguide.com/explorer/' + slug + '-ttd-l168990/'"
             target="_blank"
-            class="text-[#0a6cff] font-semibold text-[15px] hover:underline"
+            class="text-[#0a6cff] dark:text-blue-400 font-semibold text-[15px] hover:underline"
           >{{ localeStore.t("country.exploreAll") }}</a>
         </div>
 
@@ -361,15 +376,16 @@ watch(countryName, (val) => {
           >
             <div class="rounded-[14px] overflow-hidden h-[300px] mb-4">
               <img
+                loading="lazy"
                 :src="guides[0].image"
                 :alt="guides[0].title"
                 class="w-full h-full object-cover group-hover:scale-[1.05] transition duration-500"
                 @error="handleImageError"
               />
             </div>
-            <h3 class="text-[18px] font-bold text-[#0b2343] group-hover:text-[#0a6cff] transition-colors leading-snug">{{ guides[0].title }}</h3>
-            <p class="text-gray-500 text-[14px] mt-1.5 leading-relaxed">{{ guides[0].text }}</p>
-            <p class="text-gray-400 text-[13px] mt-2">{{ guides[0].date }}</p>
+            <h3 class="text-[18px] font-bold text-[#0b2343] dark:text-white group-hover:text-[#0a6cff] transition-colors leading-snug">{{ guides[0].title }}</h3>
+            <p class="text-gray-500 dark:text-gray-400 text-[14px] mt-1.5 leading-relaxed">{{ guides[0].text }}</p>
+            <p class="text-gray-400 dark:text-gray-500 text-[13px] mt-2">{{ guides[0].date }}</p>
           </a>
 
           <div class="flex flex-col gap-6">
@@ -382,6 +398,7 @@ watch(countryName, (val) => {
             >
               <div class="shrink-0 w-[100px] h-[100px] rounded-[10px] overflow-hidden">
                 <img
+                  loading="lazy"
                   :src="guide.image"
                   :alt="guide.title"
                   class="w-full h-full object-cover group-hover:scale-[1.05] transition duration-500"
@@ -389,9 +406,9 @@ watch(countryName, (val) => {
                 />
               </div>
               <div class="min-w-0">
-                <h3 class="text-[15px] font-bold text-[#0b2343] group-hover:text-[#0a6cff] transition-colors leading-snug">{{ guide.title }}</h3>
-                <p class="text-gray-500 text-[13px] mt-1 leading-relaxed line-clamp-2">{{ guide.text }}</p>
-                <p class="text-gray-400 text-[12px] mt-1.5">{{ guide.date }}</p>
+                <h3 class="text-[15px] font-bold text-[#0b2343] dark:text-white group-hover:text-[#0a6cff] transition-colors leading-snug">{{ guide.title }}</h3>
+                <p class="text-gray-500 dark:text-gray-400 text-[13px] mt-1 leading-relaxed line-clamp-2">{{ guide.text }}</p>
+                <p class="text-gray-400 dark:text-gray-500 text-[12px] mt-1.5">{{ guide.date }}</p>
               </div>
             </a>
           </div>
@@ -399,9 +416,9 @@ watch(countryName, (val) => {
       </div>
     </div>
 
-    <div v-if="recommended.length > 0" class="bg-white">
+    <div v-if="recommended.length > 0" class="bg-white dark:bg-gray-900">
       <div class="max-w-[1280px] mx-auto px-4 md:px-6 lg:px-8 py-12">
-        <h2 class="text-[22px] font-bold text-[#0b2343] mb-8">{{ localeStore.t("country.recommended", { name: countryName }) }}</h2>
+        <h2 class="text-[22px] font-bold text-[#0b2343] dark:text-white mb-8">{{ localeStore.t("country.recommended", { name: countryName }) }}</h2>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div
             v-for="exp in recommended"
@@ -411,6 +428,7 @@ watch(countryName, (val) => {
           >
             <div class="shrink-0 w-[330px] h-[270px] rounded-[14px] overflow-hidden">
               <img
+                loading="lazy"
                 :src="exp.image"
                 :alt="exp.title"
                 class="w-full h-full object-cover group-hover:scale-[1.05] transition duration-500"
@@ -419,45 +437,45 @@ watch(countryName, (val) => {
             </div>
             <div class="min-w-0 flex flex-col justify-between">
               <div>
-                <h3 class="text-[16px] font-bold text-[#0b2343] group-hover:text-[#0a6cff] transition-colors leading-snug line-clamp-2">{{ exp.title }}</h3>
-                <p class="text-gray-500 text-[13px] mt-1.5 leading-relaxed line-clamp-2">{{ exp.description || localeStore.t("country.fallbackDesc", { title: exp.title, location: exp.location }) }}</p>
+                <h3 class="text-[16px] font-bold text-[#0b2343] dark:text-white group-hover:text-[#0a6cff] transition-colors leading-snug line-clamp-2">{{ exp.title }}</h3>
+                <p class="text-gray-500 dark:text-gray-400 text-[13px] mt-1.5 leading-relaxed line-clamp-2">{{ exp.description || localeStore.t("country.fallbackDesc", { title: exp.title, location: exp.location }) }}</p>
               </div>
-              <span class="text-[#0a6cff] font-semibold text-[14px] mt-2">{{ localeStore.t("country.seeMore") }}</span>
+              <span class="text-[#0a6cff] dark:text-blue-400 font-semibold text-[14px] mt-2">{{ localeStore.t("country.seeMore") }}</span>
             </div>
           </div>
         </div>
       </div>
     </div>
 
-    <div v-if="countryReviews.length > 0" class="bg-white">
+    <div v-if="countryReviews.length > 0" class="bg-white dark:bg-gray-900">
       <div class="max-w-[1280px] mx-auto px-4 md:px-6 lg:px-8 py-12">
-        <h2 class="text-[22px] font-bold text-[#0b2343] mb-8">{{ localeStore.t("country.reviews", { name: countryName }) }}</h2>
+        <h2 class="text-[22px] font-bold text-[#0b2343] dark:text-white mb-8">{{ localeStore.t("country.reviews", { name: countryName }) }}</h2>
 
-        <p class="text-[15px] text-gray-500 font-medium mb-3">{{ localeStore.t("country.overall") }}</p>
+        <p class="text-[15px] text-gray-500 dark:text-gray-400 font-medium mb-3">{{ localeStore.t("country.overall") }}</p>
         <div class="flex flex-col items-start mb-8">
-          <span class="text-[28px] font-bold text-[#0b2343]">{{ overallRating }} / 5</span>
+          <span class="text-[28px] font-bold text-[#0b2343] dark:text-white">{{ overallRating }} / 5</span>
           <div class="flex items-center gap-0.5 mt-1">
-            <svg v-for="i in 5" :key="i" class="w-5 h-5" :class="i <= Math.round(Number(overallRating)) ? 'text-black' : 'text-gray-200'" fill="currentColor" viewBox="0 0 20 20">
+            <svg v-for="i in 5" :key="i" class="w-5 h-5" :class="i <= Math.round(Number(overallRating)) ? 'text-black dark:text-white' : 'text-gray-200 dark:text-gray-600'" fill="currentColor" viewBox="0 0 20 20">
               <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
             </svg>
           </div>
-          <span class="text-gray-400 text-[14px] mt-1">{{ localeStore.t("country.based", { n: countryReviews.length }) }}</span>
+          <span class="text-gray-400 dark:text-gray-500 text-[14px] mt-1">{{ localeStore.t("country.based", { n: countryReviews.length }) }}</span>
         </div>
 
         <div :class="countryReviews.length > 3 ? 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6' : 'flex gap-6 flex-wrap'">
           <div
             v-for="(review, idx) in countryReviews"
             :key="idx"
-            class="bg-white border border-gray-300 rounded-[14px] p-5 shadow-sm shadow-gray-200"
+            class="bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-[14px] p-5 shadow-sm shadow-gray-200 dark:shadow-gray-900"
           >
             <div class="mb-3">
               <span
-                class="text-[16px] font-extrabold text-[#0b2343] hover:text-[#0a6cff] transition-colors cursor-pointer underline"
+                class="text-[16px] font-extrabold text-[#0b2343] dark:text-white hover:text-[#0a6cff] transition-colors cursor-pointer underline"
                 @click="router.push('/experience/' + review.experienceId)"
               >{{ review.experienceTitle }}</span>
             </div>
             <div class="flex items-center gap-0.5 mb-3">
-              <svg v-for="i in 5" :key="i" class="w-4 h-4" :class="i <= review.rating ? 'text-black' : 'text-gray-200'" fill="currentColor" viewBox="0 0 20 20">
+              <svg v-for="i in 5" :key="i" class="w-4 h-4" :class="i <= review.rating ? 'text-black dark:text-white' : 'text-gray-200 dark:text-gray-600'" fill="currentColor" viewBox="0 0 20 20">
                 <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
               </svg>
             </div>
@@ -466,14 +484,15 @@ watch(countryName, (val) => {
                 {{ review.name.charAt(0) }}
               </div>
               <div class="min-w-0">
-                <p class="text-[15px] font-bold text-[#0b2343] leading-tight">{{ review.name }}</p>
-                <p class="text-gray-400 text-[12px] mt-0.5">{{ review.date }}</p>
+                <p class="text-[15px] font-bold text-[#0b2343] dark:text-white leading-tight">{{ review.name }}</p>
+                <p class="text-gray-400 dark:text-gray-500 text-[12px] mt-0.5">{{ review.date }}</p>
               </div>
             </div>
-            <p class="text-[13px] text-black font-bold leading-relaxed" :class="expandedReviews.has(idx) ? '' : 'line-clamp-2'">{{ review.text }}</p>
-            <button v-if="review.text.length > 80" @click="toggleReview(idx)" class="text-[13px] text-black underline mt-1 cursor-pointer hover:text-gray-700">{{ expandedReviews.has(idx) ? localeStore.t("country.seeLess") : localeStore.t("country.seeMoreShort") }}</button>
+            <p class="text-[13px] text-black dark:text-gray-200 font-bold leading-relaxed" :class="expandedReviews.has(idx) ? '' : 'line-clamp-2'">{{ review.text }}</p>
+            <button v-if="review.text.length > 80" @click="toggleReview(idx)" class="text-[13px] text-black dark:text-gray-200 underline mt-1 cursor-pointer hover:text-gray-700 dark:hover:text-gray-400">{{ expandedReviews.has(idx) ? localeStore.t("country.seeLess") : localeStore.t("country.seeMoreShort") }}</button>
             <div class="mt-3 rounded-[10px] overflow-hidden h-[80px] w-1/2">
               <img
+                loading="lazy"
                 :src="review.image"
                 alt="Tour photo"
                 class="w-full h-full object-cover"
@@ -485,9 +504,9 @@ watch(countryName, (val) => {
       </div>
     </div>
 
-    <div v-if="attractions.length > 0" class="bg-white">
+    <div v-if="attractions.length > 0" class="bg-white dark:bg-gray-900">
       <div class="max-w-[1280px] mx-auto px-4 md:px-6 lg:px-8 py-12">
-        <h2 class="text-[22px] font-bold text-[#0b2343] mb-8">{{ localeStore.t("country.attractions", { name: countryName }) }}</h2>
+        <h2 class="text-[22px] font-bold text-[#0b2343] dark:text-white mb-8">{{ localeStore.t("country.attractions", { name: countryName }) }}</h2>
         <div class="flex flex-wrap gap-1.5">
           <a
             v-for="(attraction, idx) in attractions"
@@ -495,8 +514,8 @@ watch(countryName, (val) => {
             href="#"
             class="flex items-stretch group cursor-pointer"
           >
-            <span class="w-7 bg-[#0b2343] text-white text-[12px] font-bold flex items-center justify-center shrink-0">{{ idx + 1 }}</span>
-            <span class="border border-[#0b2343] text-[#0b2343] font-medium text-[12px] px-2.5 py-1.5 flex items-center whitespace-nowrap transition-all duration-500 ease-in-out hover:text-white bg-gradient-to-r from-[#0b2343] to-[#0b2343] bg-[length:0%_100%] bg-left-bottom bg-no-repeat hover:bg-[length:100%_100%]">{{ attraction }}</span>
+            <span class="w-7 bg-[#0b2343] dark:bg-gray-800 text-white text-[12px] font-bold flex items-center justify-center shrink-0">{{ idx + 1 }}</span>
+            <span class="border border-[#0b2343] dark:border-gray-400 text-[#0b2343] dark:text-gray-100 font-medium text-[12px] px-2.5 py-1.5 flex items-center whitespace-nowrap transition-all duration-500 ease-in-out hover:text-white bg-gradient-to-r from-[#0b2343] to-[#0b2343] bg-[length:0%_100%] bg-left-bottom bg-no-repeat hover:bg-[length:100%_100%]">{{ attraction }}</span>
           </a>
         </div>
       </div>

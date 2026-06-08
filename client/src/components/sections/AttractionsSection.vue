@@ -1,11 +1,13 @@
 <script setup>
 import { ref, computed, onMounted } from "vue";
 import { useRouter } from "vue-router";
-import { getSiteContent } from "../../api.js";
+import { getSiteContent, getListings } from "../../api.js";
 import { handleImageError } from "../../constants/placeholder.js";
-import { Star } from "lucide-vue-next";
+import { Heart, Star } from "lucide-vue-next";
 import { useCurrencyStore } from "../../stores/currencyStore.js";
 import { useLocaleStore } from "../../stores/localeStore.js";
+import { useAuthStore } from "../../stores/authStore.js";
+import WishlistModal from "../wishlist/WishlistModal.vue";
 
 import SectionTitle from "../ui/SectionTitle.vue";
 import Card from "../ui/Card.vue";
@@ -14,16 +16,52 @@ import fadeIn from "../../directives/fadeIn.js";
 const router = useRouter();
 const currencyStore = useCurrencyStore();
 const localeStore = useLocaleStore();
+const authStore = useAuthStore();
 
 const attractionsCards = ref([]);
+const showWishlistFor = ref(null);
 
 onMounted(async () => {
   try {
-    attractionsCards.value = await getSiteContent("homeAttractions");
+    const [cards, listingsData] = await Promise.all([
+      getSiteContent("homeAttractions"),
+      getListings({ limit: 200 }),
+    ]);
+
+    const locationListings = {};
+    for (const l of listingsData) {
+      if (!locationListings[l.location]) locationListings[l.location] = [];
+      locationListings[l.location].push(l);
+    }
+
+    attractionsCards.value = cards.map((card) => {
+      const matches = locationListings[card.location] || [];
+      let best = null;
+      let bestDiff = Infinity;
+      for (const m of matches) {
+        const diff = Math.abs(m.price - card.price);
+        if (diff < bestDiff) {
+          bestDiff = diff;
+          best = m;
+        }
+      }
+      return { ...card, expId: best?.id || null };
+    });
   } catch (e) {
     console.error("Failed to load attractions", e);
   }
 });
+
+function openWishlist(e, card) {
+  e.stopPropagation();
+  if (!authStore.isLoggedIn) {
+    window.dispatchEvent(new CustomEvent("open-auth-modal"));
+    return;
+  }
+  if (card.expId) {
+    showWishlistFor.value = card.expId;
+  }
+}
 
 const currentPage = ref(0);
 const itemsPerPage = 4;
@@ -54,7 +92,7 @@ const prevPage = () => {
       <button
         v-if="currentPage > 0"
         @click="prevPage"
-        class="absolute left-[-18px] top-[42%] -translate-y-1/2 z-20 w-11 h-11 rounded-full border-2 border-blue-500 bg-white flex items-center justify-center shadow-md hover:shadow-lg transition"
+        class="absolute left-[-18px] top-[42%] -translate-y-1/2 z-20 w-11 h-11 rounded-full border-2 border-blue-500 bg-white dark:bg-gray-800 flex items-center justify-center shadow-md hover:shadow-lg transition"
       >
         ←
       </button>
@@ -77,17 +115,29 @@ const prevPage = () => {
           >
             <div class="relative h-[175px] overflow-hidden">
               <img
+                loading="lazy"
                 :src="card.image"
                 :alt="card.title"
                 @error="handleImageError"
                 class="w-full h-full object-cover group-hover:scale-[1.03] transition duration-500"
               />
 
-              <div class="absolute top-0 left-0 bg-[#0b2343] text-white text-[10px] font-extrabold px-3 py-1 rounded-br-[10px] z-10 leading-none">
+              <div class="absolute top-0 left-0 bg-[#0b2343] dark:bg-gray-800 text-white text-[10px] font-extrabold px-3 py-1 rounded-br-[10px] z-10 leading-none">
                 {{ card.badge }}
               </div>
 
-              <div class="absolute bottom-0 left-0 w-full h-[10px] bg-[#ff5a1f]"></div>
+              <button
+                @click="(e) => openWishlist(e, card)"
+                class="absolute top-3 right-3 w-10 h-10 bg-white dark:bg-gray-700 rounded-full shadow-sm flex items-center justify-center z-10 hover:scale-105 transition-transform"
+              >
+                <Heart
+                  :size="18"
+                  stroke-width="2.3"
+                  class="text-[#0b2343]"
+                />
+              </button>
+
+            <div class="absolute bottom-0 left-0 w-full h-[10px] bg-[#ff5a1f] dark:bg-orange-600"></div>
             </div>
 
             <div class="px-4 pt-3 pb-2 flex flex-col flex-1">
@@ -132,10 +182,17 @@ const prevPage = () => {
       <button
         v-if="(currentPage + 1) * itemsPerPage < attractionsCards.length"
         @click="nextPage"
-        class="absolute right-[-18px] top-[42%] -translate-y-1/2 z-20 w-11 h-11 rounded-full border-2 border-blue-500 bg-white flex items-center justify-center shadow-md hover:shadow-lg transition"
+        class="absolute right-[-18px] top-[42%] -translate-y-1/2 z-20 w-11 h-11 rounded-full border-2 border-blue-500 bg-white dark:bg-gray-800 flex items-center justify-center shadow-md hover:shadow-lg transition"
       >
         →
       </button>
     </div>
+
+    <WishlistModal
+      v-if="showWishlistFor"
+      :listingId="showWishlistFor"
+      @close="showWishlistFor = null"
+      @saved="showWishlistFor = null"
+    />
   </section>
 </template>

@@ -33,6 +33,7 @@ onMounted(async () => {
         class="relative rounded-2xl overflow-hidden cursor-pointer group h-[200px] sm:h-[240px] lg:h-[260px]"
       >
         <img
+          loading="lazy"
           :src="card.image"
           :alt="card.title"
           @error="handleImageError"

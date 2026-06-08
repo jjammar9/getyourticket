@@ -33,7 +33,7 @@ function goToSlide(index) {
     <div class="p-10 pb-0">
       <div class="overflow-hidden rounded-lg relative">
         <div class="absolute inset-0 bg-white/0 group-hover:bg-white/20 transition-colors duration-500 z-10"></div>
-        <img :src="limitedSlides[currentSlide].image" alt="Press" class="w-full h-52 object-cover transition-transform duration-500 group-hover:scale-125" />
+        <img :src="limitedSlides[currentSlide].image" alt="Press" loading="lazy" class="w-full h-52 object-cover transition-transform duration-500 group-hover:scale-125" />
       </div>
     </div>
     <div class="px-10 pb-10 pt-12">

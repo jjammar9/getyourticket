@@ -38,6 +38,7 @@ const currencyStore = useCurrencyStore();
 const authStore = useAuthStore();
 
 const showAuthModal = ref(false);
+const openAuthHandler = () => { showAuthModal.value = true; };
 
 const { searchQuery, setSearchQuery } = useNavSearch();
 const searchTerm = ref("");
@@ -89,15 +90,19 @@ function onDocumentClick(e) {
 }
 
 onMounted(() => {
-  authStore.init();
+  authStore.checkAuth();
   document.addEventListener("click", onDocumentClick);
+  window.addEventListener("open-auth-modal", openAuthHandler);
   getCountries().then(list => {
     const map = {};
     for (const c of list) map[c.slug] = c;
     countries.value = map;
   }).catch(e => console.error("Failed to load countries", e));
 });
-onUnmounted(() => document.removeEventListener("click", onDocumentClick));
+onUnmounted(() => {
+  document.removeEventListener("click", onDocumentClick);
+  window.removeEventListener("open-auth-modal", openAuthHandler);
+});
 
 const onProfileEnter = () => {
   clearTimeout(closeTimer);
@@ -169,7 +174,7 @@ const handleSearch = () => {
         @click="router.push('/')"
         class="select-none cursor-pointer shrink-0 flex items-center gap-2"
       >
-        <img :src="logoImage" alt="GetYourTicket" class="h-[52px] w-auto" />
+        <img :src="logoImage" alt="GetYourTicket" loading="lazy" class="h-[52px] w-auto" />
       </div>
 
       <!-- SEARCH -->
@@ -230,7 +235,8 @@ const handleSearch = () => {
 
     <!-- RIGHT -->
     <div class="flex items-start gap-8 shrink-0">
-      <button
+      <router-link
+        to="/wishlist"
         class="group relative flex flex-col items-center gap-1 text-[13px] font-medium text-[#4f5a72] dark:text-gray-300 hover:text-[#ff5533] transition-colors"
       >
         <Heart :size="22" :stroke-width="2.5" />
@@ -238,10 +244,11 @@ const handleSearch = () => {
         <span
           class="absolute left-1/2 -bottom-2 h-[2px] w-0 bg-[#ff5533] transition-all duration-300 -translate-x-1/2 group-hover:w-full"
         />
-      </button>
+      </router-link>
 
-      <button
+      <router-link
         v-if="authStore.isLoggedIn"
+        to="/bookings"
         class="group relative flex flex-col items-center gap-1 text-[13px] font-medium text-[#4f5a72] dark:text-gray-300 hover:text-[#ff5533] transition-colors"
       >
         <Calendar :size="22" :stroke-width="2.5" />
@@ -249,9 +256,10 @@ const handleSearch = () => {
         <span
           class="absolute left-1/2 -bottom-2 h-[2px] w-0 bg-[#ff5533] transition-all duration-300 -translate-x-1/2 group-hover:w-full"
         />
-      </button>
+      </router-link>
 
-      <button
+      <router-link
+        to="/cart"
         class="group relative flex flex-col items-center gap-1 text-[13px] font-medium text-[#4f5a72] dark:text-gray-300 hover:text-[#ff5533] transition-colors"
       >
         <ShoppingCart :size="22" :stroke-width="2.5" />
@@ -259,7 +267,7 @@ const handleSearch = () => {
         <span
           class="absolute left-1/2 -bottom-2 h-[2px] w-0 bg-[#ff5533] transition-all duration-300 -translate-x-1/2 group-hover:w-full"
         />
-      </button>
+      </router-link>
 
       <!-- Globe / Language-Currency -->
       <div class="relative">

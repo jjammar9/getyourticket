@@ -73,6 +73,7 @@ onUnmounted(() => {
 
         <div class="flex-1 flex flex-col items-center gap-3">
           <img
+            loading="lazy"
             :src="images[currentIndex]"
             :alt="`Photo ${currentIndex + 1}`"
             class="max-h-[80vh] w-full object-contain rounded-lg"

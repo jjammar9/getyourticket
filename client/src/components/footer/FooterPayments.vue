@@ -25,6 +25,7 @@ const localeStore = useLocaleStore();
         "
       >
         <img
+          loading="lazy"
           src="https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg"
           style="height: 12px; object-fit: contain"
         />
@@ -42,6 +43,7 @@ const localeStore = useLocaleStore();
         "
       >
         <img
+          loading="lazy"
           src="https://upload.wikimedia.org/wikipedia/commons/2/2a/Mastercard-logo.svg"
           style="height: 20px; object-fit: contain"
         />
@@ -174,6 +176,7 @@ const localeStore = useLocaleStore();
         "
       >
         <img
+          loading="lazy"
           src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg"
           style="height: 14px; object-fit: contain"
         />
@@ -191,6 +194,7 @@ const localeStore = useLocaleStore();
         "
       >
         <img
+          loading="lazy"
           src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg"
           style="height: 14px; object-fit: contain"
         />

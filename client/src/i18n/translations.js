@@ -13,6 +13,7 @@ export const locales = [
 const en = {
   /* Navbar */
   "home.title": "GetYourTicket - Book Tickets & Experiences",
+  "home.recentlyViewed": "Recently viewed",
   "nav.search.placeholder": "Find places and things to do",
   "nav.search": "Search",
   "nav.wishlist": "Wishlist",
@@ -139,6 +140,14 @@ const en = {
   "wishlist.empty": "Your wishlist is empty",
   "wishlist.remove": "Remove",
   "wishlist.login": "Please log in to view your wishlist",
+  "wishlist.modal.title": "Select a List",
+  "wishlist.modal.newList": "New list",
+  "wishlist.modal.create": "Create",
+  "wishlist.modal.noLists": "No lists yet",
+  "wishlist.modal.createFirst": "Create your first list",
+  "wishlist.modal.namePlaceholder": "List name",
+  "wishlist.modal.saved": "Saved!",
+  "wishlist.modal.alreadyInList": "Already saved",
 
   /* Cart */
   "cart.title": "Your Cart",
@@ -368,6 +377,7 @@ const en = {
 const de = {
   "common.from": "Ab",
   "home.title": "GetYourTicket - Buchungen & Erlebnisse",
+  "home.recentlyViewed": "Zuletzt angesehen",
   "nav.search.placeholder": "Orte und Aktivit\u00E4ten finden",
   "nav.search": "Suchen",
   "nav.wishlist": "Merkliste",
@@ -510,6 +520,14 @@ const de = {
   "wishlist.empty": "Ihre Merkliste ist leer",
   "wishlist.remove": "Entfernen",
   "wishlist.login": "Bitte melden Sie sich an, um Ihre Merkliste zu sehen",
+  "wishlist.modal.title": "Liste auswählen",
+  "wishlist.modal.newList": "Neue Liste",
+  "wishlist.modal.create": "Erstellen",
+  "wishlist.modal.noLists": "Noch keine Listen",
+  "wishlist.modal.createFirst": "Erste Liste erstellen",
+  "wishlist.modal.namePlaceholder": "Listenname",
+  "wishlist.modal.saved": "Gespeichert!",
+  "wishlist.modal.alreadyInList": "Bereits gespeichert",
 
   /* Cart */
   "cart.title": "Warenkorb",
@@ -545,6 +563,7 @@ const de = {
 const es = {
   "common.from": "Desde",
   "home.title": "GetYourTicket - Reserva boletos y experiencias",
+  "home.recentlyViewed": "Visto recientemente",
   "nav.search.placeholder": "Buscar lugares y actividades",
   "nav.search": "Buscar",
   "nav.wishlist": "Lista de deseos",
@@ -677,6 +696,14 @@ const es = {
   "wishlist.empty": "Tu lista de deseos est\u00E1 vac\u00EDa",
   "wishlist.remove": "Eliminar",
   "wishlist.login": "Inicia sesi\u00F3n para ver tu lista de deseos",
+  "wishlist.modal.title": "Seleccionar una lista",
+  "wishlist.modal.newList": "Nueva lista",
+  "wishlist.modal.create": "Crear",
+  "wishlist.modal.noLists": "No hay listas",
+  "wishlist.modal.createFirst": "Crea tu primera lista",
+  "wishlist.modal.namePlaceholder": "Nombre de la lista",
+  "wishlist.modal.saved": "Guardado!",
+  "wishlist.modal.alreadyInList": "Ya guardado",
 
   /* Cart */
   "cart.title": "Tu carrito",
@@ -712,6 +739,7 @@ const es = {
 const fr = {
   "common.from": "\u00C0 partir de",
   "home.title": "GetYourTicket - R\u00E9servez billets et exp\u00E9riences",
+  "home.recentlyViewed": "Vu r\u00E9cemment",
   "nav.search.placeholder": "Trouvez des lieux et des activit\u00E9s \u00E0 faire",
   "nav.search": "Rechercher",
   "nav.wishlist": "Favoris",
@@ -946,6 +974,14 @@ const fr = {
   "wishlist.empty": "Votre liste de favoris est vide",
   "wishlist.remove": "Supprimer",
   "wishlist.login": "Connectez-vous pour voir vos favoris",
+  "wishlist.modal.title": "Sélectionner une liste",
+  "wishlist.modal.newList": "Nouvelle liste",
+  "wishlist.modal.create": "Créer",
+  "wishlist.modal.noLists": "Aucune liste",
+  "wishlist.modal.createFirst": "Créez votre première liste",
+  "wishlist.modal.namePlaceholder": "Nom de la liste",
+  "wishlist.modal.saved": "Enregistré!",
+  "wishlist.modal.alreadyInList": "Déjà enregistré",
 
   /* Cart */
   "cart.title": "Votre panier",
@@ -981,6 +1017,7 @@ const fr = {
 const it = {
   "common.from": "Da",
   "home.title": "GetYourTicket - Prenota biglietti ed esperienze",
+  "home.recentlyViewed": "Visti di recente",
   "nav.search.placeholder": "Trova luoghi e cose da fare",
   "nav.search": "Cerca",
   "nav.wishlist": "Preferiti",
@@ -1215,6 +1252,14 @@ const it = {
   "wishlist.empty": "La tua lista dei desideri \u00E8 vuota",
   "wishlist.remove": "Rimuovi",
   "wishlist.login": "Accedi per vedere la tua lista dei desideri",
+  "wishlist.modal.title": "Seleziona una lista",
+  "wishlist.modal.newList": "Nuova lista",
+  "wishlist.modal.create": "Crea",
+  "wishlist.modal.noLists": "Nessuna lista",
+  "wishlist.modal.createFirst": "Crea la tua prima lista",
+  "wishlist.modal.namePlaceholder": "Nome lista",
+  "wishlist.modal.saved": "Salvato!",
+  "wishlist.modal.alreadyInList": "Già salvato",
 
   /* Cart */
   "cart.title": "Il tuo carrello",
@@ -1250,6 +1295,7 @@ const it = {
 const nl = {
   "common.from": "Vanaf",
   "home.title": "GetYourTicket - Boek tickets en ervaringen",
+  "home.recentlyViewed": "Recent bekeken",
   "nav.search.placeholder": "Vind plaatsen en dingen om te doen",
   "nav.search": "Zoeken",
   "nav.wishlist": "Verlanglijstje",
@@ -1507,6 +1553,14 @@ const nl = {
   "wishlist.empty": "Je verlanglijstje is leeg",
   "wishlist.remove": "Verwijderen",
   "wishlist.login": "Log in om je verlanglijstje te bekijken",
+  "wishlist.modal.title": "Selecteer een lijst",
+  "wishlist.modal.newList": "Nieuwe lijst",
+  "wishlist.modal.create": "Aanmaken",
+  "wishlist.modal.noLists": "Nog geen lijsten",
+  "wishlist.modal.createFirst": "Maak je eerste lijst",
+  "wishlist.modal.namePlaceholder": "Lijstnaam",
+  "wishlist.modal.saved": "Opgeslagen!",
+  "wishlist.modal.alreadyInList": "Al opgeslagen",
 
   /* Cart */
   "cart.title": "Je winkelwagen",
@@ -1542,6 +1596,7 @@ const nl = {
 const pl = {
   "common.from": "Od",
   "home.title": "GetYourTicket - Rezerwuj bilety i do\u015Bwiadczenia",
+  "home.recentlyViewed": "Ostatnio ogl\u0105dane",
 
   "nav.search.placeholder": "Znajd\u017A miejsca i atrakcje",
   "nav.search": "Szukaj",
@@ -1812,6 +1867,14 @@ const pl = {
   "wishlist.empty": "Twoja lista \u017Cycze\u0144 jest pusta",
   "wishlist.remove": "Usu\u0144",
   "wishlist.login": "Zaloguj si\u0119, aby zobaczy\u0107 swoj\u0105 list\u0119 \u017Cycze\u0144",
+  "wishlist.modal.title": "Wybierz list\u0119",
+  "wishlist.modal.newList": "Nowa lista",
+  "wishlist.modal.create": "Utw\u00F3rz",
+  "wishlist.modal.noLists": "Brak list",
+  "wishlist.modal.createFirst": "Utw\u00F3rz pierwsz\u0105 list\u0119",
+  "wishlist.modal.namePlaceholder": "Nazwa listy",
+  "wishlist.modal.saved": "Zapisano!",
+  "wishlist.modal.alreadyInList": "Ju\u017C zapisano",
 
   /* Cart */
   "cart.title": "Tw\u00F3j koszyk",
@@ -1847,6 +1910,7 @@ const pl = {
 const pt = {
   "common.from": "A partir de",
   "home.title": "GetYourTicket - Reserve bilhetes e experi\u00EAncias",
+  "home.recentlyViewed": "Vistos recentemente",
 
   "nav.search.placeholder": "Encontrar locais e atividades",
   "nav.search": "Pesquisar",
@@ -2121,6 +2185,14 @@ const pt = {
   "wishlist.empty": "Sua lista de desejos est\u00E1 vazia",
   "wishlist.remove": "Remover",
   "wishlist.login": "Fa\u00E7a login para ver sua lista de desejos",
+  "wishlist.modal.title": "Selecionar uma lista",
+  "wishlist.modal.newList": "Nova lista",
+  "wishlist.modal.create": "Criar",
+  "wishlist.modal.noLists": "Nenhuma lista",
+  "wishlist.modal.createFirst": "Crie sua primeira lista",
+  "wishlist.modal.namePlaceholder": "Nome da lista",
+  "wishlist.modal.saved": "Salvo!",
+  "wishlist.modal.alreadyInList": "J\u00E1 salvo",
 
   /* Cart */
   "cart.title": "Seu carrinho",

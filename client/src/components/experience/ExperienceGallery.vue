@@ -19,6 +19,7 @@ function openLightbox(index) {
   <div class="relative">
     <div v-if="images.length === 1" class="w-full">
       <img
+        loading="lazy"
         :src="images[0]"
         alt="Experience"
         class="w-full h-[420px] object-cover rounded-xl cursor-pointer"
@@ -31,6 +32,7 @@ function openLightbox(index) {
       class="grid grid-cols-2 gap-2 h-[420px]"
     >
       <img
+        loading="lazy"
         v-for="(img, i) in images"
         :key="i"
         :src="img"
@@ -42,12 +44,14 @@ function openLightbox(index) {
 
     <div v-else class="grid grid-cols-4 grid-rows-2 gap-2 h-[420px]">
       <img
+        loading="lazy"
         :src="images[0]"
         alt="Photo 1"
         class="col-span-2 row-span-2 w-full h-full object-cover rounded-l-xl cursor-pointer"
         @click="openLightbox(0)"
       />
       <img
+        loading="lazy"
         v-for="(img, i) in images.slice(1, 4)"
         :key="i"
         :src="img"

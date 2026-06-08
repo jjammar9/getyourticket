@@ -16,20 +16,30 @@ model User {
   role      String         @default("customer")
   createdAt DateTime       @default(now())
   updatedAt DateTime       @updatedAt
-  wishlist  WishlistItem[]
-  bookings  Booking[]
-  reviews   Review[]
+  wishlistLists WishlistList[]
+  bookings      Booking[]
+  reviews       Review[]
+}
+
+model WishlistList {
+  id        String         @id @default(cuid())
+  name      String
+  userId    String
+  user      User           @relation(fields: [userId], references: [id])
+  items     WishlistItem[]
+  createdAt DateTime       @default(now())
+  updatedAt DateTime       @updatedAt
 }
 
 model WishlistItem {
-  id        String   @id @default(cuid())
-  userId    String
-  listingId String
-  user      User     @relation(fields: [userId], references: [id])
-  listing   Listing  @relation(fields: [listingId], references: [id])
-  createdAt DateTime @default(now())
+  id             String       @id @default(cuid())
+  wishlistListId String
+  listingId      String
+  wishlistList   WishlistList @relation(fields: [wishlistListId], references: [id])
+  listing        Listing      @relation(fields: [listingId], references: [id])
+  createdAt      DateTime     @default(now())
 
-  @@unique([userId, listingId])
+  @@unique([wishlistListId, listingId])
 }
 
 model Booking {
@@ -64,6 +74,12 @@ model SiteContent {
   id    String @id @default(cuid())
   key   String @unique
   value Json
+}
+
+model NewsletterSubscriber {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  subscribedAt DateTime @default(now())
 }
 
 model Country {

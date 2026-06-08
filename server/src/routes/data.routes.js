@@ -8,6 +8,7 @@ import {
   getReviews,
   getSiteContent,
   getAllSiteContent,
+  subscribeNewsletter,
 } from "../controllers/data.controller.js";
 
 const router = Router();
@@ -29,5 +30,8 @@ router.get("/reviews", getReviews);
 // Site Content
 router.get("/site-content", getAllSiteContent);
 router.get("/site-content/:key", getSiteContent);
+
+// Newsletter
+router.post("/newsletter/subscribe", subscribeNewsletter);
 
 export default router;

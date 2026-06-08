@@ -3,9 +3,12 @@ import { ref, computed } from "vue";
 import {
   loginUser, registerUser, getMe,
   updateProfile as updateProfileApi,
-  addToWishlist as addToWishlistApi,
-  removeFromWishlist as removeFromWishlistApi,
-  getWishlist as getWishlistApi,
+  getWishlistLists as getWishlistListsApi,
+  getWishlistList as getWishlistListApi,
+  createWishlistList as createWishlistListApi,
+  deleteWishlistList as deleteWishlistListApi,
+  addToWishlistList as addToWishlistListApi,
+  removeFromWishlistList as removeFromWishlistListApi,
   createBooking as createBookingApi,
   getBookings as getBookingsApi,
   cancelBooking as cancelBookingApi,
@@ -91,18 +94,32 @@ export const useAuthStore = defineStore("auth", () => {
     return res;
   }
 
-  async function addToWishlist(listingId) {
-    await addToWishlistApi(listingId);
+  // Wishlist lists
+  async function getWishlistLists() {
+    return getWishlistListsApi();
   }
 
-  async function removeFromWishlist(listingId) {
-    await removeFromWishlistApi(listingId);
+  async function getWishlistList(id) {
+    return getWishlistListApi(id);
   }
 
-  async function getWishlist() {
-    return getWishlistApi();
+  async function createWishlistList(name) {
+    return createWishlistListApi(name);
   }
 
+  async function deleteWishlistList(id) {
+    return deleteWishlistListApi(id);
+  }
+
+  async function addToWishlistList(listId, listingId) {
+    return addToWishlistListApi(listId, listingId);
+  }
+
+  async function removeFromWishlistList(listId, listingId) {
+    return removeFromWishlistListApi(listId, listingId);
+  }
+
+  // Bookings
   async function createBooking(data) {
     return createBookingApi(data);
   }
@@ -119,5 +136,11 @@ export const useAuthStore = defineStore("auth", () => {
     return createReviewApi(data);
   }
 
-  return { user, token, loading, isLoggedIn, login, register, logout, checkAuth, init, updateProfile, addToWishlist, removeFromWishlist, getWishlist, createBooking, getBookings, cancelBooking, createReview };
+  return {
+    user, token, loading, isLoggedIn,
+    login, register, logout, checkAuth, init, updateProfile,
+    getWishlistLists, getWishlistList, createWishlistList, deleteWishlistList,
+    addToWishlistList, removeFromWishlistList,
+    createBooking, getBookings, cancelBooking, createReview,
+  };
 });

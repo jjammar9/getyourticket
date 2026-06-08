@@ -5,6 +5,7 @@ import { Menu } from "lucide-vue-next";
 import { getCountries, getSiteContent } from "../../api.js";
 import NavbarTop from "../../components/Navbar/NavbarTop.vue";
 import NavbarLinks from "../../components/Navbar/NavbarLinks.vue";
+import MobileNavbar from "../../components/Navbar/MobileNavbar.vue";
 import MegaMenu from "../../components/Navbar/MegaMenu.vue";
 import Container from "../ui/Container.vue";
 import { useLocaleStore } from "../../stores/localeStore.js";

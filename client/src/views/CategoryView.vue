@@ -57,6 +57,7 @@ const breadcrumbs = computed(() => [{ label: title.value }]);
           class="text-left bg-white rounded-xl border border-gray-200 overflow-hidden hover:shadow-md transition group"
         >
           <img
+            loading="lazy"
             :src="item.image"
             :alt="item.title"
             @error="handleImageError"

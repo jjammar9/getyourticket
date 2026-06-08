@@ -121,6 +121,7 @@ const posts = [
             >
               <div class="overflow-hidden rounded-xl">
                 <img
+                  loading="lazy"
                   :src="post.image"
                   :alt="post.title"
                   class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"

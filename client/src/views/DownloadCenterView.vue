@@ -219,6 +219,7 @@ function scrollTo(id) {
             <div class="flex items-center gap-12">
               <div class="w-96 h-64 rounded-xl overflow-hidden shrink-0">
                 <img
+                  loading="lazy"
                   src="https://cdn.prod.website-files.com/637b6b9b9e498750e58dca08/6989f834f23bff1d33257503_Photo%20Sets.png"
                   alt="Photo Sets"
                   class="w-full h-full object-cover"
@@ -257,6 +258,7 @@ function scrollTo(id) {
             <div class="flex items-center gap-12">
               <div class="w-96 h-64 rounded-xl overflow-hidden shrink-0">
                 <img
+                  loading="lazy"
                   src="https://cdn.prod.website-files.com/637b6b9b9e498750e58dca08/639c6879e38a6d3e05849885_image_downloads_videos.jpg"
                   alt="Videos"
                   class="w-full h-full object-cover"
@@ -525,7 +527,7 @@ function scrollTo(id) {
             <line x1="6" y1="6" x2="18" y2="18" />
           </svg>
         </button>
-        <img :src="lightboxSrc" class="max-w-[90vw] max-h-[90vh] rounded-2xl" />
+        <img :src="lightboxSrc" loading="lazy" class="max-w-[90vw] max-h-[90vh] rounded-2xl" />
       </div>
     </Teleport>
   </div>

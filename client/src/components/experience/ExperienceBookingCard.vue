@@ -10,15 +10,45 @@ defineProps({
     type: Object,
     required: true,
   },
+  guests: {
+    type: Number,
+    default: 1,
+  },
+  selectedDate: {
+    type: String,
+    default: "",
+  },
 });
 
-const emit = defineEmits(["book"]);
+const emit = defineEmits(["book", "update:guests", "update:selectedDate"]);
 </script>
 
 <template>
   <div
     class="sticky top-8 border border-gray-200 dark:border-gray-700 rounded-3xl p-8 shadow-sm bg-white dark:bg-gray-800"
   >
+      <div class="space-y-4 mb-6">
+        <div>
+          <label class="block text-[13px] font-semibold text-gray-500 mb-1">{{ localeStore.t("exp.date") || "Date" }}</label>
+          <input
+            type="date"
+            :value="selectedDate"
+            @input="emit('update:selectedDate', $event.target.value)"
+            class="w-full border border-gray-300 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#0b2343]"
+          />
+        </div>
+        <div>
+          <label class="block text-[13px] font-semibold text-gray-500 mb-1">{{ localeStore.t("exp.guests") || "Guests" }}</label>
+          <input
+            type="number"
+            min="1"
+            :value="guests"
+            @input="emit('update:guests', Number($event.target.value))"
+            class="w-full border border-gray-300 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#0b2343]"
+          />
+        </div>
+      </div>
+
       <p
         v-if="experience.oldPrice"
         class="text-[16px] text-gray-400 line-through"

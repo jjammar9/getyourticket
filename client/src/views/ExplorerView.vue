@@ -158,6 +158,7 @@ const destinations = [
             <div class="md:flex">
               <div class="md:w-3/5 overflow-hidden">
                 <img
+                  loading="lazy"
                   :src="heroArticle.image"
                   :alt="heroArticle.title"
                   @error="handleImageError"
@@ -196,6 +197,7 @@ const destinations = [
           >
             <div class="aspect-[16/9]">
               <img
+                loading="lazy"
                 :src="dest.image"
                 :alt="dest.name"
                 @error="handleImageError"
@@ -227,6 +229,7 @@ const destinations = [
           >
             <div class="relative overflow-hidden">
               <img
+                loading="lazy"
                 :src="video.image"
                 :alt="video.title"
                 @error="handleImageError"
@@ -263,6 +266,7 @@ const destinations = [
           >
             <div class="flex items-center gap-3 mb-4">
               <img
+                loading="lazy"
                 :src="c.image"
                 :alt="c.name"
                 @error="handleImageError"
@@ -310,6 +314,7 @@ const destinations = [
           >
             <div class="overflow-hidden">
               <img
+                loading="lazy"
                 :src="article.image"
                 :alt="article.title"
                 @error="handleImageError"
@@ -357,6 +362,7 @@ const destinations = [
             <div class="bg-white rounded-[18px] border border-[#d9dee8] overflow-hidden hover:shadow-md transition-all">
               <div class="aspect-[4/3] overflow-hidden">
                 <img
+                  loading="lazy"
                   :src="dest.image"
                   :alt="dest.name"
                   @error="handleImageError"

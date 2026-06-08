@@ -8,7 +8,7 @@ const email = ref("");
 const submitted = ref(false);
 const error = ref("");
 
-const submit = () => {
+const submit = async () => {
   error.value = "";
   if (!email.value) {
     error.value = localeStore.t("newsletter.errorEmpty");
@@ -18,10 +18,21 @@ const submit = () => {
     error.value = localeStore.t("newsletter.errorInvalid");
     return;
   }
-  submitted.value = true;
-  const existing = JSON.parse(localStorage.getItem("newsletter_emails") || "[]");
-  existing.push({ email: email.value, subscribedAt: new Date().toISOString() });
-  localStorage.setItem("newsletter_emails", JSON.stringify(existing));
+  try {
+      const res = await fetch("/api/newsletter/subscribe", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email: email.value }),
+    });
+    if (!res.ok) {
+      const data = await res.json();
+      error.value = data.message || "Subscription failed";
+      return;
+    }
+    submitted.value = true;
+  } catch (e) {
+    error.value = "Network error. Please try again.";
+  }
 };
 </script>
 
@@ -46,7 +57,7 @@ const submit = () => {
                 v-model="email"
                 type="email"
                 :placeholder="localeStore.t('newsletter.email')"
-                class="w-full h-12 bg-white border-2 border-black rounded-xl outline-none px-4 pr-10 text-[#1a2b49] font-medium transition placeholder:text-gray-400"
+                class="w-full h-12 bg-white dark:bg-gray-800 border-2 border-black dark:border-gray-600 rounded-xl outline-none px-4 pr-10 text-[#1a2b49] dark:text-gray-100 font-medium transition placeholder:text-gray-400"
               />
               <div class="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-gray-400">
                 <Mail :size="18" />
@@ -54,7 +65,7 @@ const submit = () => {
             </div>
             <button
               type="submit"
-              class="h-12 bg-[#0071eb] hover:bg-[#005fd1] text-white font-bold rounded-xl px-6 text-[14px] transition whitespace-nowrap"
+              class="h-12 bg-[#0071eb] hover:bg-[#005fd1] text-white font-bold rounded-xl px-6 text-[14px] transition whitespace-nowrap dark:bg-blue-600 dark:hover:bg-blue-700"
             >
               {{ localeStore.t("newsletter.signup") }}
             </button>

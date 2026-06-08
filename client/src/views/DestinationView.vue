@@ -4,6 +4,7 @@ import { useRoute, useRouter } from "vue-router";
 import Container from "../components/ui/Container.vue";
 import Breadcrumbs from "../components/ui/Breadcrumbs.vue";
 import SearchCard from "../components/cards/SearchCard.vue";
+import SkeletonCard from "../components/ui/SkeletonCard.vue";
 import { getListings, getSiteContent } from "../api.js";
 import { toSlug } from "../utils/helpers.js";
 import { useLocaleStore } from "../stores/localeStore.js";
@@ -14,6 +15,8 @@ const router = useRouter();
 
 const experiencesData = ref([]);
 const navData = ref({});
+const loading = ref(true);
+const error = ref("");
 
 onMounted(async () => {
   try {
@@ -25,6 +28,9 @@ onMounted(async () => {
     navData.value = megaMenu;
   } catch (e) {
     console.error("Failed to load data", e);
+    error.value = e.message || "Something went wrong";
+  } finally {
+    loading.value = false;
   }
 });
 
@@ -88,6 +94,7 @@ const randomExperiences = computed(() => {
       <div v-if="itemInfo" class="mb-10">
         <div class="relative h-[300px] rounded-2xl overflow-hidden mb-6">
           <img
+            loading="lazy"
             :src="itemInfo.item.image"
             :alt="itemInfo.item.title"
             class="w-full h-full object-cover"
@@ -104,20 +111,26 @@ const randomExperiences = computed(() => {
         </div>
       </div>
 
-      <h1 v-else class="text-[32px] font-bold tracking-[-0.5px] text-[#0b2343] mb-8">
+      <h1 v-else class="text-[32px] font-bold tracking-[-0.5px] text-[#0b2343] dark:text-white mb-8">
         {{ title }}
       </h1>
 
+      <SkeletonCard v-if="loading" count="4" />
+
+      <div v-if="error" class="py-16 text-center">
+        <p class="text-red-500 text-lg">{{ error }}</p>
+      </div>
+
       <div v-if="experiences.length" class="mb-6">
-        <h2 class="text-[22px] font-bold text-[#0b2343] mb-6">{{ localeStore.t("dest.tours") }}</h2>
+        <h2 class="text-[22px] font-bold text-[#0b2343] dark:text-white mb-6">{{ localeStore.t("dest.tours") }}</h2>
         <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-8">
           <SearchCard v-for="item in experiences" :key="item.id" :item="item" />
         </div>
       </div>
 
-      <div v-else class="py-16 text-center border-t border-gray-100">
-        <h2 class="text-3xl font-bold text-[#0b2343]">{{ localeStore.t("dest.explore", { name: title }) }}</h2>
-        <p class="mt-2 text-gray-500 max-w-md mx-auto">
+      <div v-else class="py-16 text-center border-t border-gray-100 dark:border-gray-700">
+        <h2 class="text-3xl font-bold text-[#0b2343] dark:text-white">{{ localeStore.t("dest.explore", { name: title }) }}</h2>
+        <p class="mt-2 text-gray-500 dark:text-gray-400 max-w-md mx-auto">
           {{ localeStore.t("dest.discover") }}
         </p>
         <button
@@ -129,7 +142,7 @@ const randomExperiences = computed(() => {
       </div>
 
       <div v-if="!experiences.length" class="mt-16">
-        <h2 class="text-[22px] font-bold text-[#0b2343] mb-6">{{ localeStore.t("dest.popular") }}</h2>
+        <h2 class="text-[22px] font-bold text-[#0b2343] dark:text-white mb-6">{{ localeStore.t("dest.popular") }}</h2>
         <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-8">
           <SearchCard v-for="item in randomExperiences" :key="item.id" :item="item" />
         </div>

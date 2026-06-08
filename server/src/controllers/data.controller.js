@@ -179,3 +179,21 @@ export const getAllSiteContent = async (req, res) => {
     res.status(500).json({ message: "Server error" });
   }
 };
+
+export const subscribeNewsletter = async (req, res) => {
+  try {
+    const { email } = req.body;
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      return res.status(400).json({ message: "Invalid email" });
+    }
+    const existing = await prisma.newsletterSubscriber.findUnique({ where: { email } });
+    if (existing) {
+      return res.json({ message: "Already subscribed" });
+    }
+    await prisma.newsletterSubscriber.create({ data: { email } });
+    res.status(201).json({ message: "Subscribed" });
+  } catch (error) {
+    console.error("subscribeNewsletter error:", error);
+    res.status(500).json({ message: "Server error" });
+  }
+};
