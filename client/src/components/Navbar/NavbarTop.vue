@@ -427,7 +427,7 @@ const handleSearch = () => {
             >
               <div class="flex items-center gap-3">
                 <LogIn :size="18" class="text-gray-500 dark:text-gray-300" />
-                <span class="text-[13px] text-gray-700 dark:text-gray-200 font-medium">{{ localeStore.t("nav.login") }}</span>
+                <span class="text-[13px] text-gray-700 dark:text-gray-200 font-medium">{{ localeStore.t("auth.loginButton") }}</span>
               </div>
               <ArrowRight :size="15" class="text-gray-400 dark:text-gray-500" />
             </div>

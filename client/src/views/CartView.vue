@@ -20,9 +20,7 @@ const step = ref(1);
 const formName = ref("");
 const formEmail = ref("");
 const formDate = ref("");
-const formGuests = ref(1);
 const confirming = ref(false);
-const confirmSuccess = ref(false);
 const confirmError = ref("");
 const processing = ref(false);
 const bookingRef = ref("");
@@ -86,15 +84,15 @@ function onPaymentError(msg) {
 
       <div v-else-if="step === 3" class="text-center py-20">
         <ShoppingCart :size="48" class="mx-auto text-green-500 mb-4" />
-        <p class="text-[22px] font-bold text-[#0b2343] dark:text-white mb-2">Booking Confirmed!</p>
-        <p class="text-[14px] text-gray-500 dark:text-gray-400 mb-4">Your booking reference</p>
+        <p class="text-[22px] font-bold text-[#0b2343] dark:text-white mb-2">{{ localeStore.t("cart.confirmed") || "Booking Confirmed!" }}</p>
+        <p class="text-[14px] text-gray-500 dark:text-gray-400 mb-4">{{ localeStore.t("cart.bookingRef") || "Your booking reference" }}</p>
         <p class="text-[18px] font-extrabold text-[#ff5533] mb-8">{{ bookingRef }}</p>
-        <router-link to="/bookings" class="inline-block bg-[#ff5533] text-white text-[14px] font-semibold px-6 py-3 rounded-full hover:bg-[#e6482a] transition-colors">View my bookings</router-link>
+        <router-link to="/bookings" class="inline-block bg-[#ff5533] text-white text-[14px] font-semibold px-6 py-3 rounded-full hover:bg-[#e6482a] transition-colors">{{ localeStore.t("cart.viewBookings") || "View my bookings" }}</router-link>
       </div>
 
       <div v-else>
         <div class="flex items-center justify-center gap-4 mb-10">
-          <div v-for="(s, i) in ['Review', 'Payment', 'Confirmed']" :key="i" class="flex items-center gap-2">
+          <div v-for="(s, i) in [localeStore.t('cart.stepReview') || 'Review', localeStore.t('cart.stepPayment') || 'Payment', localeStore.t('cart.stepConfirmed') || 'Confirmed']" :key="i" class="flex items-center gap-2">
             <div class="w-8 h-8 rounded-full flex items-center justify-center text-[13px] font-bold" :class="step > i + 1 ? 'bg-green-500 text-white' : step === i + 1 ? 'bg-[#ff5533] text-white' : 'bg-gray-200 text-gray-500'">{{ step > i + 1 ? '✓' : i + 1 }}</div>
             <span class="text-[13px] font-medium" :class="step === i + 1 ? 'text-[#ff5533]' : step > i + 1 ? 'text-green-500' : 'text-gray-400'">{{ s }}</span>
             <ChevronRight v-if="i < 2" :size="16" class="text-gray-300" />
@@ -183,13 +181,13 @@ function onPaymentError(msg) {
               :disabled="!formName || !formEmail || !formDate"
               class="mt-4 w-full bg-[#ff5533] text-white text-[14px] font-semibold py-3 rounded-full hover:bg-[#e6482a] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              Continue to Payment
+              {{ localeStore.t("cart.continuePayment") || "Continue to Payment" }}
             </button>
           </div>
         </div>
 
         <div v-if="step === 2" class="max-w-md mx-auto bg-white dark:bg-gray-800 rounded-[18px] border border-[#d9dee8] dark:border-gray-700 p-6">
-          <h2 class="text-[18px] font-bold text-[#0b2343] dark:text-white mb-6">Payment Details</h2>
+          <h2 class="text-[18px] font-bold text-[#0b2343] dark:text-white mb-6">{{ localeStore.t("cart.paymentDetails") || "Payment Details" }}</h2>
 
           <StripePaymentForm
             :amount="totalPrice"

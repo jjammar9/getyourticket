@@ -314,7 +314,7 @@ export const createBooking = async (req, res) => {
       },
     });
 
-    console.log(`[EMAIL] Confirmation sent to ${req.user.email} for booking ${booking.id} - ${listing.title}`);
+    // console.log(`[EMAIL] Confirmation sent to ${req.user.email} for booking ${booking.id} - ${listing.title}`);
 
     res.status(201).json({ booking });
   } catch (error) {

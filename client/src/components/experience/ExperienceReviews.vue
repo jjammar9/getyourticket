@@ -64,7 +64,13 @@ const aiSummary = computed(() => {
   return "Travelers have had mixed experiences with this activity.";
 });
 
-const sortOptions = ["Recommended", "Most recent", "Oldest", "Highest rated", "Lowest rated"];
+const sortOptions = [
+  localeStore.t("expReviews.sortRecommended") || "Recommended",
+  localeStore.t("expReviews.sortMostRecent") || "Most recent",
+  localeStore.t("expReviews.sortOldest") || "Oldest",
+  localeStore.t("expReviews.sortHighestRated") || "Highest rated",
+  localeStore.t("expReviews.sortLowestRated") || "Lowest rated",
+];
 
 async function handleSubmitReview() {
   if (!reviewText.value) return;
@@ -74,7 +80,7 @@ async function handleSubmitReview() {
     submitted.value = true;
     emit("reviewed", { name: authStore.user?.name || "You", rating: reviewRating.value, text: reviewText.value, date: new Date().toISOString().split("T")[0] });
     reviewText.value = "";
-  } catch (e) { console.error(e); }
+  } catch (e) { /* ignore */ }
   finally { submitting.value = false; }
 }
 </script>
@@ -91,8 +97,8 @@ async function handleSubmitReview() {
           <span class="text-[48px] font-black text-[#0b2343] dark:text-white leading-none">{{ rating }}</span>
           <Star :size="24" class="text-yellow-500 fill-yellow-500" />
         </div>
-        <p class="text-[16px] font-bold text-[#0b2343] dark:text-white mb-0.5">Exceptional</p>
-        <p class="text-[12px] text-[#59657b] dark:text-gray-400 mb-4">Based on {{ reviewsCount || sourceReviews.length }} reviews</p>
+        <p class="text-[16px] font-bold text-[#0b2343] dark:text-white mb-0.5">{{ localeStore.t("expReviews.exceptional") || "Exceptional" }}</p>
+        <p class="text-[12px] text-[#59657b] dark:text-gray-400 mb-4">{{ localeStore.t("expReviews.based", { n: reviewsCount || sourceReviews.length }) }}</p>
 
         <!-- Star distribution bars -->
         <div class="space-y-1 mb-4">
@@ -108,13 +114,13 @@ async function handleSubmitReview() {
 
         <!-- Ratings by topic -->
         <div>
-          <p class="text-[11px] font-bold text-[#0b2343] dark:text-white mb-2">Ratings by topic</p>
+          <p class="text-[11px] font-bold text-[#0b2343] dark:text-white mb-2">{{ localeStore.t("expReviews.topicRatings") || "Ratings by topic" }}</p>
           <div class="grid grid-cols-1 gap-1">
             <div v-for="item in [
-              { label: 'Value for money', rating: 4.8 },
-              { label: 'Service', rating: 4.9 },
-              { label: 'Organization', rating: 4.9 },
-              { label: 'Safety', rating: 4.9 },
+              { label: localeStore.t('expReviews.topicValue') || 'Value for money', rating: 4.8 },
+              { label: localeStore.t('expReviews.topicService') || 'Service', rating: 4.9 },
+              { label: localeStore.t('expReviews.topicOrganization') || 'Organization', rating: 4.9 },
+              { label: localeStore.t('expReviews.topicSafety') || 'Safety', rating: 4.9 },
             ]" :key="item.label" class="flex items-center justify-between text-[12px]">
               <span class="text-[#59657b] dark:text-gray-400">{{ item.label }}</span>
               <div class="flex items-center gap-1">
@@ -132,7 +138,7 @@ async function handleSubmitReview() {
         <div class="border border-[#e8ebf0] dark:border-gray-700 rounded-xl p-4 mb-4">
           <div class="flex items-center gap-2 mb-2">
             <Sparkles :size="16" class="text-[#59657b]" />
-            <h3 class="text-[13px] font-bold text-[#0b2343] dark:text-white">What travelers loved</h3>
+            <h3 class="text-[13px] font-bold text-[#0b2343] dark:text-white">{{ localeStore.t("expReviews.whatTravelersLoved") || "What travelers loved" }}</h3>
           </div>
           <p class="text-[13px] text-[#4f5b72] dark:text-gray-300 leading-relaxed">{{ aiSummary }}</p>
         </div>
@@ -141,7 +147,7 @@ async function handleSubmitReview() {
         <div class="flex items-center gap-2 mb-4">
           <div class="relative flex-1">
             <Search :size="14" class="absolute left-3 top-1/2 -translate-y-1/2 text-[#8a94a6]" />
-            <input v-model="searchQuery" type="text" placeholder="Search reviews" class="w-full pl-9 pr-3 py-2 border border-[#d9dee8] dark:border-gray-600 rounded-lg text-[13px] text-[#0b2343] dark:text-white dark:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-[#0b2343]/10 focus:border-[#0b2343] transition" />
+            <input v-model="searchQuery" type="text" :placeholder="localeStore.t('expReviews.searchPlaceholder') || 'Search reviews'" class="w-full pl-9 pr-3 py-2 border border-[#d9dee8] dark:border-gray-600 rounded-lg text-[13px] text-[#0b2343] dark:text-white dark:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-[#0b2343]/10 focus:border-[#0b2343] transition" />
           </div>
           <div class="relative">
             <button @click="sortOpen = !sortOpen" class="flex items-center gap-1.5 px-3 py-2 border border-[#d9dee8] dark:border-gray-600 rounded-lg text-[12px] font-medium text-[#0b2343] dark:text-white hover:bg-gray-50 dark:hover:bg-gray-700 transition whitespace-nowrap">
@@ -168,7 +174,7 @@ async function handleSubmitReview() {
                 <p v-if="review.date" class="text-[10px] text-[#8a94a6] mb-1.5">{{ review.date }}</p>
                 <p class="text-[13px] text-[#4f5b72] dark:text-gray-300 leading-relaxed">{{ review.text }}</p>
                 <button class="mt-2 flex items-center gap-1 text-[11px] text-[#59657b] hover:text-[#0b2343] dark:hover:text-white transition font-medium">
-                  <ThumbsUp :size="12" /> Was this helpful?
+                  <ThumbsUp :size="12" /> {{ localeStore.t("expReviews.wasHelpful") || "Was this helpful?" }}
                 </button>
               </div>
             </div>
@@ -185,7 +191,7 @@ async function handleSubmitReview() {
             <button v-for="i in 5" :key="i" @click="reviewRating = i" type="button"><Star :size="18" :class="i <= reviewRating ? 'text-yellow-500 fill-yellow-500' : 'text-gray-200 dark:text-gray-600'" /></button>
           </div>
           <textarea v-model="reviewText" :placeholder="localeStore.t('expReviews.textPlaceholder')" class="w-full px-3 py-2 border border-[#d9dee8] dark:border-gray-600 rounded-lg text-[13px] text-[#0b2343] dark:text-white dark:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-[#0b2343]/10 focus:border-[#0b2343] resize-none transition" rows="2"></textarea>
-          <button @click="handleSubmitReview" :disabled="submitting || !reviewText" class="mt-2 bg-[#0b2343] hover:bg-[#122d52] text-white text-[12px] font-bold px-4 py-1.5 rounded-lg transition disabled:opacity-50">{{ submitting ? "..." : "Submit review" }}</button>
+          <button @click="handleSubmitReview" :disabled="submitting || !reviewText" class="mt-2 bg-[#0b2343] hover:bg-[#122d52] text-white text-[12px] font-bold px-4 py-1.5 rounded-lg transition disabled:opacity-50">{{ submitting ? "..." : localeStore.t("expReviews.submit") }}</button>
         </div>
         <div v-else class="mt-5 text-center bg-gray-50 dark:bg-gray-800/50 border border-dashed border-gray-200 dark:border-gray-700 rounded-xl py-5">
           <p class="text-[12px] text-[#59657b] dark:text-gray-400">{{ localeStore.t("expReviews.login") }}</p>

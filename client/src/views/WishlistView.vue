@@ -1,7 +1,7 @@
 <script setup>
 import { ref, onMounted } from "vue";
 import { useRouter } from "vue-router";
-import { Heart, List, Plus, Trash2 } from "lucide-vue-next";
+import { Heart, List, Trash2 } from "lucide-vue-next";
 import Container from "../components/ui/Container.vue";
 import { useAuthStore } from "../stores/authStore.js";
 import { useLocaleStore } from "../stores/localeStore.js";

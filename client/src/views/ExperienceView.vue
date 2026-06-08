@@ -11,12 +11,14 @@ import PhotoLightbox from "../components/ui/PhotoLightbox.vue";
 import { getListingById, getReviews, getListings } from "../api.js";
 import { useRecentlyViewed } from "../composables/useRecentlyViewed.js";
 import { useCurrencyStore } from "../stores/currencyStore.js";
-import { Star, ShieldCheck, RotateCcw, CalendarDays, MapPin, Clock, Headphones, Check, X, Camera, Minus, Plus, ChevronRight } from "lucide-vue-next";
+import { useLocaleStore } from "../stores/localeStore.js";
+import { Star, ShieldCheck, RotateCcw, CalendarDays, MapPin, Check, Camera, Minus, Plus } from "lucide-vue-next";
 
 const route = useRoute();
 const router = useRouter();
 const bookingStore = useBookingStore();
 const currencyStore = useCurrencyStore();
+const localeStore = useLocaleStore();
 const { addRecentlyViewed } = useRecentlyViewed();
 const loading = ref(true);
 const experience = ref(null);
@@ -40,7 +42,7 @@ onMounted(async () => {
       const same = all.filter(e => e.id !== experience.value.id && (e.location === experience.value.location || (e.category && experience.value.category && e.category === experience.value.category)));
       relatedExperiences.value = same.sort(() => Math.random() - 0.5).slice(0, 4);
     }
-  } catch (e) { console.error(e); }
+  } catch (e) { /* ignore */ }
   loading.value = false;
 });
 
@@ -93,7 +95,7 @@ const hasIncludedItems = (exp) => exp?.included?.length || exp?.highlights?.leng
         <!-- OFFICIAL BADGE + TITLE + RATING ROW -->
         <div class="flex items-center gap-1 text-[#59657b] dark:text-gray-400 text-[12px] font-semibold mb-1">
           <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg>
-          <span>Official ticket</span>
+          <span>{{ localeStore.t("exp.officialTicket") || "Official ticket" }}</span>
         </div>
 
         <h1 class="text-[24px] md:text-[28px] font-black leading-[1.15] text-[#0b2343] dark:text-white mb-2">{{ experience.title }}</h1>
@@ -105,10 +107,10 @@ const hasIncludedItems = (exp) => exp?.included?.length || exp?.highlights?.leng
           <div class="flex items-center gap-1 cursor-pointer">
             <Star :size="20" class="text-yellow-500 fill-yellow-500" />
             <span class="text-[15px] font-bold text-[#0b2343] dark:text-white">{{ experience.rating }}</span>
-            <span class="text-[14px] text-[#59657b] dark:text-gray-400">({{ experience.reviews ?? 0 }} reviews)</span>
+            <span class="text-[14px] text-[#59657b] dark:text-gray-400">({{ experience.reviews ?? 0 }} {{ localeStore.t("exp.reviews") }})</span>
           </div>
           <span class="text-[#c0c7d4]">•</span>
-          <span class="text-[13px] text-[#59657b] dark:text-gray-400">Activity provider: {{ experience.location }}</span>
+          <span class="text-[13px] text-[#59657b] dark:text-gray-400">{{ localeStore.t("exp.provider") || "Activity provider" }}: {{ experience.location }}</span>
         </div>
 
         <!-- GALLERY (GYG 4-image quad layout on desktop, single hero on mobile) -->
@@ -145,7 +147,7 @@ const hasIncludedItems = (exp) => exp?.included?.length || exp?.highlights?.leng
             </div>
           </div>
           <button v-if="(experience.images?.length || 0) > 4" @click="openLightbox(5)" class="hidden md:flex absolute bottom-3 right-3 items-center gap-1.5 bg-white/90 backdrop-blur-sm text-[11px] font-bold px-3 py-1.5 rounded-lg shadow hover:bg-white transition z-10">
-            <Camera :size="13" /> View all
+            <Camera :size="13" /> {{ localeStore.t("exp.viewAll") || "View all" }}
           </button>
         </div>
 
@@ -158,15 +160,15 @@ const hasIncludedItems = (exp) => exp?.included?.length || exp?.highlights?.leng
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div class="flex items-start gap-3">
                   <div class="w-11 h-11 rounded-2xl bg-gray-100 dark:bg-gray-800 flex items-center justify-center shrink-0"><ShieldCheck :size="20" class="text-[#0b2343] dark:text-white" /></div>
-                  <div><p class="text-[13px] font-bold text-[#0b2343] dark:text-white">Free cancellation</p><p class="text-[11px] text-[#59657b] dark:text-gray-400">Cancel up to 24 hours in advance</p></div>
+                  <div><p class="text-[13px] font-bold text-[#0b2343] dark:text-white">{{ localeStore.t("expTrust.freeCancel") || "Free cancellation" }}</p><p class="text-[11px] text-[#59657b] dark:text-gray-400">{{ localeStore.t("expTrust.freeCancelDesc") || "Cancel up to 24 hours in advance" }}</p></div>
                 </div>
                 <div class="flex items-start gap-3">
                   <div class="w-11 h-11 rounded-2xl bg-gray-100 dark:bg-gray-800 flex items-center justify-center shrink-0"><RotateCcw :size="20" class="text-[#0b2343] dark:text-white" /></div>
-                  <div><p class="text-[13px] font-bold text-[#0b2343] dark:text-white">Reserve now & pay later</p><p class="text-[11px] text-[#59657b] dark:text-gray-400">Book your spot, pay later</p></div>
+                  <div><p class="text-[13px] font-bold text-[#0b2343] dark:text-white">{{ localeStore.t("expTrust.reserveNow") || "Reserve now & pay later" }}</p><p class="text-[11px] text-[#59657b] dark:text-gray-400">{{ localeStore.t("expTrust.reserveNowDesc") || "Book your spot, pay later" }}</p></div>
                 </div>
                 <div class="flex items-start gap-3">
                   <div class="w-11 h-11 rounded-2xl bg-gray-100 dark:bg-gray-800 flex items-center justify-center shrink-0"><CalendarDays :size="20" class="text-[#0b2343] dark:text-white" /></div>
-                  <div><p class="text-[13px] font-bold text-[#0b2343] dark:text-white">{{ experience.duration || "Valid 1 day" }}</p><p class="text-[11px] text-[#59657b] dark:text-gray-400">Check availability for times</p></div>
+                  <div><p class="text-[13px] font-bold text-[#0b2343] dark:text-white">{{ experience.duration || localeStore.t("exp.validDay") || "Valid 1 day" }}</p><p class="text-[11px] text-[#59657b] dark:text-gray-400">{{ localeStore.t("exp.checkAvailability") || "Check availability for times" }}</p></div>
                 </div>
                 <div class="flex items-start gap-3">
                   <div class="w-11 h-11 rounded-2xl bg-gray-100 dark:bg-gray-800 flex items-center justify-center shrink-0"><MapPin :size="20" class="text-[#0b2343] dark:text-white" /></div>
@@ -177,7 +179,7 @@ const hasIncludedItems = (exp) => exp?.included?.length || exp?.highlights?.leng
 
             <!-- Highlights -->
             <div v-if="experience.highlights?.length" class="border-b border-[#e8ebf0] dark:border-gray-700 pb-5">
-              <h2 class="text-[16px] font-black text-[#0b2343] dark:text-white mb-3">Highlights</h2>
+              <h2 class="text-[16px] font-black text-[#0b2343] dark:text-white mb-3">{{ localeStore.t("exp.highlights") }}</h2>
               <ul class="space-y-2">
                 <li v-for="h in experience.highlights" :key="h" class="flex items-start gap-2 text-[13px] text-[#4f5b72] dark:text-gray-300 leading-snug">
                   <Check :size="15" class="text-green-600 shrink-0 mt-0.5" />
@@ -188,13 +190,13 @@ const hasIncludedItems = (exp) => exp?.included?.length || exp?.highlights?.leng
 
             <!-- Full description -->
             <div v-if="experience.description" class="border-b border-[#e8ebf0] dark:border-gray-700 pb-5">
-              <h2 class="text-[16px] font-black text-[#0b2343] dark:text-white mb-2">Full description</h2>
+              <h2 class="text-[16px] font-black text-[#0b2343] dark:text-white mb-2">{{ localeStore.t("exp.fullDescription") || "Full description" }}</h2>
               <p class="text-[13px] leading-[1.7] text-[#4f5b72] dark:text-gray-300">{{ experience.description }}</p>
             </div>
 
             <!-- What's included -->
             <div v-if="experience.included?.length" class="border-b border-[#e8ebf0] dark:border-gray-700 pb-5">
-              <h2 class="text-[16px] font-black text-[#0b2343] dark:text-white mb-2">Includes</h2>
+              <h2 class="text-[16px] font-black text-[#0b2343] dark:text-white mb-2">{{ localeStore.t("exp.included") }}</h2>
               <ul class="space-y-2">
                 <li v-for="item in experience.included" :key="item" class="flex items-start gap-2 text-[13px] text-[#4f5b72] dark:text-gray-300 leading-snug">
                   <Check :size="15" class="text-green-600 shrink-0 mt-0.5" />
@@ -205,7 +207,7 @@ const hasIncludedItems = (exp) => exp?.included?.length || exp?.highlights?.leng
 
             <!-- Meeting point -->
             <div v-if="experience.meetingPoint" class="border-b border-[#e8ebf0] dark:border-gray-700 pb-5">
-              <h2 class="text-[16px] font-black text-[#0b2343] dark:text-white mb-2">Meeting point</h2>
+              <h2 class="text-[16px] font-black text-[#0b2343] dark:text-white mb-2">{{ localeStore.t("exp.meetingPoint") }}</h2>
               <p class="text-[13px] text-[#4f5b72] dark:text-gray-300">{{ experience.meetingPoint }}</p>
             </div>
 
@@ -224,15 +226,15 @@ const hasIncludedItems = (exp) => exp?.included?.length || exp?.highlights?.leng
             <div class="sticky top-8 border border-[#e8ebf0] dark:border-gray-700 rounded-xl bg-white dark:bg-gray-800 shadow-[0_2px_16px_-4px_rgba(0,0,0,0.08)] overflow-hidden">
               <!-- Price -->
               <div class="p-4 border-b border-[#e8ebf0] dark:border-gray-700">
-                <span class="text-[12px] text-[#59657b] dark:text-gray-400">From</span>
+                <span class="text-[12px] text-[#59657b] dark:text-gray-400">{{ localeStore.t("common.from") || "From" }}</span>
                 <span class="text-[22px] font-black text-[#0b2343] dark:text-white ml-1">{{ currencyStore.formatPrice(experience.price) }}</span>
-                <span class="text-[12px] text-[#59657b] dark:text-gray-400 ml-1">per person</span>
+                <span class="text-[12px] text-[#59657b] dark:text-gray-400 ml-1">{{ localeStore.t("exp.perPerson") }}</span>
               </div>
 
               <div class="p-4 space-y-4">
                 <!-- Participants -->
                 <div>
-                  <label class="block text-[11px] font-bold text-[#0b2343] dark:text-white mb-1.5">Adult x {{ guests }}</label>
+                  <label class="block text-[11px] font-bold text-[#0b2343] dark:text-white mb-1.5">{{ localeStore.t("exp.adult") || "Adult" }} x {{ guests }}</label>
                   <div class="flex items-center border border-[#d9dee8] dark:border-gray-600 rounded-lg overflow-hidden">
                     <button @click="guests = Math.max(1, guests - 1)" class="w-10 h-9 flex items-center justify-center text-[#59657b] hover:bg-gray-50 dark:hover:bg-gray-700 transition shrink-0"><Minus :size="14" /></button>
                     <div class="flex-1 h-9 flex items-center justify-center border-x border-[#d9dee8] dark:border-gray-600">
@@ -244,19 +246,19 @@ const hasIncludedItems = (exp) => exp?.included?.length || exp?.highlights?.leng
 
                 <!-- Date -->
                 <div>
-                  <label class="block text-[11px] font-bold text-[#0b2343] dark:text-white mb-1.5">Select date</label>
+                  <label class="block text-[11px] font-bold text-[#0b2343] dark:text-white mb-1.5">{{ localeStore.t("exp.selectDate") || "Select date" }}</label>
                   <input type="date" :value="selectedDate" @input="selectedDate = $event.target.value" class="w-full border border-[#d9dee8] dark:border-gray-600 rounded-lg px-3 py-2 text-[13px] font-medium text-[#0b2343] dark:text-white dark:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-[#0b2343]/10 focus:border-[#0b2343] transition appearance-none" />
                 </div>
 
                 <!-- Check availability / Book now -->
                 <button @click="handleBook(experience)" class="w-full bg-[#ff5a1f] hover:bg-[#e44a2b] text-white text-[14px] font-bold py-2.5 rounded-lg transition-colors">
-                  Book now
+                  {{ localeStore.t("exp.bookNow") }}
                 </button>
 
                 <!-- Trust badges -->
                 <div class="space-y-2 text-[11px] text-[#59657b] dark:text-gray-400">
-                  <div class="flex items-start gap-2"><ShieldCheck :size="14" class="text-green-600 shrink-0 mt-0.5" /><span>Free cancellation. Cancel up to 24 hours in advance for a full refund</span></div>
-                  <div class="flex items-start gap-2"><RotateCcw :size="14" class="text-green-600 shrink-0 mt-0.5" /><span>Reserve now & pay later. Keep your travel plans flexible.</span></div>
+                  <div class="flex items-start gap-2"><ShieldCheck :size="14" class="text-green-600 shrink-0 mt-0.5" /><span>{{ localeStore.t("expTrust.freeCancelFull") || "Free cancellation. Cancel up to 24 hours in advance for a full refund" }}</span></div>
+                  <div class="flex items-start gap-2"><RotateCcw :size="14" class="text-green-600 shrink-0 mt-0.5" /><span>{{ localeStore.t("expTrust.reserveNowFull") || "Reserve now & pay later. Keep your travel plans flexible." }}</span></div>
                 </div>
               </div>
             </div>
@@ -265,7 +267,7 @@ const hasIncludedItems = (exp) => exp?.included?.length || exp?.highlights?.leng
 
         <!-- RELATED -->
         <div v-if="relatedExperiences.length" class="mt-12">
-          <h2 class="text-[17px] font-black text-[#0b2343] dark:text-white mb-4">You might also like</h2>
+          <h2 class="text-[17px] font-black text-[#0b2343] dark:text-white mb-4">{{ localeStore.t("exp.youMightAlsoLike") || "You might also like" }}</h2>
           <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             <ExperienceCard v-for="exp in relatedExperiences" :key="exp.id" :item="exp" />
           </div>
@@ -273,8 +275,8 @@ const hasIncludedItems = (exp) => exp?.included?.length || exp?.highlights?.leng
       </div>
 
       <div v-else-if="!loading" class="pt-32 pb-20 text-center">
-        <h1 class="text-2xl font-black text-[#0b2343] dark:text-white">Experience not found</h1>
-        <button @click="router.push('/experiences')" class="mt-3 bg-[#0b2343] text-white font-bold px-4 py-2 rounded-lg hover:bg-[#122d52] transition text-sm">Browse all experiences</button>
+        <h1 class="text-2xl font-black text-[#0b2343] dark:text-white">{{ localeStore.t("exp.notFound") }}</h1>
+        <button @click="router.push('/experiences')" class="mt-3 bg-[#0b2343] text-white font-bold px-4 py-2 rounded-lg hover:bg-[#122d52] transition text-sm">{{ localeStore.t("exp.browseAll") || "Browse all experiences" }}</button>
       </div>
     </Container>
 

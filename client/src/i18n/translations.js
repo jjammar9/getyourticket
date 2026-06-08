@@ -117,6 +117,7 @@ const en = {
   "country.reviews": "What people are saying about {{ name }}",
   "country.overall": "Overall rating",
   "country.based": "Based on {{ n }} reviews",
+  "country.fallbackDesc": "Book your {{ title }} experience in {{ location }}",
   "country.seeLess": "See less",
   "country.seeMoreShort": "See more",
   "country.attractions": "Top Attractions in {{ name }}",

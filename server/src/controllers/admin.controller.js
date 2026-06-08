@@ -165,6 +165,9 @@ export const updateUserRole = async (req, res) => {
     if (!["customer", "admin"].includes(role)) {
       return res.status(400).json({ message: "Invalid role" });
     }
+    if (req.params.id === req.user.id && role !== "admin") {
+      return res.status(400).json({ message: "Cannot demote yourself" });
+    }
     const user = await prisma.user.update({
       where: { id: req.params.id },
       data: { role },
@@ -179,6 +182,9 @@ export const updateUserRole = async (req, res) => {
 
 export const deleteUser = async (req, res) => {
   try {
+    if (req.params.id === req.user.id) {
+      return res.status(400).json({ message: "Cannot delete yourself" });
+    }
     await prisma.user.delete({ where: { id: req.params.id } });
     res.json({ message: "User deleted" });
   } catch (error) {

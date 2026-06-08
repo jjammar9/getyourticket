@@ -123,7 +123,7 @@ export const forgotPassword = async (req, res) => {
 
     const resetUrl = `${req.protocol}://${req.get("host")}/reset-password?token=${resetToken}`;
 
-    console.log(`[EMAIL] Password reset link for ${email}: ${resetUrl}`);
+    // console.log(`[EMAIL] Password reset link for ${email}: ${resetUrl}`); // uncomment in dev
 
     // For production, use nodemailer:
     // const transporter = nodemailer.createTransport({ ... });

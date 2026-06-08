@@ -4,7 +4,7 @@ import { useRouter } from "vue-router";
 import { useAuthStore } from "../stores/authStore.js";
 import { getListings, getBookings } from "../api.js";
 import Container from "../components/ui/Container.vue";
-import { BarChart3, ShoppingBag, DollarSign, CalendarDays, List, Users, Settings, Plus, Pencil, Trash2, X, Save, Search } from "lucide-vue-next";
+import { BarChart3, ShoppingBag, DollarSign, CalendarDays, List, Users, Plus, Pencil, Trash2, X, Save, Search } from "lucide-vue-next";
 
 const router = useRouter();
 const authStore = useAuthStore();

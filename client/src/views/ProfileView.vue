@@ -1,13 +1,15 @@
 <script setup>
 import { ref, onMounted } from "vue";
-import { User, Save, CalendarDays, Star, Wallet, Heart, X, Mail, Pencil } from "lucide-vue-next";
+import { User, Save, CalendarDays, Star, Wallet, Heart, X, Mail, Pencil, DollarSign } from "lucide-vue-next";
 import Container from "../components/ui/Container.vue";
 import { useAuthStore } from "../stores/authStore.js";
 import { useLocaleStore } from "../stores/localeStore.js";
+import { useCurrencyStore } from "../stores/currencyStore.js";
 import { getUserStats } from "../api.js";
 
 const authStore = useAuthStore();
 const localeStore = useLocaleStore();
+const currencyStore = useCurrencyStore();
 
 const showEditModal = ref(false);
 const editName = ref("");
@@ -42,7 +44,7 @@ function closeEditModal() {
     error.value = "";
     try {
       if (editPassword.value && editPassword.value !== editPasswordConfirm.value) {
-        throw new Error("Passwords do not match");
+        throw new Error(localeStore.t("profile.passwordMismatch") || "Passwords do not match");
       }
       const data = { name: editName.value, email: editEmail.value };
       if (editPassword.value) {
@@ -52,7 +54,7 @@ function closeEditModal() {
       saved.value = true;
       setTimeout(closeEditModal, 1200);
     } catch (e) {
-      error.value = e.message || "Failed to save profile";
+      error.value = e.message || localeStore.t("profile.saveError") || "Failed to save profile";
     } finally {
       saving.value = false;
     }
@@ -101,7 +103,7 @@ function closeEditModal() {
                 class="flex items-center gap-2 px-4 py-2 text-[13px] font-semibold text-[#ff5a1f] border border-[#ff5a1f]/25 rounded-full hover:bg-[#ff5a1f]/5 transition-colors"
               >
                 <Pencil :size="14" />
-                Edit
+                {{ localeStore.t("profile.edit") || "Edit" }}
               </button>
             </div>
           </div>
@@ -116,7 +118,7 @@ function closeEditModal() {
                   </div>
                   <div>
                     <p class="text-[20px] font-bold text-[#0b2343] leading-none">{{ stats.totalBookings }}</p>
-                    <p class="text-[12px] text-gray-500 mt-0.5">Bookings</p>
+                    <p class="text-[12px] text-gray-500 mt-0.5">{{ localeStore.t("profile.statBookings") || "Bookings" }}</p>
                   </div>
                 </div>
               </div>
@@ -126,8 +128,8 @@ function closeEditModal() {
                     <Wallet :size="17" class="text-green-600" />
                   </div>
                   <div>
-                    <p class="text-[20px] font-bold text-[#0b2343] leading-none">${{ stats.totalSpent.toFixed(0) }}</p>
-                    <p class="text-[12px] text-gray-500 mt-0.5">Spent</p>
+                    <p class="text-[20px] font-bold text-[#0b2343] leading-none">{{ currencyStore.formatPrice(stats.totalSpent) }}</p>
+                    <p class="text-[12px] text-gray-500 mt-0.5">{{ localeStore.t("profile.statSpent") || "Spent" }}</p>
                   </div>
                 </div>
               </div>
@@ -138,7 +140,7 @@ function closeEditModal() {
                   </div>
                   <div>
                     <p class="text-[20px] font-bold text-[#0b2343] leading-none">{{ stats.totalReviews }}</p>
-                    <p class="text-[12px] text-gray-500 mt-0.5">Reviews</p>
+                    <p class="text-[12px] text-gray-500 mt-0.5">{{ localeStore.t("profile.statReviews") || "Reviews" }}</p>
                   </div>
                 </div>
               </div>
@@ -149,7 +151,7 @@ function closeEditModal() {
                   </div>
                   <div>
                     <p class="text-[20px] font-bold text-[#0b2343] leading-none">{{ stats.wishlistItems }}</p>
-                    <p class="text-[12px] text-gray-500 mt-0.5">Saved</p>
+                    <p class="text-[12px] text-gray-500 mt-0.5">{{ localeStore.t("profile.statSaved") || "Saved" }}</p>
                   </div>
                 </div>
               </div>
@@ -161,7 +163,7 @@ function closeEditModal() {
         <div v-if="showEditModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm" @click.self="closeEditModal">
           <div class="bg-white dark:bg-gray-800 rounded-2xl w-full max-w-sm mx-4 shadow-2xl overflow-hidden">
             <div class="flex items-center justify-between px-6 pt-6 pb-4">
-              <h2 class="text-[18px] font-bold text-[#0b2343] dark:text-white">Edit Profile</h2>
+              <h2 class="text-[18px] font-bold text-[#0b2343] dark:text-white">{{ localeStore.t("profile.editTitle") || "Edit Profile" }}</h2>
               <button @click="closeEditModal" class="w-8 h-8 rounded-full flex items-center justify-center hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
                 <X :size="18" class="text-gray-400" />
               </button>
@@ -174,13 +176,13 @@ function closeEditModal() {
                 </div>
                 <div>
                   <p class="text-[15px] font-bold text-[#0b2343] dark:text-white">{{ authStore.user?.name }}</p>
-                  <p class="text-[12px] text-gray-400 dark:text-gray-500">Update your details below</p>
+                  <p class="text-[12px] text-gray-400 dark:text-gray-500">{{ localeStore.t("profile.updateDetails") || "Update your details below" }}</p>
                 </div>
               </div>
 
               <div class="space-y-4">
                 <div>
-                  <label class="text-[13px] font-semibold text-[#59657b] dark:text-gray-400">Full Name</label>
+                  <label class="text-[13px] font-semibold text-[#59657b] dark:text-gray-400">{{ localeStore.t("profile.fullName") || "Full Name" }}</label>
                   <input
                     v-model="editName"
                     type="text"
@@ -188,7 +190,7 @@ function closeEditModal() {
                   />
                 </div>
                 <div>
-                  <label class="text-[13px] font-semibold text-[#59657b] dark:text-gray-400">Email Address</label>
+                  <label class="text-[13px] font-semibold text-[#59657b] dark:text-gray-400">{{ localeStore.t("profile.emailAddress") || "Email Address" }}</label>
                   <input
                     v-model="editEmail"
                     type="email"
@@ -196,20 +198,20 @@ function closeEditModal() {
                   />
                 </div>
                 <div>
-                  <label class="text-[13px] font-semibold text-[#59657b] dark:text-gray-400">New Password</label>
+                  <label class="text-[13px] font-semibold text-[#59657b] dark:text-gray-400">{{ localeStore.t("profile.newPassword") || "New Password" }}</label>
                   <input
                     v-model="editPassword"
                     type="password"
-                    placeholder="Leave blank to keep current"
+                    :placeholder="localeStore.t('profile.passwordHint') || 'Leave blank to keep current'"
                     class="w-full mt-1.5 px-3.5 py-2.5 border border-[#d9dee8] dark:border-gray-600 rounded-xl text-[14px] text-[#0b2343] dark:text-white bg-white dark:bg-gray-700 focus:outline-none focus:border-[#ff5a1f] focus:ring-1 focus:ring-[#ff5a1f]/20 transition-colors placeholder:text-gray-300 dark:placeholder:text-gray-500"
                   />
                 </div>
                 <div>
-                  <label class="text-[13px] font-semibold text-[#59657b] dark:text-gray-400">Repeat Password</label>
+                  <label class="text-[13px] font-semibold text-[#59657b] dark:text-gray-400">{{ localeStore.t("profile.repeatPassword") || "Repeat Password" }}</label>
                   <input
                     v-model="editPasswordConfirm"
                     type="password"
-                    placeholder="Confirm new password"
+                    :placeholder="localeStore.t('profile.confirmPassword') || 'Confirm new password'"
                     class="w-full mt-1.5 px-3.5 py-2.5 border border-[#d9dee8] dark:border-gray-600 rounded-xl text-[14px] text-[#0b2343] dark:text-white bg-white dark:bg-gray-700 focus:outline-none focus:border-[#ff5a1f] focus:ring-1 focus:ring-[#ff5a1f]/20 transition-colors placeholder:text-gray-300 dark:placeholder:text-gray-500"
                   />
                 </div>
@@ -219,7 +221,7 @@ function closeEditModal() {
                 <div class="w-6 h-6 rounded-full bg-green-100 dark:bg-green-800 flex items-center justify-center shrink-0">
                   <Save :size="13" class="text-green-700 dark:text-green-300" />
                 </div>
-                <span class="text-[13px] font-semibold text-green-800 dark:text-green-300">Saved successfully</span>
+                <span class="text-[13px] font-semibold text-green-800 dark:text-green-300">{{ localeStore.t("profile.saved") }}</span>
               </div>
               <div v-if="error" class="mt-4 flex items-center gap-2.5 px-4 py-3 bg-red-50 dark:bg-red-900/30 border border-red-200 dark:border-red-800 rounded-xl">
                 <div class="w-6 h-6 rounded-full bg-red-100 dark:bg-red-800 flex items-center justify-center shrink-0">
@@ -234,7 +236,7 @@ function closeEditModal() {
                 @click="closeEditModal"
                 class="flex-1 text-[14px] font-semibold py-2.5 rounded-xl border border-[#d9dee8] dark:border-gray-600 text-[#59657b] dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
               >
-                Cancel
+                {{ localeStore.t("common.cancel") || "Cancel" }}
               </button>
               <button
                 @click="saveProfile"
@@ -242,7 +244,7 @@ function closeEditModal() {
                 class="flex-1 bg-[#ff5a1f] text-white text-[14px] font-semibold py-2.5 rounded-xl hover:bg-[#e44a2b] transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 shadow-sm"
               >
                 <Save :size="16" />
-                {{ saving ? "Saving..." : "Save Changes" }}
+                {{ saving ? (localeStore.t("common.saving") || "Saving...") : (localeStore.t("profile.save") || "Save Changes") }}
               </button>
             </div>
           </div>
