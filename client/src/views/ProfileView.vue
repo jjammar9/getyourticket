@@ -159,80 +159,80 @@ function closeEditModal() {
 
         <!-- Edit Modal -->
         <div v-if="showEditModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm" @click.self="closeEditModal">
-          <div class="bg-white rounded-2xl w-full max-w-sm mx-4 shadow-2xl overflow-hidden">
+          <div class="bg-white dark:bg-gray-800 rounded-2xl w-full max-w-sm mx-4 shadow-2xl overflow-hidden">
             <div class="flex items-center justify-between px-6 pt-6 pb-4">
-              <h2 class="text-[18px] font-bold text-[#0b2343]">Edit Profile</h2>
-              <button @click="closeEditModal" class="w-8 h-8 rounded-full flex items-center justify-center hover:bg-gray-100 transition-colors">
+              <h2 class="text-[18px] font-bold text-[#0b2343] dark:text-white">Edit Profile</h2>
+              <button @click="closeEditModal" class="w-8 h-8 rounded-full flex items-center justify-center hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
                 <X :size="18" class="text-gray-400" />
               </button>
             </div>
 
             <div class="px-6 pb-2">
-              <div class="flex items-center gap-4 mb-6 pb-5 border-b border-gray-100">
-                <div class="w-12 h-12 rounded-full bg-gradient-to-br from-[#ff5a1f] to-[#ff7e4a] flex items-center justify-center text-white text-[18px] font-bold">
+              <div class="flex items-center gap-4 mb-6 pb-5 border-b border-gray-100 dark:border-gray-700">
+                <div class="w-12 h-12 rounded-full bg-gradient-to-br from-[#ff5a1f] to-[#ff7e4a] flex items-center justify-center text-white text-[18px] font-bold shrink-0">
                   {{ (authStore.user?.name || "?").charAt(0).toUpperCase() }}
                 </div>
                 <div>
-                  <p class="text-[15px] font-bold text-[#0b2343]">{{ authStore.user?.name }}</p>
-                  <p class="text-[12px] text-gray-400">Update your details below</p>
+                  <p class="text-[15px] font-bold text-[#0b2343] dark:text-white">{{ authStore.user?.name }}</p>
+                  <p class="text-[12px] text-gray-400 dark:text-gray-500">Update your details below</p>
                 </div>
               </div>
 
               <div class="space-y-4">
                 <div>
-                  <label class="text-[13px] font-semibold text-[#59657b]">Full Name</label>
+                  <label class="text-[13px] font-semibold text-[#59657b] dark:text-gray-400">Full Name</label>
                   <input
                     v-model="editName"
                     type="text"
-                    class="w-full mt-1.5 px-3.5 py-2.5 border border-[#d9dee8] rounded-xl text-[14px] text-[#0b2343] focus:outline-none focus:border-[#ff5a1f] focus:ring-1 focus:ring-[#ff5a1f]/20 transition-colors"
+                    class="w-full mt-1.5 px-3.5 py-2.5 border border-[#d9dee8] dark:border-gray-600 rounded-xl text-[14px] text-[#0b2343] dark:text-white bg-white dark:bg-gray-700 focus:outline-none focus:border-[#ff5a1f] focus:ring-1 focus:ring-[#ff5a1f]/20 transition-colors"
                   />
                 </div>
                 <div>
-                  <label class="text-[13px] font-semibold text-[#59657b]">Email Address</label>
+                  <label class="text-[13px] font-semibold text-[#59657b] dark:text-gray-400">Email Address</label>
                   <input
                     v-model="editEmail"
                     type="email"
-                    class="w-full mt-1.5 px-3.5 py-2.5 border border-[#d9dee8] rounded-xl text-[14px] text-[#0b2343] focus:outline-none focus:border-[#ff5a1f] focus:ring-1 focus:ring-[#ff5a1f]/20 transition-colors"
+                    class="w-full mt-1.5 px-3.5 py-2.5 border border-[#d9dee8] dark:border-gray-600 rounded-xl text-[14px] text-[#0b2343] dark:text-white bg-white dark:bg-gray-700 focus:outline-none focus:border-[#ff5a1f] focus:ring-1 focus:ring-[#ff5a1f]/20 transition-colors"
                   />
                 </div>
                 <div>
-                  <label class="text-[13px] font-semibold text-[#59657b]">New Password</label>
+                  <label class="text-[13px] font-semibold text-[#59657b] dark:text-gray-400">New Password</label>
                   <input
                     v-model="editPassword"
                     type="password"
                     placeholder="Leave blank to keep current"
-                    class="w-full mt-1.5 px-3.5 py-2.5 border border-[#d9dee8] rounded-xl text-[14px] text-[#0b2343] focus:outline-none focus:border-[#ff5a1f] focus:ring-1 focus:ring-[#ff5a1f]/20 transition-colors placeholder:text-gray-300"
+                    class="w-full mt-1.5 px-3.5 py-2.5 border border-[#d9dee8] dark:border-gray-600 rounded-xl text-[14px] text-[#0b2343] dark:text-white bg-white dark:bg-gray-700 focus:outline-none focus:border-[#ff5a1f] focus:ring-1 focus:ring-[#ff5a1f]/20 transition-colors placeholder:text-gray-300 dark:placeholder:text-gray-500"
                   />
                 </div>
                 <div>
-                  <label class="text-[13px] font-semibold text-[#59657b]">Repeat Password</label>
+                  <label class="text-[13px] font-semibold text-[#59657b] dark:text-gray-400">Repeat Password</label>
                   <input
                     v-model="editPasswordConfirm"
                     type="password"
                     placeholder="Confirm new password"
-                    class="w-full mt-1.5 px-3.5 py-2.5 border border-[#d9dee8] rounded-xl text-[14px] text-[#0b2343] focus:outline-none focus:border-[#ff5a1f] focus:ring-1 focus:ring-[#ff5a1f]/20 transition-colors placeholder:text-gray-300"
+                    class="w-full mt-1.5 px-3.5 py-2.5 border border-[#d9dee8] dark:border-gray-600 rounded-xl text-[14px] text-[#0b2343] dark:text-white bg-white dark:bg-gray-700 focus:outline-none focus:border-[#ff5a1f] focus:ring-1 focus:ring-[#ff5a1f]/20 transition-colors placeholder:text-gray-300 dark:placeholder:text-gray-500"
                   />
                 </div>
               </div>
 
-              <div v-if="saved" class="mt-4 flex items-center gap-2.5 px-4 py-3 bg-green-50 border border-green-200 rounded-xl">
-                <div class="w-6 h-6 rounded-full bg-green-100 flex items-center justify-center shrink-0">
-                  <Save :size="13" class="text-green-700" />
+              <div v-if="saved" class="mt-4 flex items-center gap-2.5 px-4 py-3 bg-green-50 dark:bg-green-900/30 border border-green-200 dark:border-green-800 rounded-xl">
+                <div class="w-6 h-6 rounded-full bg-green-100 dark:bg-green-800 flex items-center justify-center shrink-0">
+                  <Save :size="13" class="text-green-700 dark:text-green-300" />
                 </div>
-                <span class="text-[13px] font-semibold text-green-800">Saved successfully</span>
+                <span class="text-[13px] font-semibold text-green-800 dark:text-green-300">Saved successfully</span>
               </div>
-              <div v-if="error" class="mt-4 flex items-center gap-2.5 px-4 py-3 bg-red-50 border border-red-200 rounded-xl">
-                <div class="w-6 h-6 rounded-full bg-red-100 flex items-center justify-center shrink-0">
-                  <span class="text-[13px] font-bold text-red-600">!</span>
+              <div v-if="error" class="mt-4 flex items-center gap-2.5 px-4 py-3 bg-red-50 dark:bg-red-900/30 border border-red-200 dark:border-red-800 rounded-xl">
+                <div class="w-6 h-6 rounded-full bg-red-100 dark:bg-red-800 flex items-center justify-center shrink-0">
+                  <span class="text-[13px] font-bold text-red-600 dark:text-red-300">!</span>
                 </div>
-                <span class="text-[13px] font-semibold text-red-700">{{ error }}</span>
+                <span class="text-[13px] font-semibold text-red-700 dark:text-red-300">{{ error }}</span>
               </div>
             </div>
 
             <div class="px-6 pt-4 pb-6 flex gap-3">
               <button
                 @click="closeEditModal"
-                class="flex-1 text-[14px] font-semibold py-2.5 rounded-xl border border-[#d9dee8] text-[#59657b] hover:bg-gray-50 transition-colors"
+                class="flex-1 text-[14px] font-semibold py-2.5 rounded-xl border border-[#d9dee8] dark:border-gray-600 text-[#59657b] dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
               >
                 Cancel
               </button>

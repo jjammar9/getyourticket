@@ -39,11 +39,6 @@ function removeItem(index) {
   bookingStore.bookings.splice(index, 1);
 }
 
-function updateGuests(index, val) {
-  const guests = parseInt(val) || 1;
-  bookingStore.bookings[index].guests = guests;
-}
-
 function goToPayment() {
   if (!formName.value || !formEmail.value || !formDate.value) return;
   step.value = 2;
@@ -127,9 +122,8 @@ async function confirmBooking() {
                     <input
                       type="number"
                       min="1"
-                      :value="item.guests || 1"
-                      @input="updateGuests(index, $event.target.value)"
-                      class="w-16 mt-1 px-2 py-1 border border-[#d9dee8] dark:border-gray-700 rounded-lg text-[14px] text-[#0b2343] dark:text-white"
+                      v-model="item.guests"
+                      class="w-16 mt-1 px-2 py-1 border border-[#d9dee8] dark:border-gray-700 rounded-lg text-[14px] text-[#0b2343] dark:text-white bg-white dark:bg-gray-700"
                     />
                   </div>
                 </div>
@@ -152,7 +146,7 @@ async function confirmBooking() {
                 <input
                   v-model="formName"
                   type="text"
-                  class="w-full mt-1 px-3 py-2 border border-[#d9dee8] rounded-lg text-[14px] text-[#0b2343] focus:outline-none focus:border-[#ff5533]"
+                  class="w-full mt-1 px-3 py-2 border border-[#d9dee8] dark:border-gray-700 rounded-lg text-[14px] text-[#0b2343] dark:text-white bg-white dark:bg-gray-700 focus:outline-none focus:border-[#ff5533]"
                 />
               </div>
               <div>
@@ -197,23 +191,23 @@ async function confirmBooking() {
 
           <form @submit.prevent="confirmBooking" class="space-y-4">
             <div>
-              <label class="text-[13px] font-medium text-gray-500">Card Number</label>
-              <input v-model="cardNumber" maxlength="19" placeholder="4242 4242 4242 4242" class="w-full mt-1 px-3 py-2.5 border border-[#d9dee8] rounded-lg text-[14px] outline-none focus:border-[#ff5533]" />
+              <label class="text-[13px] font-medium text-gray-500 dark:text-gray-400">Card Number</label>
+              <input v-model="cardNumber" maxlength="19" placeholder="4242 4242 4242 4242" class="w-full mt-1 px-3 py-2.5 border border-[#d9dee8] dark:border-gray-700 rounded-lg text-[14px] text-[#0b2343] dark:text-white bg-white dark:bg-gray-700 outline-none focus:border-[#ff5533]" />
             </div>
             <div class="grid grid-cols-2 gap-4">
               <div>
-                <label class="text-[13px] font-medium text-gray-500">Expiry</label>
-                <input v-model="cardExpiry" maxlength="5" placeholder="MM/YY" class="w-full mt-1 px-3 py-2.5 border border-[#d9dee8] rounded-lg text-[14px] outline-none focus:border-[#ff5533]" />
+                <label class="text-[13px] font-medium text-gray-500 dark:text-gray-400">Expiry</label>
+                <input v-model="cardExpiry" maxlength="5" placeholder="MM/YY" class="w-full mt-1 px-3 py-2.5 border border-[#d9dee8] dark:border-gray-700 rounded-lg text-[14px] text-[#0b2343] dark:text-white bg-white dark:bg-gray-700 outline-none focus:border-[#ff5533]" />
               </div>
               <div>
-                <label class="text-[13px] font-medium text-gray-500">CVC</label>
-                <input v-model="cardCvc" maxlength="4" placeholder="123" class="w-full mt-1 px-3 py-2.5 border border-[#d9dee8] rounded-lg text-[14px] outline-none focus:border-[#ff5533]" />
+                <label class="text-[13px] font-medium text-gray-500 dark:text-gray-400">CVC</label>
+                <input v-model="cardCvc" maxlength="4" placeholder="123" class="w-full mt-1 px-3 py-2.5 border border-[#d9dee8] dark:border-gray-700 rounded-lg text-[14px] text-[#0b2343] dark:text-white bg-white dark:bg-gray-700 outline-none focus:border-[#ff5533]" />
               </div>
             </div>
 
-            <div class="pt-4 border-t border-[#d9dee8]">
+            <div class="pt-4 border-t border-[#d9dee8] dark:border-gray-700">
               <div class="flex justify-between items-center mb-4">
-                <span class="text-[16px] font-semibold text-[#0b2343]">Total</span>
+                <span class="text-[16px] font-semibold text-[#0b2343] dark:text-white">Total</span>
                 <span class="text-[22px] font-extrabold text-[#e53935]">{{ currencyStore.formatPrice(totalPrice) }}</span>
               </div>
               <button type="submit" :disabled="processing" class="w-full bg-[#ff5533] text-white text-[14px] font-semibold py-3 rounded-full hover:bg-[#e6482a] transition disabled:opacity-50 flex items-center justify-center gap-2">

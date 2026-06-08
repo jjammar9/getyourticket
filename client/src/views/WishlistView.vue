@@ -47,21 +47,21 @@ async function deleteList(e, listId) {
 <template>
   <Container>
     <div class="pt-32 pb-12">
-      <h1 class="text-[32px] font-bold tracking-[-0.5px] text-[#0b2343] mb-8">
+      <h1 class="text-[32px] font-bold tracking-[-0.5px] text-[#0b2343] dark:text-white mb-8">
         {{ localeStore.t("wishlist.title") }}
       </h1>
 
       <div v-if="!authStore.isLoggedIn" class="text-center py-20">
-        <p class="text-[16px] text-gray-500">{{ localeStore.t("wishlist.login") }}</p>
+        <p class="text-[16px] text-gray-500 dark:text-gray-400">{{ localeStore.t("wishlist.login") }}</p>
       </div>
 
       <div v-else-if="loading" class="text-center py-20">
-        <p class="text-[16px] text-gray-500">Loading...</p>
+        <p class="text-[16px] text-gray-500 dark:text-gray-400">Loading...</p>
       </div>
 
       <div v-else-if="lists.length === 0" class="text-center py-20">
-        <Heart :size="48" class="mx-auto text-gray-300 mb-4" />
-        <p class="text-[16px] text-gray-500">{{ localeStore.t("wishlist.empty") }}</p>
+        <Heart :size="48" class="mx-auto text-gray-300 dark:text-gray-600 mb-4" />
+        <p class="text-[16px] text-gray-500 dark:text-gray-400">{{ localeStore.t("wishlist.empty") }}</p>
       </div>
 
       <div v-else class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
@@ -69,9 +69,9 @@ async function deleteList(e, listId) {
           v-for="list in lists"
           :key="list.id"
           @click="router.push(`/wishlist/${list.id}`)"
-          class="bg-white rounded-[18px] border border-[#d9dee8] overflow-hidden cursor-pointer group flex flex-col hover:shadow-md transition-all duration-300"
+          class="bg-white dark:bg-gray-800 rounded-[18px] border border-[#d9dee8] dark:border-gray-700 overflow-hidden cursor-pointer group flex flex-col hover:shadow-md dark:hover:shadow-gray-900/50 transition-all duration-300"
         >
-          <div class="relative h-[175px] overflow-hidden bg-gray-100">
+          <div class="relative h-[175px] overflow-hidden bg-gray-100 dark:bg-gray-700">
             <img
               loading="lazy"
               v-if="list.previewImage"
@@ -80,23 +80,23 @@ async function deleteList(e, listId) {
               class="w-full h-full object-cover group-hover:scale-[1.03] transition duration-500"
             />
             <div v-else class="w-full h-full flex items-center justify-center">
-              <List :size="40" class="text-gray-300" />
+              <List :size="40" class="text-gray-300 dark:text-gray-600" />
             </div>
             <div class="absolute bottom-0 left-0 w-full h-[10px] bg-[#ff5a1f]"></div>
-            <div class="absolute top-3 left-3 bg-[#0b2343]/80 text-white text-[10px] font-extrabold px-3 py-1 rounded-[10px]">
+            <div class="absolute top-3 left-3 bg-[#0b2343]/80 dark:bg-gray-900/80 text-white text-[10px] font-extrabold px-3 py-1 rounded-[10px]">
               {{ list.name }}
             </div>
             <button
               @click="(e) => deleteList(e, list.id)"
               :disabled="deletingId === list.id"
-              class="absolute top-3 right-3 w-10 h-10 bg-white rounded-full shadow-sm flex items-center justify-center z-10 hover:bg-red-50 transition-colors"
+              class="absolute top-3 right-3 w-10 h-10 bg-white dark:bg-gray-700 rounded-full shadow-sm flex items-center justify-center z-10 hover:bg-red-50 dark:hover:bg-red-900/30 transition-colors"
             >
               <Trash2 :size="16" class="text-[#e53935]" />
             </button>
           </div>
           <div class="px-4 py-3 flex items-center gap-2">
             <div class="flex-1">
-              <p class="text-[13px] text-[#6d788d] font-medium">
+              <p class="text-[13px] text-[#6d788d] dark:text-gray-400 font-medium">
                 <span v-if="list.previewLocation">{{ list.previewLocation }} · </span>
                 {{ list.itemCount }} {{ list.itemCount === 1 ? "activity" : "activities" }}
               </p>
