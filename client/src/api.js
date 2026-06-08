@@ -46,6 +46,12 @@ export async function getListings(params = {}) {
   return data.listings;
 }
 
+export async function getListingsWithTotal(params = {}) {
+  const qs = new URLSearchParams(params).toString();
+  const data = await fetchJSON(`${BASE}/listings${qs ? `?${qs}` : ""}`);
+  return data; // { listings: [...], total: number }
+}
+
 export async function getListingById(id) {
   const data = await fetchJSON(`${BASE}/listings/${id}`);
   return data.listing;
@@ -158,5 +164,11 @@ export async function createReview(data) {
     method: "POST",
     headers: { "Content-Type": "application/json", ...authHeaders() },
     body: JSON.stringify(data),
+  });
+}
+
+export async function getUserStats() {
+  return fetchJSON(`${BASE}/user/stats`, {
+    headers: { ...authHeaders() },
   });
 }

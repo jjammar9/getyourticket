@@ -208,7 +208,7 @@ const handleHoverEnd = () => {
             :countryName="isCountryPage ? countryName : ''"
           />
           <div v-if="showBreadcrumbs" class="flex items-center gap-2 text-[14px] pb-2">
-            <button @click="router.push('/')" class="text-gray-400 hover:text-[#0b2343] transition-colors cursor-pointer">{{ localeStore.t("breadcrumb.home") }}</button>
+            <button @click="router.push('/')" class="text-gray-400 hover:text-[#0b2343] transition-colors cursor-pointer">{{ localeStore.t("crumb.home") }}</button>
             <span class="text-gray-300 text-[18px] font-bold leading-none">&#8250;</span>
             <span class="text-[#0b2343] font-semibold">{{ partnerBreadcrumb }}</span>
           </div>

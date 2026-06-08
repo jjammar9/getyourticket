@@ -122,7 +122,7 @@ function toggleFaq(idx) {
       <Container>
         <div class="max-w-2xl mx-auto">
           <nav class="flex items-center gap-2 text-[13px] text-blue-300 mb-2 flex-wrap">
-            <router-link to="/" class="hover:text-white transition-colors">{{ localeStore.t("breadcrumb.home") }}</router-link>
+            <router-link to="/" class="hover:text-white transition-colors">{{ localeStore.t("crumb.home") }}</router-link>
             <span class="text-blue-400/50">›</span>
             <span class="text-white font-semibold">{{ localeStore.t("support.title") }}</span>
           </nav>

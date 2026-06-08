@@ -33,7 +33,7 @@ function formatListing(l) {
 
 export const getListings = async (req, res) => {
   try {
-    const { country, category, location, search, limit, offset } = req.query;
+    const { country, category, location, search, limit, offset, sort } = req.query;
     const where = {};
 
     if (country) where.country = { slug: country };
@@ -49,10 +49,21 @@ export const getListings = async (req, res) => {
       ];
     }
 
+    const orderBy =
+      sort === "price-asc"
+        ? { price: "asc" }
+        : sort === "price-desc"
+          ? { price: "desc" }
+          : sort === "rating"
+            ? { rating: "desc" }
+            : sort === "title"
+              ? { title: "asc" }
+              : { expId: "asc" };
+
     const listings = await prisma.listing.findMany({
       where,
       include: { country: true, category: true },
-      orderBy: { expId: "asc" },
+      orderBy,
       take: limit ? parseInt(limit) : undefined,
       skip: offset ? parseInt(offset) : undefined,
     });
@@ -76,7 +87,7 @@ export const getListingById = async (req, res) => {
 
     if (!listing) return res.status(404).json({ message: "Listing not found" });
 
-    res.json({ listing: { ...formatListing(listing), reviews: listing.reviews } });
+    res.json({ listing: { ...formatListing(listing), reviewItems: listing.reviews } });
   } catch (error) {
     console.error("getListingById error:", error);
     res.status(500).json({ message: "Server error" });
@@ -194,6 +205,22 @@ export const subscribeNewsletter = async (req, res) => {
     res.status(201).json({ message: "Subscribed" });
   } catch (error) {
     console.error("subscribeNewsletter error:", error);
+    res.status(500).json({ message: "Server error" });
+  }
+};
+
+export const getListingAvailability = async (req, res) => {
+  try {
+    const id = parseInt(req.params.id);
+    const listing = await prisma.listing.findUnique({ where: { expId: id } });
+    if (!listing) return res.status(404).json({ message: "Listing not found" });
+    const bookings = await prisma.booking.findMany({
+      where: { listingId: listing.id, status: "confirmed" },
+      select: { date: true, guests: true },
+    });
+    res.json({ availability: bookings });
+  } catch (error) {
+    console.error("getListingAvailability error:", error);
     res.status(500).json({ message: "Server error" });
   }
 };

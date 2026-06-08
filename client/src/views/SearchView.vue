@@ -5,7 +5,7 @@ import Container from "../components/ui/Container.vue";
 import Breadcrumbs from "../components/ui/Breadcrumbs.vue";
 import SearchCard from "../components/cards/SearchCard.vue";
 import SkeletonCard from "../components/ui/SkeletonCard.vue";
-import { getListings, getSiteContent } from "../api.js";
+import { getListingsWithTotal, getSiteContent } from "../api.js";
 import { toSlug } from "../utils/helpers.js";
 import { useSearchSuggestions } from "../composables/useSearchSuggestions.js";
 import { useLocaleStore } from "../stores/localeStore.js";
@@ -16,71 +16,70 @@ const router = useRouter();
 
 const searchInput = ref("");
 const showSuggestions = ref(false);
-const loading = ref(true);
+const loading = ref(false);
 const error = ref("");
 const { suggestions: autoSuggestions } = useSearchSuggestions(searchInput);
 
-const experiencesData = ref([]);
+const searchResults = ref([]);
+const totalCount = ref(0);
 const navData = ref({});
+const sortBy = ref("relevance");
+const PER_PAGE = 12;
 
-onMounted(async () => {
+const query = computed(() => (route.query.q || "").toLowerCase().trim());
+
+const hasMore = computed(() => searchResults.value.length < totalCount.value);
+
+async function fetchResults() {
+  const q = query.value;
+  if (!q) {
+    searchResults.value = [];
+    totalCount.value = 0;
+    return;
+  }
+  loading.value = true;
+  error.value = "";
   try {
-    const [listings, megaMenu] = await Promise.all([
-      getListings(),
-      getSiteContent("megaMenu")
-    ]);
-    experiencesData.value = listings;
-    navData.value = megaMenu;
+    const params = {
+      search: q,
+      sort: sortBy.value === "relevance" ? undefined : sortBy.value,
+      limit: PER_PAGE,
+      offset: searchResults.value.length,
+    };
+    const data = await getListingsWithTotal(params);
+    searchResults.value = [...searchResults.value, ...data.listings];
+    totalCount.value = data.total;
   } catch (e) {
-    console.error("Failed to load data", e);
+    console.error("Search failed", e);
     error.value = "Something went wrong. Please try again later.";
   } finally {
     loading.value = false;
   }
-});
-
-const query = computed(() => (route.query.q || "").toLowerCase().trim());
-
-const results = computed(() => {
-  const q = query.value;
-  if (!q) return [];
-
-  return experiencesData.value.filter(
-    (item) =>
-      item.title.toLowerCase().includes(q) ||
-      item.location.toLowerCase().includes(q) ||
-      item.category.toLowerCase().includes(q)
-  );
-});
-
-const sortBy = ref("relevance");
-const page = ref(1);
-const PER_PAGE = 12;
-
-const sorted = computed(() => {
-  const items = results.value;
-  if (sortBy.value === "price-asc") return [...items].sort((a, b) => a.price - b.price);
-  if (sortBy.value === "price-desc") return [...items].sort((a, b) => b.price - a.price);
-  if (sortBy.value === "rating") return [...items].sort((a, b) => (b.rating ?? 0) - (a.rating ?? 0));
-  if (sortBy.value === "title") return [...items].sort((a, b) => a.title.localeCompare(b.title));
-  return items;
-});
-
-const paginated = computed(() => sorted.value.slice(0, page.value * PER_PAGE));
-
-const hasMore = computed(() => paginated.value.length < sorted.value.length);
+}
 
 function loadMore() {
-  page.value++;
+  fetchResults();
 }
 
 watch([query, sortBy], () => {
-  page.value = 1;
+  searchResults.value = [];
+  totalCount.value = 0;
+  fetchResults();
+});
+
+onMounted(async () => {
+  try {
+    const megaMenu = await getSiteContent("megaMenu");
+    navData.value = megaMenu;
+  } catch (e) {
+    console.error("Failed to load nav data", e);
+  }
+  fetchResults();
 });
 
 const suggestions = computed(() => {
   const q = query.value;
-  if (!q || results.value.length) return [];
+  if (!q || searchResults.value.length) return [];
 
   const matches = [];
   const seen = new Set();
@@ -110,7 +109,7 @@ const suggestions = computed(() => {
           </h1>
         <div class="flex items-center justify-between mb-6">
           <p class="text-[16px] font-medium text-gray-500 dark:text-gray-400">
-            {{ localeStore.t("searchView.count", { n: sorted.length, s: sorted.length !== 1 ? 's' : '', q: query }) }}
+            {{ localeStore.t("searchView.count", { n: totalCount, s: totalCount !== 1 ? 's' : '', q: query }) }}
           </p>
           <select v-model="sortBy" class="border border-gray-200 rounded-lg px-3 py-2 text-[13px] text-gray-700 outline-none focus:border-[#ff5533] bg-white">
             <option value="relevance">Sort by: Relevance</option>
@@ -124,13 +123,13 @@ const suggestions = computed(() => {
         <SkeletonCard v-if="loading" count="8" />
         <p v-if="error" class="text-red-500 mb-4">{{ error }}</p>
 
-        <div v-if="results.length && !loading" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-8">
-          <SearchCard v-for="item in paginated" :key="item.id" :item="item" />
+        <div v-if="searchResults.length && !loading" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-8">
+          <SearchCard v-for="item in searchResults" :key="item.id" :item="item" />
         </div>
 
         <div v-if="hasMore" class="flex justify-center mt-10">
           <button @click="loadMore" class="bg-[#0a6cff] hover:bg-[#0057d8] text-white font-semibold px-10 py-3 rounded-full transition">
-            Show More ({{ sorted.length - paginated.length }} remaining)
+            Show More ({{ totalCount - searchResults.length }} remaining)
           </button>
         </div>
 

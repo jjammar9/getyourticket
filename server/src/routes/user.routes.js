@@ -13,6 +13,7 @@ import {
   createBooking,
   cancelBooking,
   createReview,
+  getUserStats,
 } from "../controllers/user.controller.js";
 
 const router = Router();
@@ -35,6 +36,9 @@ router.delete("/wishlist-lists/:listId/items/:listingId", protect, removeFromWis
 router.get("/bookings", protect, getBookings);
 router.post("/bookings", protect, createBooking);
 router.put("/bookings/:id/cancel", protect, cancelBooking);
+
+// Stats
+router.get("/stats", protect, getUserStats);
 
 // Reviews
 router.post("/reviews", protect, createReview);

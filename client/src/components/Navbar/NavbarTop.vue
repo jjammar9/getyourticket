@@ -174,7 +174,7 @@ const handleSearch = () => {
         @click="router.push('/')"
         class="select-none cursor-pointer shrink-0 flex items-center gap-2"
       >
-        <img :src="logoImage" alt="GetYourTicket" loading="lazy" class="h-[52px] w-auto" />
+        <img :src="logoImage" alt="GetYourTicket" loading="lazy" class="h-[52px] w-auto -ml-2" />
       </div>
 
       <!-- SEARCH -->
@@ -411,6 +411,19 @@ const handleSearch = () => {
             </div>
 
             <div class="h-px bg-gray-100 dark:bg-gray-700" />
+
+            <!-- Profile -->
+            <div
+              v-if="authStore.isLoggedIn"
+              @click="router.push('/profile'); showProfileMenu = false"
+              class="px-4 py-3 flex items-center justify-between hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer transition-colors"
+            >
+              <div class="flex items-center gap-3">
+                <User :size="18" class="text-gray-500 dark:text-gray-300" />
+                <span class="text-[13px] text-gray-700 dark:text-gray-200 font-medium">{{ localeStore.t("nav.profile") }}</span>
+              </div>
+              <ArrowRight :size="15" class="text-gray-400 dark:text-gray-500" />
+            </div>
 
             <!-- Updates -->
             <div class="px-4 py-3 flex items-center justify-between hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer transition-colors">

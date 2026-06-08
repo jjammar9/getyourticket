@@ -558,6 +558,8 @@ const de = {
   "profile.saved": "\u00C4nderungen erfolgreich gespeichert",
   "profile.passwordHint": "Leer lassen, um das aktuelle Passwort beizubehalten",
   "profile.login": "Bitte melden Sie sich an, um Ihr Profil zu sehen",
+  "crumb.home": "Startseite",
+  "crumb.experiences": "Erlebnisse",
 };
 
 const es = {
@@ -734,6 +736,8 @@ const es = {
   "profile.saved": "Cambios guardados exitosamente",
   "profile.passwordHint": "D\u00E9jalo en blanco para mantener la contrase\u00F1a actual",
   "profile.login": "Inicia sesi\u00F3n para ver tu perfil",
+  "crumb.home": "Inicio",
+  "crumb.experiences": "Experiencias",
 };
 
 const fr = {

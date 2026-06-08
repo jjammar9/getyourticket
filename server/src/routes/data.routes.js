@@ -9,6 +9,7 @@ import {
   getSiteContent,
   getAllSiteContent,
   subscribeNewsletter,
+  getListingAvailability,
 } from "../controllers/data.controller.js";
 
 const router = Router();
@@ -16,6 +17,7 @@ const router = Router();
 // Listings
 router.get("/listings", getListings);
 router.get("/listings/:id", getListingById);
+router.get("/listings/:id/availability", getListingAvailability);
 
 // Countries
 router.get("/countries", getCountries);

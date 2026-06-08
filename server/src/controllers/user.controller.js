@@ -314,6 +314,8 @@ export const createBooking = async (req, res) => {
       },
     });
 
+    console.log(`[EMAIL] Confirmation sent to ${req.user.email} for booking ${booking.id} - ${listing.title}`);
+
     res.status(201).json({ booking });
   } catch (error) {
     console.error("createBooking error:", error);
@@ -375,6 +377,29 @@ export const createReview = async (req, res) => {
     res.status(201).json({ review });
   } catch (error) {
     console.error("createReview error:", error);
+    res.status(500).json({ message: "Server error" });
+  }
+};
+
+export const getUserStats = async (req, res) => {
+  try {
+    const userId = req.user.id;
+    const [bookings, reviews, wishlistLists] = await Promise.all([
+      prisma.booking.findMany({ where: { userId } }),
+      prisma.review.findMany({ where: { userId } }),
+      prisma.wishlistList.findMany({ where: { userId }, include: { _count: { select: { items: true } } } }),
+    ]);
+    res.json({
+      stats: {
+        totalBookings: bookings.length,
+        totalSpent: bookings.reduce((sum, b) => sum + b.totalPrice, 0),
+        totalReviews: reviews.length,
+        wishlistLists: wishlistLists.length,
+        wishlistItems: wishlistLists.reduce((sum, l) => sum + l._count.items, 0),
+      },
+    });
+  } catch (error) {
+    console.error("getUserStats error:", error);
     res.status(500).json({ message: "Server error" });
   }
 };

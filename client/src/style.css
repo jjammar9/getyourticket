@@ -7,6 +7,11 @@
   --font-body: "GT Eesti Text", "fallback for GT Eesti", "android fallback for GT Eesti", sans-serif;
 }
 
+:root {
+  --font-display: "GT Eesti Display", "fallback for GT Eesti", "android fallback for GT Eesti", sans-serif;
+  --font-body: "GT Eesti Text", "fallback for GT Eesti", "android fallback for GT Eesti", sans-serif;
+}
+
 /* GT Eesti Display */
 @font-face {
   font-family: "GT Eesti Display";

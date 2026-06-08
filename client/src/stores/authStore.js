@@ -90,7 +90,7 @@ export const useAuthStore = defineStore("auth", () => {
 
   async function updateProfile(data) {
     const res = await updateProfileApi(data);
-    user.value = res.user;
+    setAuth(res);
     return res;
   }
 

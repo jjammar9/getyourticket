@@ -35,6 +35,13 @@ export function useRecentlyViewed() {
       location: exp.location,
       price: exp.price,
       slug: exp.slug,
+      badge: exp.badge,
+      category: exp.category,
+      duration: exp.duration,
+      extras: exp.extras,
+      rating: exp.rating,
+      reviews: exp.reviews,
+      oldPrice: exp.oldPrice,
       viewedAt: Date.now(),
     });
     if (recentlyViewed.value.length > MAX_ITEMS) {
