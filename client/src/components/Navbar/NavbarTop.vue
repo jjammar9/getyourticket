@@ -5,6 +5,7 @@ import {
   User,
   Globe,
   LogIn,
+  UserPlus,
   ArrowRight,
   Sun,
   Moon,
@@ -38,7 +39,8 @@ const currencyStore = useCurrencyStore();
 const authStore = useAuthStore();
 
 const showAuthModal = ref(false);
-const openAuthHandler = () => { showAuthModal.value = true; };
+const authModalTab = ref("login");
+const openAuthHandler = () => { showAuthModal.value = true; authModalTab.value = "login"; };
 
 const { searchQuery, setSearchQuery } = useNavSearch();
 const searchTerm = ref("");
@@ -398,21 +400,13 @@ const handleSearch = () => {
                 </div>
                 <div class="flex-1">
                   <p class="text-[14px] font-semibold text-gray-900 dark:text-white">{{ localeStore.t("nav.profile") }}</p>
-                  <button
-                    @click="showAuthModal = true; showProfileMenu = false"
-                    class="flex items-center gap-1 text-[12px] text-blue-600 dark:text-blue-400 hover:text-blue-700 mt-0.5"
-                  >
-                    <LogIn :size="13" />
-                    <span>{{ localeStore.t("nav.login") }}</span>
-                    <ArrowRight :size="13" />
-                  </button>
                 </div>
               </div>
             </div>
 
             <div class="h-px bg-gray-100 dark:bg-gray-700" />
 
-            <!-- Profile -->
+            <!-- Profile (logged in) -->
             <div
               v-if="authStore.isLoggedIn"
               @click="router.push('/profile'); showProfileMenu = false"
@@ -421,6 +415,32 @@ const handleSearch = () => {
               <div class="flex items-center gap-3">
                 <User :size="18" class="text-gray-500 dark:text-gray-300" />
                 <span class="text-[13px] text-gray-700 dark:text-gray-200 font-medium">{{ localeStore.t("nav.profile") }}</span>
+              </div>
+              <ArrowRight :size="15" class="text-gray-400 dark:text-gray-500" />
+            </div>
+
+            <!-- Log in (logged out) -->
+            <div
+              v-if="!authStore.isLoggedIn"
+              @click="authModalTab = 'login'; showAuthModal = true; showProfileMenu = false"
+              class="px-4 py-3 flex items-center justify-between hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer transition-colors"
+            >
+              <div class="flex items-center gap-3">
+                <LogIn :size="18" class="text-gray-500 dark:text-gray-300" />
+                <span class="text-[13px] text-gray-700 dark:text-gray-200 font-medium">{{ localeStore.t("nav.login") }}</span>
+              </div>
+              <ArrowRight :size="15" class="text-gray-400 dark:text-gray-500" />
+            </div>
+
+            <!-- Sign in (logged out) -->
+            <div
+              v-if="!authStore.isLoggedIn"
+              @click="authModalTab = 'signup'; showAuthModal = true; showProfileMenu = false"
+              class="px-4 py-3 flex items-center justify-between hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer transition-colors"
+            >
+              <div class="flex items-center gap-3">
+                <UserPlus :size="18" class="text-gray-500 dark:text-gray-300" />
+                <span class="text-[13px] text-gray-700 dark:text-gray-200 font-medium">Sign in</span>
               </div>
               <ArrowRight :size="15" class="text-gray-400 dark:text-gray-500" />
             </div>
@@ -495,5 +515,5 @@ const handleSearch = () => {
         </div>
         </Transition>
 
-  <AuthModal :show="showAuthModal" @close="showAuthModal = false" />
+  <AuthModal :show="showAuthModal" :initialTab="authModalTab" @close="showAuthModal = false" />
 </template>

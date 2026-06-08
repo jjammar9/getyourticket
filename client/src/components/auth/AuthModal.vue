@@ -4,13 +4,14 @@ import { useAuthStore } from "../../stores/authStore.js";
 import { useLocaleStore } from "../../stores/localeStore.js";
 import { Mail, Lock, User, Eye, EyeOff, X, LoaderCircle } from "lucide-vue-next";
 
-const props = defineProps({ show: Boolean });
+const props = defineProps({ show: Boolean, initialTab: { type: String, default: "login" } });
 const emit = defineEmits(["close"]);
 
 const authStore = useAuthStore();
 const localeStore = useLocaleStore();
 
 const tab = ref("login");
+
 const name = ref("");
 const email = ref("");
 const password = ref("");
@@ -26,7 +27,7 @@ function reset() {
   error.value = "";
 }
 
-watch(() => props.show, (v) => { if (v) reset(); });
+watch(() => props.show, (v) => { if (v) { reset(); tab.value = props.initialTab; } });
 
 async function handleLogin() {
   error.value = "";
