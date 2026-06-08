@@ -3,6 +3,7 @@ import { ref, computed } from "vue";
 import { useRouter } from "vue-router";
 import { Trash2, ShoppingCart, ChevronRight } from "lucide-vue-next";
 import Container from "../components/ui/Container.vue";
+import StripePaymentForm from "../components/checkout/StripePaymentForm.vue";
 import { useBookingStore } from "../stores/bookingStore.js";
 import { useAuthStore } from "../stores/authStore.js";
 import { useLocaleStore } from "../stores/localeStore.js";
@@ -23,9 +24,6 @@ const formGuests = ref(1);
 const confirming = ref(false);
 const confirmSuccess = ref(false);
 const confirmError = ref("");
-const cardNumber = ref("");
-const cardExpiry = ref("");
-const cardCvc = ref("");
 const processing = ref(false);
 const bookingRef = ref("");
 
@@ -44,7 +42,7 @@ function goToPayment() {
   step.value = 2;
 }
 
-async function confirmBooking() {
+async function onPaymentSuccess() {
   processing.value = true;
   confirmError.value = "";
   try {
@@ -64,6 +62,10 @@ async function confirmBooking() {
   } finally {
     processing.value = false;
   }
+}
+
+function onPaymentError(msg) {
+  confirmError.value = msg;
 }
 </script>
 
@@ -189,33 +191,12 @@ async function confirmBooking() {
         <div v-if="step === 2" class="max-w-md mx-auto bg-white dark:bg-gray-800 rounded-[18px] border border-[#d9dee8] dark:border-gray-700 p-6">
           <h2 class="text-[18px] font-bold text-[#0b2343] dark:text-white mb-6">Payment Details</h2>
 
-          <form @submit.prevent="confirmBooking" class="space-y-4">
-            <div>
-              <label class="text-[13px] font-medium text-gray-500 dark:text-gray-400">Card Number</label>
-              <input v-model="cardNumber" maxlength="19" placeholder="4242 4242 4242 4242" class="w-full mt-1 px-3 py-2.5 border border-[#d9dee8] dark:border-gray-700 rounded-lg text-[14px] text-[#0b2343] dark:text-white bg-white dark:bg-gray-700 outline-none focus:border-[#ff5533]" />
-            </div>
-            <div class="grid grid-cols-2 gap-4">
-              <div>
-                <label class="text-[13px] font-medium text-gray-500 dark:text-gray-400">Expiry</label>
-                <input v-model="cardExpiry" maxlength="5" placeholder="MM/YY" class="w-full mt-1 px-3 py-2.5 border border-[#d9dee8] dark:border-gray-700 rounded-lg text-[14px] text-[#0b2343] dark:text-white bg-white dark:bg-gray-700 outline-none focus:border-[#ff5533]" />
-              </div>
-              <div>
-                <label class="text-[13px] font-medium text-gray-500 dark:text-gray-400">CVC</label>
-                <input v-model="cardCvc" maxlength="4" placeholder="123" class="w-full mt-1 px-3 py-2.5 border border-[#d9dee8] dark:border-gray-700 rounded-lg text-[14px] text-[#0b2343] dark:text-white bg-white dark:bg-gray-700 outline-none focus:border-[#ff5533]" />
-              </div>
-            </div>
-
-            <div class="pt-4 border-t border-[#d9dee8] dark:border-gray-700">
-              <div class="flex justify-between items-center mb-4">
-                <span class="text-[16px] font-semibold text-[#0b2343] dark:text-white">Total</span>
-                <span class="text-[22px] font-extrabold text-[#e53935]">{{ currencyStore.formatPrice(totalPrice) }}</span>
-              </div>
-              <button type="submit" :disabled="processing" class="w-full bg-[#ff5533] text-white text-[14px] font-semibold py-3 rounded-full hover:bg-[#e6482a] transition disabled:opacity-50 flex items-center justify-center gap-2">
-                <span v-if="processing" class="animate-spin">⟳</span>
-                {{ processing ? 'Processing...' : 'Pay & Confirm' }}
-              </button>
-            </div>
-          </form>
+          <StripePaymentForm
+            :amount="totalPrice"
+            :currency="'usd'"
+            @success="onPaymentSuccess"
+            @error="onPaymentError"
+          />
 
           <p v-if="confirmError" class="mt-3 text-[13px] text-red-500 text-center">{{ confirmError }}</p>
         </div>

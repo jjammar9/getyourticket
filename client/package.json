@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@stripe/stripe-js": "^9.7.0",
     "@tailwindcss/vite": "^4.3.0",
     "lucide-vue-next": "^1.0.0",
     "pinia": "^3.0.4",
