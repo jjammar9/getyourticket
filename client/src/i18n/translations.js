@@ -162,6 +162,14 @@ const en = {
   "cart.name": "Full name",
   "cart.email": "Email",
   "cart.continue": "Continue browsing",
+  "cart.continuePayment": "Continue to Payment",
+  "cart.stepReview": "Review",
+  "cart.stepPayment": "Payment",
+  "cart.stepConfirmed": "Confirmed",
+  "cart.paymentDetails": "Payment Details",
+  "cart.confirmed": "Booking Confirmed!",
+  "cart.bookingRef": "Your booking reference",
+  "cart.viewBookings": "View my bookings",
 
   /* Bookings */
   "bookings.title": "My Bookings",
