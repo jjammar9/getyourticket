@@ -358,6 +358,11 @@ const en = {
   "expTrust.reserveNow": "\u2713 Reserve now & pay later",
   "expTrust.instantConfirm": "\u2713 Instant confirmation",
   "expTrust.liveGuide": "\u2713 Live guide",
+  "expTrust.freeCancelDesc": "Cancel up to 24 hours in advance for a full refund.",
+  "expTrust.reserveNowDesc": "Book your spot now and pay later — flexible and risk-free.",
+  "expTrust.freeCancelFull": "Free cancellation. Cancel up to 24 hours in advance for a full refund.",
+  "expTrust.reserveNowFull": "Reserve now & pay later. Keep your travel plans flexible.",
+  "exp.viewAll": "View all",
 
   /* Experience reviews */
   "expReviews.title": "Customer reviews",

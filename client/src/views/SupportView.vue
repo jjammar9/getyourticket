@@ -1,5 +1,6 @@
 <script setup>
-import { ref } from "vue";
+import { ref, computed } from "vue";
+import { useRouter } from "vue-router";
 import Container from "../components/ui/Container.vue";
 import { ChevronDown, Search, MessageCircle, Mail, Phone, ExternalLink } from "lucide-vue-next";
 import { useLocaleStore } from "../stores/localeStore.js";

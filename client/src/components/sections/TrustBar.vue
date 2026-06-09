@@ -1,6 +1,6 @@
 <template>
   <section class="py-10 border-y border-[#e8edf5] dark:border-gray-700">
-    <div class="grid grid-cols-3 gap-8">
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-8">
       <div class="text-center">
         <p class="text-[28px] font-extrabold text-[#0b2343] dark:text-white">4.5M+</p>
         <p class="text-[14px] font-medium text-[#6d788d] dark:text-gray-400 mt-1">{{ localeStore.t("trust.verified") }}</p>

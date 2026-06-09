@@ -20,7 +20,7 @@ const categories = [
 
 <template>
   <section class="py-10">
-    <div class="grid grid-cols-4 md:grid-cols-8 gap-4">
+    <div class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-8 gap-4">
       <div
         v-for="cat in categories"
         :key="cat.slug"

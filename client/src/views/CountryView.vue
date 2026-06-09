@@ -480,7 +480,7 @@ watch(countryName, (val) => {
             </div>
             <div class="flex items-start gap-3 mb-3">
               <div class="shrink-0 w-[44px] h-[44px] rounded-full bg-orange-500 text-white text-[18px] font-bold flex items-center justify-center">
-                {{ review.name.charAt(0) }}
+                {{ review.name ? review.name.charAt(0) : "?" }}
               </div>
               <div class="min-w-0">
                 <p class="text-[15px] font-bold text-[#0b2343] dark:text-white leading-tight">{{ review.name }}</p>
@@ -488,7 +488,7 @@ watch(countryName, (val) => {
               </div>
             </div>
             <p class="text-[13px] text-black dark:text-gray-200 font-bold leading-relaxed" :class="expandedReviews.has(idx) ? '' : 'line-clamp-2'">{{ review.text }}</p>
-            <button v-if="review.text.length > 80" @click="toggleReview(idx)" class="text-[13px] text-black dark:text-gray-200 underline mt-1 cursor-pointer hover:text-gray-700 dark:hover:text-gray-400">{{ expandedReviews.has(idx) ? localeStore.t("country.seeLess") : localeStore.t("country.seeMoreShort") }}</button>
+            <button v-if="review.text && review.text.length > 80" @click="toggleReview(idx)" class="text-[13px] text-black dark:text-gray-200 underline mt-1 cursor-pointer hover:text-gray-700 dark:hover:text-gray-400">{{ expandedReviews.has(idx) ? localeStore.t("country.seeLess") : localeStore.t("country.seeMoreShort") }}</button>
             <div class="mt-3 rounded-[10px] overflow-hidden h-[80px] w-1/2">
               <img
                 loading="lazy"

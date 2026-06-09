@@ -3,9 +3,11 @@ import { useRouter } from "vue-router";
 import { Heart, Star } from "lucide-vue-next";
 import { handleImageError } from "../../constants/placeholder.js";
 import { useCurrencyStore } from "../../stores/currencyStore.js";
+import { useLocaleStore } from "../../stores/localeStore.js";
 
 const router = useRouter();
 const currencyStore = useCurrencyStore();
+const localeStore = useLocaleStore();
 
 defineProps({
   item: Object,
@@ -56,7 +58,7 @@ const goToExperience = (id) => {
         </div>
         <div class="text-right leading-none">
           <p v-if="item.oldPrice" class="text-[12px] text-[#8a94a6] line-through font-medium">
-            From {{ currencyStore.formatPrice(item.oldPrice) }}
+            {{ localeStore.t("common.from") }} {{ currencyStore.formatPrice(item.oldPrice) }}
           </p>
           <p class="text-[18px] font-extrabold text-[#e53935] mt-0.5">
             {{ currencyStore.formatPrice(item.price) }}
