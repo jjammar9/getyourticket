@@ -1,4 +1,4 @@
-const BASE = "https://getyourticket-api.onrender.com";
+const BASE = "https://getyourticket-api.onrender.com/api";
 
 async function fetchJSON(url, options = {}) {
   const res = await fetch(url, options);
