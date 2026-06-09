@@ -4,7 +4,7 @@ const localeStore = useLocaleStore();
 </script>
 
 <template>
-  <div class="shrink-0" style="width: 140px">
+  <div class="w-full max-w-[160px]">
     <p class="text-[13px] font-bold mb-3">{{ localeStore.t("footer.mobile") }}</p>
 
     <div class="flex flex-col gap-3">

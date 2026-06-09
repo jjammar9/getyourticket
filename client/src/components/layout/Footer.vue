@@ -34,8 +34,8 @@ onMounted(async () => {
     <Container>
       <div class="py-20">
         <!-- TOP ROW -->
-        <div class="flex items-start justify-between gap-x-8 lg:gap-x-16">
-            <div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-8">
+            <div class="sm:col-span-2 lg:col-span-1">
               <FooterSelect />
 
               <p class="text-[13px] font-medium text-white mt-6">
@@ -43,13 +43,15 @@ onMounted(async () => {
               </p>
             </div>
 
-            <FooterMobileApps />
+            <div class="sm:col-span-2 lg:col-span-1">
+              <FooterMobileApps />
+            </div>
 
             <FooterColumn :title="localeStore.t('footer.columnSupport')" :links="supportLinks" />
 
             <FooterColumn :title="localeStore.t('footer.columnCompany')" :links="companyLinks" />
 
-            <div>
+            <div class="sm:col-span-2 lg:col-span-1">
               <FooterColumn :title="localeStore.t('footer.columnWorkWithUs')" :links="workLinks" />
 
               <div class="mt-8">

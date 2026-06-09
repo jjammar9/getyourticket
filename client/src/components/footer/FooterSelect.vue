@@ -22,7 +22,7 @@ const currencyOpen = ref(false);
 </script>
 
 <template>
-  <div class="shrink-0" style="width: 240px">
+  <div class="w-full max-w-[240px]">
     <p class="text-[13px] font-bold mb-[6px]" style="font-family: var(--font-display);">{{ localeStore.t("footer.language") }}</p>
     <div class="relative">
       <button
