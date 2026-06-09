@@ -25,8 +25,6 @@ import { useCurrencyStore } from "../../stores/currencyStore.js";
 import { useAuthStore } from "../../stores/authStore.js";
 import { locales } from "../../i18n/translations.js";
 import logoImage from "../../assets/0e31b4a5-ec0a-496e-81a1-cc44c5729c06.png";
-import AuthModal from "../auth/AuthModal.vue";
-
 const props = defineProps({
   isScrolled: Boolean,
   scrollY: Number,
@@ -37,10 +35,6 @@ const router = useRouter();
 const localeStore = useLocaleStore();
 const currencyStore = useCurrencyStore();
 const authStore = useAuthStore();
-
-const showAuthModal = ref(false);
-const authModalTab = ref("login");
-const openAuthHandler = () => { showAuthModal.value = true; authModalTab.value = "login"; };
 
 const { searchQuery, setSearchQuery } = useNavSearch();
 const searchTerm = ref("");
@@ -94,7 +88,6 @@ function onDocumentClick(e) {
 onMounted(() => {
   authStore.checkAuth();
   document.addEventListener("click", onDocumentClick);
-  window.addEventListener("open-auth-modal", openAuthHandler);
   getCountries().then(list => {
     const map = {};
     for (const c of list) map[c.slug] = c;
@@ -103,7 +96,6 @@ onMounted(() => {
 });
 onUnmounted(() => {
   document.removeEventListener("click", onDocumentClick);
-  window.removeEventListener("open-auth-modal", openAuthHandler);
 });
 
 const onProfileEnter = () => {
@@ -422,7 +414,7 @@ const handleSearch = () => {
             <!-- Log in (logged out) -->
             <div
               v-if="!authStore.isLoggedIn"
-              @click="authModalTab = 'login'; showAuthModal = true; showProfileMenu = false"
+              @click="window.dispatchEvent(new CustomEvent('open-auth-modal', { detail: { tab: 'login' } })); showProfileMenu = false"
               class="px-4 py-3 flex items-center justify-between hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer transition-colors"
             >
               <div class="flex items-center gap-3">
@@ -435,7 +427,7 @@ const handleSearch = () => {
             <!-- Sign in (logged out) -->
             <div
               v-if="!authStore.isLoggedIn"
-              @click="authModalTab = 'signup'; showAuthModal = true; showProfileMenu = false"
+              @click="window.dispatchEvent(new CustomEvent('open-auth-modal', { detail: { tab: 'signup' } })); showProfileMenu = false"
               class="px-4 py-3 flex items-center justify-between hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer transition-colors"
             >
               <div class="flex items-center gap-3">
@@ -514,6 +506,4 @@ const handleSearch = () => {
           </div>
         </div>
         </Transition>
-
-  <AuthModal :show="showAuthModal" :initialTab="authModalTab" @close="showAuthModal = false" />
 </template>

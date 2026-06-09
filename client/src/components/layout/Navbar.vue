@@ -9,10 +9,16 @@ import MobileNavbar from "../../components/Navbar/MobileNavbar.vue";
 import MegaMenu from "../../components/Navbar/MegaMenu.vue";
 import Container from "../ui/Container.vue";
 import { useLocaleStore } from "../../stores/localeStore.js";
+import { useAuthStore } from "../../stores/authStore.js";
+import AuthModal from "../auth/AuthModal.vue";
 
 const router = useRouter();
 const route = useRoute();
 const localeStore = useLocaleStore();
+const authStore = useAuthStore();
+
+const showAuthModal = ref(false);
+const authModalTab = ref("login");
 
 const navData = ref({});
 const countries = ref([]);
@@ -103,9 +109,13 @@ const handleMegaMenuLeave = () => {
   closeMegaMenu();
 };
 
+const openAuthHandler = (e) => { showAuthModal.value = true; authModalTab.value = e?.detail?.tab || "login"; };
+
 onMounted(async () => {
   document.addEventListener("click", handleClickOutside);
   window.addEventListener("scroll", handleScroll);
+  window.addEventListener("open-auth-modal", openAuthHandler);
+  authStore.checkAuth();
   try {
     const data = await Promise.all([
       getSiteContent("megaMenu"),
@@ -121,6 +131,7 @@ onMounted(async () => {
 onUnmounted(() => {
   document.removeEventListener("click", handleClickOutside);
   window.removeEventListener("scroll", handleScroll);
+  window.removeEventListener("open-auth-modal", openAuthHandler);
   clearTimeout(hoverTimer);
 });
 
@@ -228,4 +239,6 @@ const handleHoverEnd = () => {
       />
     </div>
   </nav>
+
+  <AuthModal :show="showAuthModal" :initialTab="authModalTab" @close="showAuthModal = false" />
 </template>
