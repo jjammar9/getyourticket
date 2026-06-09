@@ -173,3 +173,11 @@ export async function getUserStats() {
     headers: { ...authHeaders() },
   });
 }
+
+export async function createPaymentIntent(amount, currency = "usd") {
+  return fetchJSON(`${BASE}/payments/create-payment-intent`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json", ...authHeaders() },
+    body: JSON.stringify({ amount, currency }),
+  });
+}

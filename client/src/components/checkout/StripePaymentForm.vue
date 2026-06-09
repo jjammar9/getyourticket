@@ -1,5 +1,6 @@
 <script setup>
 import { ref, onMounted, computed } from "vue";
+import { createPaymentIntent } from "../../api.js";
 
 const props = defineProps({
   amount: { type: Number, required: true },
@@ -44,20 +45,7 @@ async function submit() {
   submitError.value = "";
 
   try {
-    const token = localStorage.getItem("token");
-    const amountInDollars = props.amount;
-
-    const res = await fetch("/api/payments/create-payment-intent", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify({ amount: amountInDollars, currency: props.currency }),
-    });
-
-    const data = await res.json();
-    if (!res.ok) throw new Error(data.message || "Payment setup failed");
+    const data = await createPaymentIntent(props.amount, props.currency);
 
     if (isDemo.value || data.demo) {
       emit("success", { paymentIntentId: `demo_${Date.now()}`, demo: true });
