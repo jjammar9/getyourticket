@@ -1,0 +1,8 @@
+{
+  "name": "getyourticket",
+  "private": true,
+  "scripts": {
+    "build": "cd client && npm install && vite build",
+    "dev": "cd client && npm run dev"
+  }
+}
