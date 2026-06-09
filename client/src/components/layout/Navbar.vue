@@ -183,6 +183,7 @@ const handleHoverEnd = () => {
       :mobileMenuOpen="mobileMenuOpen"
       :navData="navData"
       :toggleMobileMenu="toggleMobileMenu"
+      @close="mobileMenuOpen = false"
     />
 
     <!-- DESKTOP -->

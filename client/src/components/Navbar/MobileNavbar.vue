@@ -26,8 +26,11 @@ const navRoutes = {
   inspiration: "/experiences",
 };
 
+const emit = defineEmits(["close"]);
+
 function goTo(key) {
   router.push(navRoutes[key] || "/");
+  emit("close");
 }
 </script>
 
@@ -66,21 +69,21 @@ function goTo(key) {
         <hr class="border-gray-200 dark:border-gray-700" />
 
         <button
-          @click="router.push('/wishlist')"
+          @click="router.push('/wishlist'); emit('close')"
           class="flex items-center gap-3 text-left font-semibold text-gray-700 dark:text-gray-200"
         >
           <Heart :size="20" /> {{ localeStore.t("nav.wishlist") }}
         </button>
 
         <button
-          @click="router.push('/bookings')"
+          @click="router.push('/bookings'); emit('close')"
           class="flex items-center gap-3 text-left font-semibold text-gray-700 dark:text-gray-200"
         >
           <Calendar :size="20" /> {{ localeStore.t("nav.bookings") }}
         </button>
 
         <button
-          @click="router.push('/cart')"
+          @click="router.push('/cart'); emit('close')"
           class="flex items-center gap-3 text-left font-semibold text-gray-700 dark:text-gray-200"
         >
           <ShoppingCart :size="20" /> {{ localeStore.t("nav.cart") }}
@@ -88,7 +91,7 @@ function goTo(key) {
 
         <button
           v-if="authStore.isLoggedIn"
-          @click="router.push('/profile')"
+          @click="router.push('/profile'); emit('close')"
           class="flex items-center gap-3 text-left font-semibold text-gray-700 dark:text-gray-200"
         >
           <User :size="20" /> {{ localeStore.t("nav.profile") }}
@@ -96,7 +99,7 @@ function goTo(key) {
 
         <button
           v-else
-          @click="window.dispatchEvent(new CustomEvent('open-auth-modal'))"
+          @click="window.dispatchEvent(new CustomEvent('open-auth-modal')); emit('close')"
           class="flex items-center gap-3 text-left font-semibold text-gray-700 dark:text-gray-200"
         >
           <LogIn :size="20" /> {{ localeStore.t("nav.login") }}
