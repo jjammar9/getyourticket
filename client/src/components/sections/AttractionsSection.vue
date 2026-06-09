@@ -106,7 +106,7 @@ const prevPage = () => {
         leave-from-class="opacity-100 translate-x-0"
         leave-to-class="opacity-0 -translate-x-6"
       >
-        <div :key="currentPage" class="grid grid-cols-4 gap-6">
+        <div :key="currentPage" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
           <Card
             v-for="card in visibleCards"
             :key="card.title"
