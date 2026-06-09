@@ -2,6 +2,7 @@
 import { ref, watch } from "vue";
 import { useAuthStore } from "../../stores/authStore.js";
 import { useLocaleStore } from "../../stores/localeStore.js";
+import { forgotPassword } from "../../api.js";
 import { Mail, Lock, User, Eye, EyeOff, X, LoaderCircle } from "lucide-vue-next";
 
 const props = defineProps({ show: Boolean, initialTab: { type: String, default: "login" } });
@@ -72,13 +73,7 @@ async function handleForgotPassword() {
   }
   submitting.value = true;
   try {
-    const res = await fetch("/api/auth/forgot-password", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email: email.value }),
-    });
-    const data = await res.json();
-    if (!res.ok) throw new Error(data.message);
+    await forgotPassword(email.value);
     submitted.value = true;
   } catch (e) {
     error.value = e.message;

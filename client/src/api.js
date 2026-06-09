@@ -181,3 +181,81 @@ export async function createPaymentIntent(amount, currency = "usd") {
     body: JSON.stringify({ amount, currency }),
   });
 }
+
+export async function forgotPassword(email) {
+  return fetchJSON(`${BASE}/auth/forgot-password`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ email }),
+  });
+}
+
+export async function resetPassword(token, password) {
+  return fetchJSON(`${BASE}/auth/reset-password`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ token, password }),
+  });
+}
+
+export async function subscribeNewsletter(email) {
+  return fetchJSON(`${BASE}/newsletter/subscribe`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ email }),
+  });
+}
+
+// Admin endpoints
+export async function getAdminListings(params = {}) {
+  const qs = new URLSearchParams(params).toString();
+  const data = await fetchJSON(`${BASE}/admin/listings${qs ? `?${qs}` : ""}`, {
+    headers: { ...authHeaders() },
+  });
+  return data; // { listings: [...], total: number }
+}
+
+export async function createAdminListing(data) {
+  return fetchJSON(`${BASE}/admin/listings`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json", ...authHeaders() },
+    body: JSON.stringify(data),
+  });
+}
+
+export async function updateAdminListing(id, data) {
+  return fetchJSON(`${BASE}/admin/listings/${id}`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json", ...authHeaders() },
+    body: JSON.stringify(data),
+  });
+}
+
+export async function deleteAdminListing(id) {
+  return fetchJSON(`${BASE}/admin/listings/${id}`, {
+    method: "DELETE",
+    headers: { ...authHeaders() },
+  });
+}
+
+export async function getAdminUsers() {
+  const data = await fetchJSON(`${BASE}/admin/users`, {
+    headers: { ...authHeaders() },
+  });
+  return data; // { users: [...] }
+}
+
+export async function updateAdminUserRole(userId, role) {
+  return fetchJSON(`${BASE}/admin/users/${userId}`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json", ...authHeaders() },
+    body: JSON.stringify({ role }),
+  });
+}
+
+export async function deleteAdminUser(userId) {
+  return fetchJSON(`${BASE}/admin/users/${userId}`, {
+    method: "DELETE",
+    headers: { ...authHeaders() },
+  });
+}

@@ -361,11 +361,10 @@ watch(countryName, (val) => {
       <div class="max-w-[1280px] mx-auto px-4 md:px-6 lg:px-8 py-12">
         <div class="flex items-center justify-between mb-8">
           <h2 class="text-[22px] font-bold text-[#0b2343] dark:text-white">{{ localeStore.t("country.guides", { name: countryName }) }}</h2>
-          <a
-            :href="'https://www.getyourguide.com/explorer/' + slug + '-ttd-l168990/'"
-            target="_blank"
+          <router-link
+            :to="'/search?q=' + slug"
             class="text-[#0a6cff] dark:text-blue-400 font-semibold text-[15px] hover:underline"
-          >{{ localeStore.t("country.exploreAll") }}</a>
+          >{{ localeStore.t("country.exploreAll") }}</router-link>
         </div>
 
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">

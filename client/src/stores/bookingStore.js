@@ -2,8 +2,12 @@ import { defineStore } from "pinia";
 import { ref } from "vue";
 
 export const useBookingStore = defineStore("booking", () => {
-  const saved = localStorage.getItem("cart_bookings");
-  const bookings = ref(saved ? JSON.parse(saved) : []);
+  let parsed = [];
+  try {
+    const saved = localStorage.getItem("cart_bookings");
+    if (saved) parsed = JSON.parse(saved);
+  } catch { parsed = []; }
+  const bookings = ref(parsed);
   const toast = ref(null);
   let toastTimer = null;
 
@@ -12,7 +16,7 @@ export const useBookingStore = defineStore("booking", () => {
   }
 
   function addBooking(experience) {
-    const existing = bookings.value.findIndex((b) => b.id === experience.id);
+    const existing = bookings.value.findIndex((b) => b && b.id === experience.id);
     if (existing === -1) {
       bookings.value.push({ ...experience, guests: 1, bookedAt: new Date().toISOString() });
       persist();

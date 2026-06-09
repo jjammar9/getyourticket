@@ -3,6 +3,7 @@ import { ref, onMounted } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { Lock, Eye, EyeOff, LoaderCircle, CheckCircle } from "lucide-vue-next";
 import Container from "../components/ui/Container.vue";
+import { resetPassword } from "../api.js";
 
 const route = useRoute();
 const router = useRouter();
@@ -37,13 +38,7 @@ async function handleReset() {
   }
   submitting.value = true;
   try {
-    const res = await fetch("/api/auth/reset-password", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ token: token.value, password: password.value }),
-    });
-    const data = await res.json();
-    if (!res.ok) throw new Error(data.message);
+    await resetPassword(token.value, password.value);
     submitted.value = true;
   } catch (e) {
     error.value = e.message;

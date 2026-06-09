@@ -2,7 +2,7 @@
 import { ref, onMounted, computed } from "vue";
 import { useRouter } from "vue-router";
 import { useAuthStore } from "../stores/authStore.js";
-import { getListings, getBookings } from "../api.js";
+import { getListingsWithTotal, getBookings, getCountries, getCategories, getAdminListings, createAdminListing, updateAdminListing, deleteAdminListing, getAdminUsers, updateAdminUserRole, deleteAdminUser } from "../api.js";
 import Container from "../components/ui/Container.vue";
 import { BarChart3, ShoppingBag, DollarSign, CalendarDays, List, Users, Plus, Pencil, Trash2, X, Save, Search } from "lucide-vue-next";
 
@@ -36,16 +36,16 @@ onMounted(async () => {
     return;
   }
   try {
-    const [listingsRes, bookingsRes, countriesRes, categoriesRes] = await Promise.all([
-      getListings({ limit: 1 }),
-      fetch("/api/user/bookings", { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } }).then(r => r.json()),
-      fetch("/api/countries").then(r => r.json()),
-      fetch("/api/categories").then(r => r.json()),
+    const [countryData, categoryData, bookingsData] = await Promise.all([
+      getCountries(),
+      getCategories(),
+      getBookings(),
     ]);
+    const listingsRes = await getListingsWithTotal({ limit: 1 });
     listingsCount.value = listingsRes.total || 0;
-    allBookings.value = bookingsRes.bookings || [];
-    countries.value = countriesRes.countries || countriesRes || [];
-    categories.value = categoriesRes.categories || categoriesRes || [];
+    allBookings.value = bookingsData || [];
+    countries.value = countryData || [];
+    categories.value = categoryData || [];
   } catch (e) {
     console.error("Admin load failed", e);
   } finally {
@@ -58,12 +58,9 @@ const totalRevenue = computed(() => allBookings.value.reduce((s, b) => s + b.tot
 async function loadListings() {
   listingsLoading.value = true;
   try {
-    const params = new URLSearchParams({ limit: "100" });
-    if (searchQuery.value) params.set("search", searchQuery.value);
-    const res = await fetch(`/api/admin/listings?${params}`, {
-      headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
-    });
-    const data = await res.json();
+    const params = { limit: "100" };
+    if (searchQuery.value) params.search = searchQuery.value;
+    const data = await getAdminListings(params);
     allListings.value = data.listings || [];
   } catch (e) {
     console.error("Failed to load listings", e);
@@ -75,10 +72,7 @@ async function loadListings() {
 async function loadUsers() {
   usersLoading.value = true;
   try {
-    const res = await fetch("/api/admin/users", {
-      headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
-    });
-    const data = await res.json();
+    const data = await getAdminUsers();
     allUsers.value = data.users || [];
   } catch (e) {
     console.error("Failed to load users", e);
@@ -112,14 +106,11 @@ function openEditListing(listing) {
 async function saveListing() {
   savingListing.value = true;
   try {
-    const method = editingListing.value ? "PUT" : "POST";
-    const url = editingListing.value ? `/api/admin/listings/${editingListing.value.id}` : "/api/admin/listings";
-    const res = await fetch(url, {
-      method,
-      headers: { "Content-Type": "application/json", Authorization: `Bearer ${localStorage.getItem("token")}` },
-      body: JSON.stringify(listingForm.value),
-    });
-    if (!res.ok) throw new Error("Failed to save listing");
+    if (editingListing.value) {
+      await updateAdminListing(editingListing.value.id, listingForm.value);
+    } else {
+      await createAdminListing(listingForm.value);
+    }
     showListingModal.value = false;
     await loadListings();
   } catch (e) {
@@ -132,10 +123,7 @@ async function saveListing() {
 async function deleteListing(id) {
   if (!confirm("Delete this listing?")) return;
   try {
-    await fetch(`/api/admin/listings/${id}`, {
-      method: "DELETE",
-      headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
-    });
+    await deleteAdminListing(id);
     allListings.value = allListings.value.filter(l => l.id !== id);
   } catch (e) {
     console.error("Failed to delete listing", e);
@@ -144,11 +132,7 @@ async function deleteListing(id) {
 
 async function updateUserRole(userId, role) {
   try {
-    await fetch(`/api/admin/users/${userId}`, {
-      method: "PUT",
-      headers: { "Content-Type": "application/json", Authorization: `Bearer ${localStorage.getItem("token")}` },
-      body: JSON.stringify({ role }),
-    });
+    await updateAdminUserRole(userId, role);
     allUsers.value = allUsers.value.map(u => u.id === userId ? { ...u, role } : u);
   } catch (e) {
     console.error("Failed to update user role", e);
@@ -158,10 +142,7 @@ async function updateUserRole(userId, role) {
 async function deleteUser(userId) {
   if (!confirm("Delete this user? This cannot be undone.")) return;
   try {
-    await fetch(`/api/admin/users/${userId}`, {
-      method: "DELETE",
-      headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
-    });
+    await deleteAdminUser(userId);
     allUsers.value = allUsers.value.filter(u => u.id !== userId);
   } catch (e) {
     console.error("Failed to delete user", e);

@@ -2,6 +2,7 @@
 import { ref } from "vue";
 import { Mail } from "lucide-vue-next";
 import { useLocaleStore } from "../../stores/localeStore.js";
+import { subscribeNewsletter } from "../../api.js";
 
 const localeStore = useLocaleStore();
 const email = ref("");
@@ -19,16 +20,7 @@ const submit = async () => {
     return;
   }
   try {
-      const res = await fetch("/api/newsletter/subscribe", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email: email.value }),
-    });
-    if (!res.ok) {
-      const data = await res.json();
-      error.value = data.message || "Subscription failed";
-      return;
-    }
+    await subscribeNewsletter(email.value);
     submitted.value = true;
   } catch (e) {
     error.value = "Network error. Please try again.";

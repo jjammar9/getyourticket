@@ -29,8 +29,10 @@ onMounted(async () => {
 });
 
 async function removeItem(listingId) {
+  if (!list.value) return;
   try {
     await authStore.removeFromWishlistList(list.value.id, listingId);
+    if (!list.value.items) return;
     list.value.items = list.value.items.filter((item) => item.listing.id !== listingId);
     list.value.itemCount = list.value.items.length;
   } catch (e) {
@@ -51,7 +53,7 @@ function goToExperience(id) {
         class="flex items-center gap-1 text-[13px] font-semibold text-[#245fb8] hover:text-[#163d7a] mb-4 transition-colors"
       >
         <ArrowLeft :size="16" />
-        Back to wishlists
+        {{ localeStore.t("wishlist.back") || "Back to wishlists" }}
       </button>
 
       <h1 class="text-[32px] font-bold tracking-[-0.5px] text-[#0b2343] mb-8">
@@ -64,7 +66,7 @@ function goToExperience(id) {
 
       <div v-else-if="!list || list.items.length === 0" class="text-center py-20">
         <Heart :size="48" class="mx-auto text-gray-300 mb-4" />
-        <p class="text-[16px] text-gray-500">This list is empty</p>
+        <p class="text-[16px] text-gray-500">{{ localeStore.t("wishlist.listEmpty") || "This list is empty" }}</p>
       </div>
 
       <div v-else class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-8">

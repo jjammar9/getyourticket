@@ -1,6 +1,6 @@
 <script setup>
 import { ref, onMounted } from "vue";
-import { User, Save, CalendarDays, Star, Wallet, Heart, X, Mail, Pencil, DollarSign } from "lucide-vue-next";
+import { User, Save, CalendarDays, Star, Wallet, Heart, X, Mail, Pencil } from "lucide-vue-next";
 import Container from "../components/ui/Container.vue";
 import { useAuthStore } from "../stores/authStore.js";
 import { useLocaleStore } from "../stores/localeStore.js";

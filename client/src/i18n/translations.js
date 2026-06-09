@@ -45,6 +45,13 @@ const en = {
   "auth.signupButton": "Sign up",
   "auth.logout": "Log out",
   "auth.required": "All fields are required",
+  "auth.enterEmail": "Please enter your email address",
+  "auth.forgotDescription": "Enter your email address and we'll send you a link to reset your password.",
+  "auth.resetSent": "If that email exists, a reset link has been sent. Check your inbox.",
+  "auth.sent": "Sent!",
+  "auth.sendResetLink": "Send Reset Link",
+  "auth.backToLogin": "Back to login",
+  "auth.forgotPassword": "Forgot password?",
 
   /* Hero */
   "hero.title": "Discover & book things to do",
@@ -135,6 +142,19 @@ const en = {
   "exp.included": "What\u2019s included",
   "exp.meetingPoint": "Meeting point",
   "exp.reviews": "Customer reviews",
+  "exp.officialTicket": "Official ticket provider",
+  "exp.provider": "Provided by",
+  "exp.fullDescription": "Full description",
+  "exp.adult": "Adult",
+  "exp.selectDate": "Select a date",
+  "exp.validDay": "Valid for one day",
+  "exp.checkAvailability": "Check availability",
+  "exp.youMightAlsoLike": "You might also like",
+  "exp.browseAll": "Browse all",
+  "exp.freeCancelDesc": "Cancel up to 24 hours before your experience for a full refund.",
+  "exp.reserveNowDesc": "Reserve your spot now and pay later — flexible and risk-free.",
+  "exp.freeCancelFull": "Free cancellation",
+  "exp.reserveNowFull": "Reserve now & pay later",
 
   /* Wishlist */
   "wishlist.title": "My Wishlist",
@@ -149,6 +169,8 @@ const en = {
   "wishlist.modal.namePlaceholder": "List name",
   "wishlist.modal.saved": "Saved!",
   "wishlist.modal.alreadyInList": "Already saved",
+  "wishlist.back": "Back to wishlists",
+  "wishlist.listEmpty": "This list is empty",
 
   /* Cart */
   "cart.title": "Your Cart",
@@ -187,6 +209,20 @@ const en = {
   "profile.saved": "Changes saved successfully",
   "profile.passwordHint": "Leave blank to keep current password",
   "profile.login": "Please log in to view your profile",
+  "profile.passwordMismatch": "Passwords do not match",
+  "profile.saveError": "Failed to save changes",
+  "profile.edit": "Edit profile",
+  "profile.statBookings": "Bookings",
+  "profile.statSpent": "Total spent",
+  "profile.statReviews": "Reviews",
+  "profile.statSaved": "Saved",
+  "profile.editTitle": "Edit your information",
+  "profile.updateDetails": "Update your personal details below.",
+  "profile.fullName": "Full name",
+  "profile.emailAddress": "Email address",
+  "profile.newPassword": "New password",
+  "profile.repeatPassword": "Repeat password",
+  "profile.confirmPassword": "Confirm password",
 
   /* Search */
   "search.results": "Search results",
@@ -278,6 +314,8 @@ const en = {
 
   /* Common */
   "common.from": "From",
+  "common.cancel": "Cancel",
+  "common.saving": "Saving...",
 
   /* Search bar */
   "searchbar.placeholder": "Find places and things to do",
@@ -330,6 +368,20 @@ const en = {
   "expReviews.login": "Log in to write a review",
   "expReviews.textPlaceholder": "Share your experience...",
   "expReviews.ratingTitle": "Your rating",
+  "expReviews.sortRecommended": "Recommended",
+  "expReviews.sortMostRecent": "Most recent",
+  "expReviews.sortOldest": "Oldest",
+  "expReviews.sortHighestRated": "Highest rated",
+  "expReviews.sortLowestRated": "Lowest rated",
+  "expReviews.exceptional": "Exceptional",
+  "expReviews.topicRatings": "Topic ratings",
+  "expReviews.topicValue": "Value for money",
+  "expReviews.topicService": "Service",
+  "expReviews.topicOrganization": "Organization",
+  "expReviews.topicSafety": "Safety",
+  "expReviews.whatTravelersLoved": "What travelers loved most",
+  "expReviews.searchPlaceholder": "Search reviews...",
+  "expReviews.wasHelpful": "Was this helpful?",
 
   /* Destination */
   "dest.tours": "Tours & activities",
@@ -381,6 +433,14 @@ const en = {
   "searchView.typeAbove": "Type above to find top-rated tours worldwide.",
   "searchView.searchDestinations": "Search destinations, tours...",
   "searchView.thingsToDo": "Things to do",
+
+  /* 404 */
+  "notFound.title": "Page not found",
+  "notFound.description": "The page you are looking for does not exist or has been moved.",
+  "notFound.searchPlaceholder": "Search destinations...",
+  "notFound.search": "Search",
+  "notFound.popular": "Popular destinations",
+  "notFound.backHome": "Back to Home",
 };
 
 const de = {
