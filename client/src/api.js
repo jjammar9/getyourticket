@@ -1,4 +1,4 @@
-const BASE = import.meta.env.VITE_API_URL || "/api";
+const BASE = "https://getyourticket-api.onrender.com";
 
 async function fetchJSON(url, options = {}) {
   const res = await fetch(url, options);
