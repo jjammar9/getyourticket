@@ -195,6 +195,7 @@ const handleHoverEnd = () => {
       :navData="navData"
       :toggleMobileMenu="toggleMobileMenu"
       @close="mobileMenuOpen = false"
+      @openAuth="showAuthModal = true; authModalTab = 'login'"
     />
 
     <!-- DESKTOP -->
