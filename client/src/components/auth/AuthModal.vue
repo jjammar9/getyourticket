@@ -90,31 +90,14 @@ function switchTab(t) {
 </script>
 
 <template>
-  <Transition
-    enter-active-class="transition-all duration-200 ease-out"
-    enter-from-class="opacity-0"
-    enter-to-class="opacity-100"
-    leave-active-class="transition-all duration-150 ease-in"
-    leave-from-class="opacity-100"
-    leave-to-class="opacity-0"
+  <div
+    v-if="show"
+    class="fixed inset-0 z-[300] flex items-center justify-center bg-black/40 transition-opacity duration-200"
+    @click.self="emit('close')"
   >
     <div
-      v-if="show"
-      class="fixed inset-0 z-[300] flex items-center justify-center bg-black/40"
-      @click.self="emit('close')"
+      class="bg-white dark:bg-gray-800 rounded-2xl shadow-[0_8px_32px_rgba(0,0,0,0.2)] w-full max-w-[420px] mx-4 overflow-hidden transition-all duration-200"
     >
-      <Transition
-        enter-active-class="transition-all duration-200 ease-out"
-        enter-from-class="opacity-0 scale-95"
-        enter-to-class="opacity-100 scale-100"
-        leave-active-class="transition-all duration-150 ease-in"
-        leave-from-class="opacity-100 scale-100"
-        leave-to-class="opacity-0 scale-95"
-      >
-        <div
-          v-if="show"
-          class="bg-white dark:bg-gray-800 rounded-2xl shadow-[0_8px_32px_rgba(0,0,0,0.2)] w-full max-w-[420px] mx-4 overflow-hidden"
-        >
           <!-- Header -->
           <div class="flex items-center justify-between px-6 pt-6 pb-2">
             <h2 class="text-[22px] font-bold text-[#0b2343] dark:text-white">
@@ -292,7 +275,5 @@ function switchTab(t) {
             </div>
           </template>
         </div>
-      </Transition>
     </div>
-  </Transition>
 </template>
