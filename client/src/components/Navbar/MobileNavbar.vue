@@ -99,7 +99,7 @@ function goTo(key) {
 
         <button
           v-else
-          @click="emit('openAuth'); emit('close')"
+          @click="emit('openAuth', 'signup'); emit('close')"
           class="flex items-center gap-3 text-left font-semibold text-gray-700 dark:text-gray-200"
         >
           <LogIn :size="20" /> {{ localeStore.t("nav.login") }}
