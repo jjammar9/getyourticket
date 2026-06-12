@@ -76,11 +76,12 @@ export const useAuthStore = defineStore("auth", () => {
 
   async function fetchWishlistData() {
     try {
-      const lists = await getWishlistListsApi();
+      const data = await getWishlistListsApi();
+      const listArr = data.lists || data || [];
       const ids = [];
       const map = {};
       let total = 0;
-      for (const list of lists) {
+      for (const list of listArr) {
         if (list.items) {
           for (const item of list.items) {
             const lid = item.listing?.id || item.listingId;
@@ -104,8 +105,9 @@ export const useAuthStore = defineStore("auth", () => {
 
   async function fetchBookingCount() {
     try {
-      const bookingsData = await getBookingsApi();
-      bookingCount.value = Array.isArray(bookingsData) ? bookingsData.length : 0;
+      const data = await getBookingsApi();
+      const bookings = data.bookings || data || [];
+      bookingCount.value = Array.isArray(bookings) ? bookings.length : 0;
     } catch {
       bookingCount.value = 0;
     }
@@ -187,7 +189,8 @@ export const useAuthStore = defineStore("auth", () => {
         wishlistCount.value = Math.max(0, wishlistCount.value - 1);
       }
     } else {
-      let lists = await getWishlistListsApi();
+      const res = await getWishlistListsApi();
+      const lists = res.lists || res || [];
       let targetList;
       if (lists.length === 0) {
         const created = await createWishlistListApi("Favorites");
