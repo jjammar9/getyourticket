@@ -20,6 +20,7 @@ export const useAuthStore = defineStore("auth", () => {
   const token = ref(null);
   const loading = ref(false);
   const wishlistCount = ref(0);
+  const bookingCount = ref(0);
 
   const isLoggedIn = computed(() => !!token.value && !!user.value);
 
@@ -43,6 +44,7 @@ export const useAuthStore = defineStore("auth", () => {
       const data = await loginUser(email, password);
       setAuth(data);
       fetchWishlistCount();
+      fetchBookingCount();
       return data;
     } finally {
       loading.value = false;
@@ -55,6 +57,7 @@ export const useAuthStore = defineStore("auth", () => {
       const data = await registerUser(name, email, password);
       setAuth(data);
       fetchWishlistCount();
+      fetchBookingCount();
       return data;
     } finally {
       loading.value = false;
@@ -75,6 +78,15 @@ export const useAuthStore = defineStore("auth", () => {
     }
   }
 
+  async function fetchBookingCount() {
+    try {
+      const bookingsData = await getBookingsApi();
+      bookingCount.value = Array.isArray(bookingsData) ? bookingsData.length : 0;
+    } catch {
+      bookingCount.value = 0;
+    }
+  }
+
   async function checkAuth() {
     const storedToken = localStorage.getItem("token");
     const storedUser = localStorage.getItem("user");
@@ -88,6 +100,7 @@ export const useAuthStore = defineStore("auth", () => {
       user.value = data.user;
       localStorage.setItem("user", JSON.stringify(data.user));
       fetchWishlistCount();
+      fetchBookingCount();
     } catch {
       clearAuth();
     }
@@ -155,8 +168,8 @@ export const useAuthStore = defineStore("auth", () => {
   }
 
   return {
-    user, token, loading, isLoggedIn, wishlistCount,
-    login, register, logout, checkAuth, init, updateProfile, fetchWishlistCount,
+    user, token, loading, isLoggedIn, wishlistCount, bookingCount,
+    login, register, logout, checkAuth, init, updateProfile, fetchWishlistCount, fetchBookingCount,
     getWishlistLists, getWishlistList, createWishlistList, deleteWishlistList,
     addToWishlistList, removeFromWishlistList,
     createBooking, getBookings, cancelBooking, createReview,

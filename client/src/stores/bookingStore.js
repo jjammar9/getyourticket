@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import { ref } from "vue";
+import { ref, computed } from "vue";
 
 export const useBookingStore = defineStore("booking", () => {
   let parsed = [];
@@ -42,5 +42,7 @@ export const useBookingStore = defineStore("booking", () => {
     localStorage.removeItem("cart_bookings");
   }
 
-  return { bookings, toast, addBooking, dismissToast, clearCart };
+  const cartCount = computed(() => bookings.value.length);
+
+  return { bookings, toast, addBooking, dismissToast, clearCart, cartCount };
 });

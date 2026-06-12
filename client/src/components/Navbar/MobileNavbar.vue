@@ -3,10 +3,12 @@ import { Menu, X, Heart, Calendar, ShoppingCart, User, LogIn } from "lucide-vue-
 import { useRouter } from "vue-router";
 import { useLocaleStore } from "../../stores/localeStore.js";
 import { useAuthStore } from "../../stores/authStore.js";
+import { useBookingStore } from "../../stores/bookingStore.js";
 
 const router = useRouter();
 const localeStore = useLocaleStore();
 const authStore = useAuthStore();
+const bookingStore = useBookingStore();
 
 const labelKeys = {
   places: "nav.placesToSee",
@@ -86,14 +88,28 @@ function goTo(key) {
           @click="router.push('/bookings'); emit('close')"
           class="flex items-center gap-3 text-left font-semibold text-gray-700 dark:text-gray-200"
         >
-          <Calendar :size="20" /> {{ localeStore.t("nav.bookings") }}
+          <div class="relative">
+            <Calendar :size="20" />
+            <span
+              v-if="authStore.bookingCount > 0"
+              class="absolute -top-1.5 -right-1.5 min-w-[14px] h-3.5 px-1 rounded-full bg-[#ff5533] text-white text-[9px] font-bold flex items-center justify-center leading-none"
+            >{{ authStore.bookingCount > 99 ? '99+' : authStore.bookingCount }}</span>
+          </div>
+          {{ localeStore.t("nav.bookings") }}
         </button>
 
         <button
           @click="router.push('/cart'); emit('close')"
           class="flex items-center gap-3 text-left font-semibold text-gray-700 dark:text-gray-200"
         >
-          <ShoppingCart :size="20" /> {{ localeStore.t("nav.cart") }}
+          <div class="relative">
+            <ShoppingCart :size="20" />
+            <span
+              v-if="bookingStore.cartCount > 0"
+              class="absolute -top-1.5 -right-1.5 min-w-[14px] h-3.5 px-1 rounded-full bg-[#ff5533] text-white text-[9px] font-bold flex items-center justify-center leading-none"
+            >{{ bookingStore.cartCount > 99 ? '99+' : bookingStore.cartCount }}</span>
+          </div>
+          {{ localeStore.t("nav.cart") }}
         </button>
 
         <button

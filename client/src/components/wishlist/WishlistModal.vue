@@ -32,15 +32,16 @@ onMounted(async () => {
   }
 });
 
-async function selectList(listId) {
-  savingId.value = listId;
-  try {
-    await authStore.addToWishlistList(listId, props.listingId);
-    savedId.value = listId;
-    setTimeout(() => {
-      emit("saved");
-      emit("close");
-    }, 1200);
+  async function selectList(listId) {
+    savingId.value = listId;
+    try {
+      await authStore.addToWishlistList(listId, props.listingId);
+      authStore.fetchWishlistCount();
+      savedId.value = listId;
+      setTimeout(() => {
+        emit("saved");
+        emit("close");
+      }, 1200);
   } catch (e) {
     if (e.message && e.message.includes("Already")) {
       savedId.value = listId;

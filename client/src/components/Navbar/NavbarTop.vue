@@ -23,6 +23,7 @@ import { useThemeStore } from "../../stores/themeStore.js";
 import { useLocaleStore } from "../../stores/localeStore.js";
 import { useCurrencyStore } from "../../stores/currencyStore.js";
 import { useAuthStore } from "../../stores/authStore.js";
+import { useBookingStore } from "../../stores/bookingStore.js";
 import { locales } from "../../i18n/translations.js";
 import logoImage from "../../assets/0e31b4a5-ec0a-496e-81a1-cc44c5729c06.png";
 const props = defineProps({
@@ -35,6 +36,7 @@ const router = useRouter();
 const localeStore = useLocaleStore();
 const currencyStore = useCurrencyStore();
 const authStore = useAuthStore();
+const bookingStore = useBookingStore();
 const emit = defineEmits(["openAuth"]);
 
 const { searchQuery, setSearchQuery } = useNavSearch();
@@ -252,7 +254,13 @@ const handleSearch = () => {
         to="/bookings"
         class="group relative flex flex-col items-center gap-1 text-[13px] font-medium text-[#4f5a72] dark:text-gray-300 hover:text-[#ff5533] transition-colors"
       >
-        <Calendar :size="22" :stroke-width="2.5" />
+        <div class="relative">
+          <Calendar :size="22" :stroke-width="2.5" />
+          <span
+            v-if="authStore.bookingCount > 0"
+            class="absolute -top-1.5 -right-1.5 min-w-[16px] h-4 px-1 rounded-full bg-[#ff5533] text-white text-[10px] font-bold flex items-center justify-center leading-none"
+          >{{ authStore.bookingCount > 99 ? '99+' : authStore.bookingCount }}</span>
+        </div>
         <span>{{ localeStore.t("nav.bookings") }}</span>
         <span
           class="absolute left-1/2 -bottom-2 h-[2px] w-0 bg-[#ff5533] transition-all duration-300 -translate-x-1/2 group-hover:w-full"
@@ -263,7 +271,13 @@ const handleSearch = () => {
         to="/cart"
         class="group relative flex flex-col items-center gap-1 text-[13px] font-medium text-[#4f5a72] dark:text-gray-300 hover:text-[#ff5533] transition-colors"
       >
-        <ShoppingCart :size="22" :stroke-width="2.5" />
+        <div class="relative">
+          <ShoppingCart :size="22" :stroke-width="2.5" />
+          <span
+            v-if="bookingStore.cartCount > 0"
+            class="absolute -top-1.5 -right-1.5 min-w-[16px] h-4 px-1 rounded-full bg-[#ff5533] text-white text-[10px] font-bold flex items-center justify-center leading-none"
+          >{{ bookingStore.cartCount > 99 ? '99+' : bookingStore.cartCount }}</span>
+        </div>
         <span>{{ localeStore.t("nav.cart") }}</span>
         <span
           class="absolute left-1/2 -bottom-2 h-[2px] w-0 bg-[#ff5533] transition-all duration-300 -translate-x-1/2 group-hover:w-full"

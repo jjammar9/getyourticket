@@ -35,6 +35,7 @@ async function deleteList(e, listId) {
   deletingId.value = listId;
   try {
     await authStore.deleteWishlistList(listId);
+    authStore.fetchWishlistCount();
     lists.value = lists.value.filter((l) => l.id !== listId);
   } catch (e) {
     console.error("Failed to delete list", e);

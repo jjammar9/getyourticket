@@ -28,13 +28,14 @@ onMounted(async () => {
   }
 });
 
-async function removeItem(listingId) {
-  if (!list.value) return;
-  try {
-    await authStore.removeFromWishlistList(list.value.id, listingId);
-    if (!list.value.items) return;
-    list.value.items = list.value.items.filter((item) => item.listing.id !== listingId);
-    list.value.itemCount = list.value.items.length;
+  async function removeItem(listingId) {
+    if (!list.value) return;
+    try {
+      await authStore.removeFromWishlistList(list.value.id, listingId);
+      authStore.fetchWishlistCount();
+      if (!list.value.items) return;
+      list.value.items = list.value.items.filter((item) => item.listing.id !== listingId);
+      list.value.itemCount = list.value.items.length;
   } catch (e) {
     console.error("Failed to remove item", e);
   }
