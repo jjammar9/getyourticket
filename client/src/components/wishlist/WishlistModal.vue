@@ -36,7 +36,7 @@ onMounted(async () => {
     savingId.value = listId;
     try {
       await authStore.addToWishlistList(listId, props.listingId);
-      authStore.fetchWishlistCount();
+      authStore.fetchWishlistData();
       savedId.value = listId;
       setTimeout(() => {
         emit("saved");

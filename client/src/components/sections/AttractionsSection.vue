@@ -7,7 +7,6 @@ import { Heart, Star } from "lucide-vue-next";
 import { useCurrencyStore } from "../../stores/currencyStore.js";
 import { useLocaleStore } from "../../stores/localeStore.js";
 import { useAuthStore } from "../../stores/authStore.js";
-import WishlistModal from "../wishlist/WishlistModal.vue";
 
 import SectionTitle from "../ui/SectionTitle.vue";
 import Card from "../ui/Card.vue";
@@ -19,7 +18,6 @@ const localeStore = useLocaleStore();
 const authStore = useAuthStore();
 
 const attractionsCards = ref([]);
-const showWishlistFor = ref(null);
 
 onMounted(async () => {
   try {
@@ -52,14 +50,14 @@ onMounted(async () => {
   }
 });
 
-function openWishlist(e, card) {
+function toggleWishlist(e, card) {
   e.stopPropagation();
   if (!authStore.isLoggedIn) {
     window.dispatchEvent(new CustomEvent("open-auth-modal"));
     return;
   }
   if (card.expId) {
-    showWishlistFor.value = card.expId;
+    authStore.toggleWishlist(card.expId);
   }
 }
 
@@ -127,13 +125,14 @@ const prevPage = () => {
               </div>
 
               <button
-                @click="(e) => openWishlist(e, card)"
+                @click="(e) => toggleWishlist(e, card)"
                 class="absolute top-3 right-3 w-10 h-10 bg-white dark:bg-gray-700 rounded-full shadow-sm flex items-center justify-center z-10 hover:scale-105 transition-transform"
               >
                 <Heart
                   :size="18"
                   stroke-width="2.3"
-                  class="text-[#0b2343]"
+                  :fill="card.expId && authStore.isInWishlist(card.expId) ? 'currentColor' : 'none'"
+                  :class="card.expId && authStore.isInWishlist(card.expId) ? 'text-[#e53935]' : 'text-[#0b2343]'"
                 />
               </button>
 
@@ -188,11 +187,5 @@ const prevPage = () => {
       </button>
     </div>
 
-    <WishlistModal
-      v-if="showWishlistFor"
-      :listingId="showWishlistFor"
-      @close="showWishlistFor = null"
-      @saved="showWishlistFor = null"
-    />
   </section>
 </template>

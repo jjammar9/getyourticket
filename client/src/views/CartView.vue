@@ -40,27 +40,30 @@ function goToPayment() {
   step.value = 2;
 }
 
-async function onPaymentSuccess() {
-  processing.value = true;
-  confirmError.value = "";
-  try {
-    for (const item of cartItems.value) {
-      await authStore.createBooking({
-        listingId: item.id || item.listingId,
-        date: formDate.value || new Date().toISOString().split("T")[0],
-        guests: item.guests || 1,
-        totalPrice: (Number(item.price) || 0) * (item.guests || 1),
-      });
+  async function onPaymentSuccess() {
+    processing.value = true;
+    confirmError.value = "";
+    try {
+      for (const item of cartItems.value) {
+        await authStore.createBooking({
+          listingId: item.id || item.listingId,
+          date: formDate.value || new Date().toISOString().split("T")[0],
+          guests: item.guests || 1,
+          totalPrice: (Number(item.price) || 0) * (item.guests || 1),
+        });
+        await authStore.removeWishlistItem(item.id || item.listingId);
+      }
+      bookingStore.bookings.splice(0, bookingStore.bookings.length);
+      bookingRef.value = "GYT-" + Math.random().toString(36).substring(2, 8).toUpperCase();
+      authStore.fetchWishlistData();
+      authStore.fetchBookingCount();
+      step.value = 3;
+    } catch (e) {
+      confirmError.value = e.message || "Booking failed";
+    } finally {
+      processing.value = false;
     }
-    bookingStore.bookings.splice(0, bookingStore.bookings.length);
-    bookingRef.value = "GYT-" + Math.random().toString(36).substring(2, 8).toUpperCase();
-    step.value = 3;
-  } catch (e) {
-    confirmError.value = e.message || "Booking failed";
-  } finally {
-    processing.value = false;
   }
-}
 
 function onPaymentError(msg) {
   confirmError.value = msg;

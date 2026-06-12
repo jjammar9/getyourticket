@@ -1,12 +1,10 @@
 <script setup>
-import { ref } from "vue";
 import { useRouter } from "vue-router";
 import { Heart, Star } from "lucide-vue-next";
 import { handleImageError } from "../../constants/placeholder.js";
 import { useCurrencyStore } from "../../stores/currencyStore.js";
 import { useLocaleStore } from "../../stores/localeStore.js";
 import { useAuthStore } from "../../stores/authStore.js";
-import WishlistModal from "../wishlist/WishlistModal.vue";
 
 const router = useRouter();
 const currencyStore = useCurrencyStore();
@@ -17,19 +15,17 @@ const props = defineProps({
   item: Object,
 });
 
-const showWishlistModal = ref(false);
-
 const goToExperience = (id) => {
   router.push(`/experience/${id}`);
 };
 
-function openWishlist(e) {
+function toggleWishlist(e) {
   e.stopPropagation();
   if (!authStore.isLoggedIn) {
     window.dispatchEvent(new CustomEvent("open-auth-modal"));
     return;
   }
-  showWishlistModal.value = true;
+  authStore.toggleWishlist(props.item.id);
 }
 </script>
 
@@ -46,15 +42,9 @@ function openWishlist(e) {
         loading="lazy"
         class="w-full h-full object-cover group-hover:scale-[1.03] transition duration-500"
       />
-      <button @click.stop="openWishlist" class="absolute top-3 right-3 w-10 h-10 bg-white rounded-full shadow-sm flex items-center justify-center z-10">
-        <Heart :size="18" stroke-width="2.3" class="text-[#0b2343]" />
+      <button @click.stop="toggleWishlist" class="absolute top-3 right-3 w-10 h-10 bg-white rounded-full shadow-sm flex items-center justify-center z-10">
+        <Heart :size="18" stroke-width="2.3" :fill="authStore.isInWishlist(item.id) ? 'currentColor' : 'none'" :class="authStore.isInWishlist(item.id) ? 'text-[#e53935]' : 'text-[#0b2343]'" />
       </button>
-      <WishlistModal
-        v-if="showWishlistModal"
-        :listing-id="item.id"
-        @close="showWishlistModal = false"
-        @saved="showWishlistModal = false"
-      />
     </div>
     <div class="px-4 pt-3 pb-4 flex flex-col flex-1">
       <p class="text-[13px] font-semibold text-[#59657b] leading-tight">

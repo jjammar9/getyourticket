@@ -32,7 +32,7 @@ onMounted(async () => {
     if (!list.value) return;
     try {
       await authStore.removeFromWishlistList(list.value.id, listingId);
-      authStore.fetchWishlistCount();
+      authStore.fetchWishlistData();
       if (!list.value.items) return;
       list.value.items = list.value.items.filter((item) => item.listing.id !== listingId);
       list.value.itemCount = list.value.items.length;

@@ -6,7 +6,6 @@ import Card from "../ui/Card.vue";
 import { useCurrencyStore } from "../../stores/currencyStore.js";
 import { useLocaleStore } from "../../stores/localeStore.js";
 import { useAuthStore } from "../../stores/authStore.js";
-import WishlistModal from "../wishlist/WishlistModal.vue";
 
 const router = useRouter();
 const currencyStore = useCurrencyStore();
@@ -18,7 +17,6 @@ const props = defineProps({
 });
 
 const imageFailed = ref(false);
-const showWishlistModal = ref(false);
 
 const goToExperience = () => {
   router.push(`/experience/${props.item.id}`);
@@ -28,13 +26,13 @@ const onImageError = () => {
   imageFailed.value = true;
 };
 
-function openWishlist(e) {
+function toggleWishlist(e) {
   e.stopPropagation();
   if (!authStore.isLoggedIn) {
     window.dispatchEvent(new CustomEvent("open-auth-modal"));
     return;
   }
-  showWishlistModal.value = true;
+  authStore.toggleWishlist(props.item.id);
 }
 </script>
 
@@ -59,13 +57,14 @@ function openWishlist(e) {
       </div>
 
       <button
-        @click="openWishlist"
+        @click="toggleWishlist"
         class="absolute top-3 right-3 w-10 h-10 bg-white dark:bg-gray-700 rounded-full shadow-sm flex items-center justify-center z-10 hover:scale-105 transition-transform"
       >
         <Heart
           :size="18"
           stroke-width="2.3"
-          class="text-[#0b2343]"
+          :fill="authStore.isInWishlist(item.id) ? 'currentColor' : 'none'"
+          :class="authStore.isInWishlist(item.id) ? 'text-[#e53935]' : 'text-[#0b2343]'"
         />
       </button>
 
@@ -108,11 +107,5 @@ function openWishlist(e) {
       </div>
     </div>
 
-    <WishlistModal
-      v-if="showWishlistModal"
-      :listingId="item.id"
-      @close="showWishlistModal = false"
-      @saved="showWishlistModal = false"
-    />
   </Card>
 </template>

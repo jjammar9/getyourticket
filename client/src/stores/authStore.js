@@ -21,8 +21,14 @@ export const useAuthStore = defineStore("auth", () => {
   const loading = ref(false);
   const wishlistCount = ref(0);
   const bookingCount = ref(0);
+  const wishlistItemIds = ref([]);
+  const itemToListMap = ref({});
 
   const isLoggedIn = computed(() => !!token.value && !!user.value);
+
+  function isInWishlist(listingId) {
+    return wishlistItemIds.value.includes(listingId);
+  }
 
   function setAuth(data) {
     token.value = data.token;
@@ -43,7 +49,7 @@ export const useAuthStore = defineStore("auth", () => {
     try {
       const data = await loginUser(email, password);
       setAuth(data);
-      fetchWishlistCount();
+      fetchWishlistData();
       fetchBookingCount();
       return data;
     } finally {
@@ -56,7 +62,7 @@ export const useAuthStore = defineStore("auth", () => {
     try {
       const data = await registerUser(name, email, password);
       setAuth(data);
-      fetchWishlistCount();
+      fetchWishlistData();
       fetchBookingCount();
       return data;
     } finally {
@@ -68,12 +74,30 @@ export const useAuthStore = defineStore("auth", () => {
     clearAuth();
   }
 
-  async function fetchWishlistCount() {
+  async function fetchWishlistData() {
     try {
       const lists = await getWishlistListsApi();
-      const total = lists.reduce((sum, l) => sum + (l.items?.length || 0), 0);
+      const ids = [];
+      const map = {};
+      let total = 0;
+      for (const list of lists) {
+        if (list.items) {
+          for (const item of list.items) {
+            const lid = item.listing?.id || item.listingId;
+            if (lid) {
+              ids.push(lid);
+              map[lid] = list.id;
+              total++;
+            }
+          }
+        }
+      }
+      wishlistItemIds.value = ids;
+      itemToListMap.value = map;
       wishlistCount.value = total;
     } catch {
+      wishlistItemIds.value = [];
+      itemToListMap.value = {};
       wishlistCount.value = 0;
     }
   }
@@ -99,7 +123,7 @@ export const useAuthStore = defineStore("auth", () => {
       const data = await getMe();
       user.value = data.user;
       localStorage.setItem("user", JSON.stringify(data.user));
-      fetchWishlistCount();
+      fetchWishlistData();
       fetchBookingCount();
     } catch {
       clearAuth();
@@ -150,6 +174,47 @@ export const useAuthStore = defineStore("auth", () => {
     return removeFromWishlistListApi(listId, listingId);
   }
 
+  async function toggleWishlist(listingId) {
+    if (!isLoggedIn.value) return;
+    if (isInWishlist(listingId)) {
+      const listId = itemToListMap.value[listingId];
+      if (listId) {
+        await removeFromWishlistListApi(listId, listingId);
+        wishlistItemIds.value = wishlistItemIds.value.filter((id) => id !== listingId);
+        const newMap = { ...itemToListMap.value };
+        delete newMap[listingId];
+        itemToListMap.value = newMap;
+        wishlistCount.value = Math.max(0, wishlistCount.value - 1);
+      }
+    } else {
+      let lists = await getWishlistListsApi();
+      let targetList;
+      if (lists.length === 0) {
+        const created = await createWishlistListApi("Favorites");
+        targetList = created.list;
+      } else {
+        targetList = lists[0];
+      }
+      await addToWishlistListApi(targetList.id, listingId);
+      wishlistItemIds.value = [...wishlistItemIds.value, listingId];
+      itemToListMap.value = { ...itemToListMap.value, [listingId]: targetList.id };
+      wishlistCount.value += 1;
+    }
+  }
+
+  async function removeWishlistItem(listingId) {
+    if (!isInWishlist(listingId)) return;
+    const listId = itemToListMap.value[listingId];
+    if (listId) {
+      await removeFromWishlistListApi(listId, listingId);
+      wishlistItemIds.value = wishlistItemIds.value.filter((id) => id !== listingId);
+      const newMap = { ...itemToListMap.value };
+      delete newMap[listingId];
+      itemToListMap.value = newMap;
+      wishlistCount.value = Math.max(0, wishlistCount.value - 1);
+    }
+  }
+
   // Bookings
   async function createBooking(data) {
     return createBookingApi(data);
@@ -169,9 +234,12 @@ export const useAuthStore = defineStore("auth", () => {
 
   return {
     user, token, loading, isLoggedIn, wishlistCount, bookingCount,
-    login, register, logout, checkAuth, init, updateProfile, fetchWishlistCount, fetchBookingCount,
+    wishlistItemIds, isInWishlist,
+    login, register, logout, checkAuth, init, updateProfile,
+    fetchWishlistData, fetchBookingCount,
     getWishlistLists, getWishlistList, createWishlistList, deleteWishlistList,
     addToWishlistList, removeFromWishlistList,
+    toggleWishlist, removeWishlistItem,
     createBooking, getBookings, cancelBooking, createReview,
   };
 });
