@@ -201,7 +201,7 @@ const handleHoverEnd = () => {
     <!-- DESKTOP -->
     <div class="hidden lg:block bg-white dark:bg-gray-900" @mouseleave="closeMegaMenu">
       <Container>
-        <NavbarTop :isScrolled="isScrolled" :scrollY="scrollY" :isHomePage="isHomePage" />
+        <NavbarTop :isScrolled="isScrolled" :scrollY="scrollY" :isHomePage="isHomePage" @openAuth="(tab) => { showAuthModal = true; authModalTab = tab }" />
 
         <div
           v-if="showNavLinks || showBreadcrumbs"

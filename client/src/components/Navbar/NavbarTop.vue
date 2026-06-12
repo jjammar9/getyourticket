@@ -35,6 +35,7 @@ const router = useRouter();
 const localeStore = useLocaleStore();
 const currencyStore = useCurrencyStore();
 const authStore = useAuthStore();
+const emit = defineEmits(["openAuth"]);
 
 const { searchQuery, setSearchQuery } = useNavSearch();
 const searchTerm = ref("");
@@ -414,7 +415,7 @@ const handleSearch = () => {
             <!-- Log in (logged out) -->
             <div
               v-if="!authStore.isLoggedIn"
-              @click="window.dispatchEvent(new CustomEvent('open-auth-modal', { detail: { tab: 'login' } })); showProfileMenu = false"
+              @click="emit('openAuth', 'login'); showProfileMenu = false"
               class="px-4 py-3 flex items-center justify-between hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer transition-colors"
             >
               <div class="flex items-center gap-3">
@@ -427,7 +428,7 @@ const handleSearch = () => {
             <!-- Sign in (logged out) -->
             <div
               v-if="!authStore.isLoggedIn"
-              @click="window.dispatchEvent(new CustomEvent('open-auth-modal', { detail: { tab: 'signup' } })); showProfileMenu = false"
+              @click="emit('openAuth', 'signup'); showProfileMenu = false"
               class="px-4 py-3 flex items-center justify-between hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer transition-colors"
             >
               <div class="flex items-center gap-3">
