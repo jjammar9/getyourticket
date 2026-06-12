@@ -19,6 +19,7 @@ export const useAuthStore = defineStore("auth", () => {
   const user = ref(null);
   const token = ref(null);
   const loading = ref(false);
+  const wishlistCount = ref(0);
 
   const isLoggedIn = computed(() => !!token.value && !!user.value);
 
@@ -41,6 +42,7 @@ export const useAuthStore = defineStore("auth", () => {
     try {
       const data = await loginUser(email, password);
       setAuth(data);
+      fetchWishlistCount();
       return data;
     } finally {
       loading.value = false;
@@ -52,6 +54,7 @@ export const useAuthStore = defineStore("auth", () => {
     try {
       const data = await registerUser(name, email, password);
       setAuth(data);
+      fetchWishlistCount();
       return data;
     } finally {
       loading.value = false;
@@ -60,6 +63,16 @@ export const useAuthStore = defineStore("auth", () => {
 
   function logout() {
     clearAuth();
+  }
+
+  async function fetchWishlistCount() {
+    try {
+      const lists = await getWishlistListsApi();
+      const total = lists.reduce((sum, l) => sum + (l.items?.length || 0), 0);
+      wishlistCount.value = total;
+    } catch {
+      wishlistCount.value = 0;
+    }
   }
 
   async function checkAuth() {
@@ -74,6 +87,7 @@ export const useAuthStore = defineStore("auth", () => {
       const data = await getMe();
       user.value = data.user;
       localStorage.setItem("user", JSON.stringify(data.user));
+      fetchWishlistCount();
     } catch {
       clearAuth();
     }
@@ -141,8 +155,8 @@ export const useAuthStore = defineStore("auth", () => {
   }
 
   return {
-    user, token, loading, isLoggedIn,
-    login, register, logout, checkAuth, init, updateProfile,
+    user, token, loading, isLoggedIn, wishlistCount,
+    login, register, logout, checkAuth, init, updateProfile, fetchWishlistCount,
     getWishlistLists, getWishlistList, createWishlistList, deleteWishlistList,
     addToWishlistList, removeFromWishlistList,
     createBooking, getBookings, cancelBooking, createReview,

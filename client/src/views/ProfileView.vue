@@ -84,23 +84,25 @@ function closeEditModal() {
         <!-- Profile Card -->
         <div class="bg-white rounded-2xl border border-[#e8ebf0] shadow-sm overflow-hidden">
           <!-- Profile Header Section -->
-          <div class="px-8 pt-8 pb-6">
-            <div class="flex items-center gap-5">
-              <div class="relative">
-                <div class="w-16 h-16 rounded-full bg-gradient-to-br from-[#ff5a1f] to-[#ff7e4a] flex items-center justify-center text-white text-[24px] font-bold shadow-sm">
-                  {{ (authStore.user?.name || "?").charAt(0).toUpperCase() }}
+          <div class="px-4 sm:px-8 pt-8 pb-6">
+            <div class="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-5">
+              <div class="flex items-center gap-4 flex-1 min-w-0">
+                <div class="relative shrink-0">
+                  <div class="w-16 h-16 rounded-full bg-gradient-to-br from-[#ff5a1f] to-[#ff7e4a] flex items-center justify-center text-white text-[24px] font-bold shadow-sm">
+                    {{ (authStore.user?.name || "?").charAt(0).toUpperCase() }}
+                  </div>
                 </div>
-              </div>
-              <div class="flex-1 min-w-0">
-                <p class="text-[20px] font-bold text-[#0b2343]">{{ authStore.user?.name }}</p>
-                <div class="flex items-center gap-1.5 mt-0.5">
-                  <Mail :size="14" class="text-gray-400" />
-                  <p class="text-[14px] text-[#6d788d]">{{ authStore.user?.email }}</p>
+                <div class="min-w-0">
+                  <p class="text-[20px] font-bold text-[#0b2343] truncate">{{ authStore.user?.name }}</p>
+                  <div class="flex items-center gap-1.5 mt-0.5">
+                    <Mail :size="14" class="text-gray-400 shrink-0" />
+                    <p class="text-[14px] text-[#6d788d] truncate">{{ authStore.user?.email }}</p>
+                  </div>
                 </div>
               </div>
               <button
                 @click="openEditModal"
-                class="flex items-center gap-2 px-4 py-2 text-[13px] font-semibold text-[#ff5a1f] border border-[#ff5a1f]/25 rounded-full hover:bg-[#ff5a1f]/5 transition-colors"
+                class="flex items-center justify-center gap-2 px-4 py-2 text-[13px] font-semibold text-[#ff5a1f] border border-[#ff5a1f]/25 rounded-full hover:bg-[#ff5a1f]/5 transition-colors sm:self-auto"
               >
                 <Pencil :size="14" />
                 {{ localeStore.t("profile.edit") || "Edit" }}

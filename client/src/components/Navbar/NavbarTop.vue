@@ -234,7 +234,13 @@ const handleSearch = () => {
         to="/wishlist"
         class="group relative flex flex-col items-center gap-1 text-[13px] font-medium text-[#4f5a72] dark:text-gray-300 hover:text-[#ff5533] transition-colors"
       >
-        <Heart :size="22" :stroke-width="2.5" />
+        <div class="relative">
+          <Heart :size="22" :stroke-width="2.5" />
+          <span
+            v-if="authStore.wishlistCount > 0"
+            class="absolute -top-1.5 -right-1.5 min-w-[16px] h-4 px-1 rounded-full bg-[#ff5533] text-white text-[10px] font-bold flex items-center justify-center leading-none"
+          >{{ authStore.wishlistCount > 99 ? '99+' : authStore.wishlistCount }}</span>
+        </div>
         <span>{{ localeStore.t("nav.wishlist") }}</span>
         <span
           class="absolute left-1/2 -bottom-2 h-[2px] w-0 bg-[#ff5533] transition-all duration-300 -translate-x-1/2 group-hover:w-full"

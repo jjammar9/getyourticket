@@ -72,7 +72,14 @@ function goTo(key) {
           @click="router.push('/wishlist'); emit('close')"
           class="flex items-center gap-3 text-left font-semibold text-gray-700 dark:text-gray-200"
         >
-          <Heart :size="20" /> {{ localeStore.t("nav.wishlist") }}
+          <div class="relative">
+            <Heart :size="20" />
+            <span
+              v-if="authStore.wishlistCount > 0"
+              class="absolute -top-1.5 -right-1.5 min-w-[14px] h-3.5 px-1 rounded-full bg-[#ff5533] text-white text-[9px] font-bold flex items-center justify-center leading-none"
+            >{{ authStore.wishlistCount > 99 ? '99+' : authStore.wishlistCount }}</span>
+          </div>
+          {{ localeStore.t("nav.wishlist") }}
         </button>
 
         <button
